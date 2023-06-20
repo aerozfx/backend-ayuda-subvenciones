@@ -24,10 +24,12 @@ nav {
 main {
   margin-top: 6rem;
   height: 100%;
+  width: 100%;
 }
 input {
-  padding: 1.6rem 0;
+  padding: 0.8rem;
   font-size: 1.6rem;
+      border-radius: var(--radius04);
 }
 h1 {
   font-size: 2.4rem;
@@ -37,6 +39,15 @@ h2 {
 }
 p {
   font-size: var(--regular-text);
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 30rem;
+}
+label {
+  font-size: 1.6rem;
 }
 
 
@@ -68,7 +79,14 @@ p {
   margin-top: 1rem;
 }
 
-
+#main_profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  height: 100%;
+}
 #header {
   display: flex;
   justify-content: center;
@@ -121,10 +139,11 @@ p {
   margin-top: 0;
 }
 #search {
-  height: 2rem;
-  padding-left: 1rem;
-  border-radius: var(--radius04);
   width: 100%;
+}
+#submit_btn {
+  background-color: rgb(108, 203, 103);
+  margin-top: 1.4rem;
 }
 /* 
 @media (min-width: 768px) {
