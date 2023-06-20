@@ -86,6 +86,7 @@ p {
   justify-content: end;
   align-items: center;
   gap: 1.2rem;
+  min-width: fit-content;
 }
 #navBar > li {
   list-style: none;
@@ -105,7 +106,8 @@ p {
   width: 80%;
   margin: auto;
 }
-#searchResults {
+#searchResults,
+#container_favorites {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -114,6 +116,9 @@ p {
   padding: 2rem;
   width: 80%;
   margin: 3rem auto;
+}
+#container_favorites {
+  margin-top: 0;
 }
 #search {
   height: 2rem;
