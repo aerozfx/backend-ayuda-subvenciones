@@ -1,0 +1,32 @@
+doctype html
+html(lang="es")
+  include ./head.pug
+  body 
+      include ./header.pug
+      main
+        section#section_search
+          label(for='search')
+          input#search(type='text', placeholder='search' name='search')
+          button.searchBtn.btn Buscar
+        section#searchResults
+          article.card
+            h2.card_title subvencion1 
+            p.card_descrip Quis autem vel eum iure reprehenderit Quis autem vel eum iure reprehenderit
+            a(href='#') Link de la oferta original
+            button.btn.addFavorites Agregar a favoritos
+          article.card
+            h2.card_title subvencion1 
+            p.card_descrip Quis autem vel eum iure reprehenderit Quis autem vel eum iure reprehenderit
+            a(href='#') Link de la oferta original
+            button.btn.addFavorites Agregar a favoritos
+          article.card
+            h2.card_title subvencion1 
+            p.card_descrip Quis autem vel eum iure reprehenderit Quis autem vel eum iure reprehenderit
+            a(href='#') Link de la oferta original
+            button.btn.addFavorites Agregar a favoritos
+          article.card
+            h2.card_title subvencion1 
+            p.card_descrip Quis autem vel eum iure reprehenderit Quis autem vel eum iure reprehenderit
+            a(href='#') Link de la oferta original
+            button.btn.addFavorites Agregar a favoritos
+      script(src="script.js") 
