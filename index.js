@@ -7,6 +7,10 @@ const PORT = 3000;
 
 const helmet = require("helmet");
 
+app.set('view engine', 'pug');
+app.set('views', './views');
+app.use(express.static('public'))
+
 app.use(express.json());
 app.use(helmet());
 
@@ -14,14 +18,9 @@ app.use("/api/ads", grantApiRoutes);
 app.use("/api/favorites", favoriteRouter);
 app.use("/api/user", userApiRoutes);
 
-
-app.get("/", (req, res) => {
-  res.status(200).render("home.pug");
-});
-
-app.get("/profile", (req, res) => {
-  res.status(200).send("Aquí irá el perfil");
-});
+app.get("/", (req, res) => res.render('home', {"page_title": "Home"}));
+app.get("/favorites", (req, res) => res.render('favorites', {"page_title": "favoritos"}));
+app.get("/profile", (req, res) => res.render('profile', {"page_title": "perfil"}));
 
 app.get("/users", (req, res) => {
   res.status(200).send("Aquí irán los usuarios registrados");

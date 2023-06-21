@@ -1,0 +1,151 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+}
+:root {
+  --radius08: 0.8rem;
+  --radius04: 0.4rem;
+  --regular-text: 1.4rem;
+}
+html {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+nav {
+  width: 100%;
+}
+main {
+  margin-top: 6rem;
+  height: 100%;
+  width: 100%;
+}
+input {
+  padding: 0.8rem;
+  font-size: 1.6rem;
+      border-radius: var(--radius04);
+}
+h1 {
+  font-size: 2.4rem;
+}
+h2 {
+  font-size: 1.8rem;
+}
+p {
+  font-size: var(--regular-text);
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 30rem;
+}
+label {
+  font-size: 1.6rem;
+}
+
+
+.btn {
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius08);
+  font-size: 1.4rem;
+}
+.searchBtn {
+  margin-top: 0.8rem;
+  width: 60%;
+  font-size: 1.4rem;
+  color: #106FDF;
+}
+.card {
+  display: grid;
+  grid-template-rows: repeat(1fr);
+  border: solid 0.1rem #9fa0a0;
+  border-radius: var(--radius08);
+  padding: 1.4rem 2rem;
+  gap: 0.8rem;
+  width: 100%;
+  min-width: 30rem;
+}
+.card > a {
+  font-size: 1.4rem;
+}
+.addFavorites {
+  margin-top: 1rem;
+}
+
+#main_profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  height: 100%;
+}
+#header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.6rem 2.4rem;
+  width: 100%;
+}
+#header > img {
+  height: 6.4rem;
+  width: 6.4rem;
+  border-radius: 50%;
+}
+#navBar {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 1.2rem;
+  min-width: fit-content;
+}
+#navBar > li {
+  list-style: none;
+  padding: 0.8rem 1rem;
+}
+#navBar > li > a {
+  text-decoration: none;
+  font-size: 1.7rem;
+  color: #262626;
+
+}
+#section_search {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+}
+#searchResults,
+#container_favorites {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 2rem;
+  width: 80%;
+  margin: 3rem auto;
+}
+#container_favorites {
+  margin-top: 0;
+}
+#search {
+  width: 100%;
+}
+#submit_btn {
+  background-color: rgb(108, 203, 103);
+  margin-top: 1.4rem;
+}
+/* 
+@media (min-width: 768px) {
+
+} */
