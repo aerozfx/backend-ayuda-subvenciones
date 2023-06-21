@@ -5,14 +5,14 @@ html(lang="es")
       include ./header.pug
       main
         section#container_favorites
-        -for(let i=0;i<scrapinData.length; i++)
+        -for(let i=0;i<scrapingData.length; i++)
           article.card
-            h2.card_title Title: #{scrapinData[i].title}
-            a(href='scrapinData[i].link' target='_blank') Visitar
-            p.card_id id: #{scrapinData[i].id}
-            p.card_descrip desciption: #{scrapinData[i].title}
-            p.card_date fecha: #{scrapinData[i].date}
-            p.card_dep departamento: #{scrapinData[i].departament} 
-            p.card_org organismo: #{scrapinData[i].org} 
+            h2.card_title Title: #{scrapingData[i].title}
+            a(href='scrapingData[i].link' target='_blank') Visitar
+            p.card_id id: #{scrapingData[i].id}
+            p.card_descrip desciption: #{scrapingData[i].title}
+            p.card_date fecha: #{scrapingData[i].date}
+            p.card_dep departamento: #{scrapingData[i].departament} 
+            p.card_org organismo: #{scrapingData[i].org} 
             button.btn.addFavorites Quitar de favoritos
           
