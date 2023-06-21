@@ -1,0 +1,17 @@
+doctype html
+html(lang="es")
+  include ./head.pug
+  body 
+    include ./header.pug
+    main#main_profile
+      h2 Perfil
+      form(method="POST")
+        label(for="name") Nuevo nombre
+        input#name(type="text", name="name")
+        label(for="email") Correo electrónico
+        input#email(type="email", name="email")
+        label(for="password") Nueva Contraseña
+        input#password(type="password", name="password")
+        label(for="avatar") Nueva Foto de perfil
+        input#avatar(type="file", name="avatar" accept="image/png, image/jpeg")
+        button#submit_btn.btn(type="submit") Guardar cambios
