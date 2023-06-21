@@ -5,19 +5,14 @@ html(lang="es")
       include ./header.pug
       main
         section#container_favorites
+        -for(let i=0;i<scrapinData.length; i++)
           article.card
-            h2.card_title subvencion1 
-            p.card_descrip Quis autem vel eum iure reprehenderit Quis autem vel eum iure reprehenderit
-            a(href='#') Link de la oferta original
-            button.btn.addFavorites Quitar de favoritos
-          article.card
-            h2.card_title subvencion1 
-            p.card_descrip Quis autem vel eum iure reprehenderit Quis autem vel eum iure reprehenderit
-            a(href='#') Link de la oferta original
-            button.btn.addFavorites Quitar de favoritos
-          article.card
-            h2.card_title subvencion1 
-            p.card_descrip Quis autem vel eum iure reprehenderit Quis autem vel eum iure reprehenderit
-            a(href='#') Link de la oferta original
+            h2.card_title Title: #{scrapinData[i].title}
+            a(href='scrapinData[i].link' target='_blank') Visitar
+            p.card_id id: #{scrapinData[i].id}
+            p.card_descrip desciption: #{scrapinData[i].title}
+            p.card_date fecha: #{scrapinData[i].date}
+            p.card_dep departamento: #{scrapinData[i].departament} 
+            p.card_org organismo: #{scrapinData[i].org} 
             button.btn.addFavorites Quitar de favoritos
           
