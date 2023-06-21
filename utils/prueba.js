@@ -1,0 +1,1 @@
+const tr = require("./scrapper");
