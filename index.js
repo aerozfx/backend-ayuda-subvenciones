@@ -1,5 +1,5 @@
 const express = require("express");
-let pug = require("pug")
+// let pug = require("pug")
 const app = express();
 const PORT = 3000;
 
@@ -11,9 +11,9 @@ app.use(express.static('public'))
 
 app.use(helmet());
 
-app.get("/", (req, res) => res.render('home'));
-app.get("/favorites", (req, res) => res.render('favorites'));
-app.get("/profile", (req, res) => res.render('profile'));
+app.get("/", (req, res) => res.render('home', {"page_title": "Home"}));
+app.get("/favorites", (req, res) => res.render('favorites', {"page_title": "favoritos"}));
+app.get("/profile", (req, res) => res.render('profile', {"page_title": "perfil"}));
 
 app.listen(PORT, () => {
   console.log(`Servidor funcionando en el puerto ${PORT}`);

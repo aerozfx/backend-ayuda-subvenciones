@@ -2,31 +2,20 @@ doctype html
 html(lang="es")
   include ./head.pug
   body 
-      include ./header.pug
-      main
-        section#section_search
-          label(for='search')
-          input#search(type='text', placeholder='search' name='search')
-          button.searchBtn.btn Buscar
-        section#searchResults
-          article.card
-            h2.card_title subvencion1 
-            p.card_descrip Quis autem vel eum iure reprehenderit Quis autem vel eum iure reprehenderit
-            a(href='#') Link de la oferta original
-            button.btn.addFavorites Agregar a favoritos
-          article.card
-            h2.card_title subvencion1 
-            p.card_descrip Quis autem vel eum iure reprehenderit Quis autem vel eum iure reprehenderit
-            a(href='#') Link de la oferta original
-            button.btn.addFavorites Agregar a favoritos
-          article.card
-            h2.card_title subvencion1 
-            p.card_descrip Quis autem vel eum iure reprehenderit Quis autem vel eum iure reprehenderit
-            a(href='#') Link de la oferta original
-            button.btn.addFavorites Agregar a favoritos
-          article.card
-            h2.card_title subvencion1 
-            p.card_descrip Quis autem vel eum iure reprehenderit Quis autem vel eum iure reprehenderit
-            a(href='#') Link de la oferta original
-            button.btn.addFavorites Agregar a favoritos
-      script(src="script.js") 
+    include ./header.pug
+    main
+      section#section_search
+        label(for='search')
+        input#search(type='text', placeholder='search' name='search')
+        button.searchBtn.btn Buscar
+      section#searchResults
+        article.card
+          h2.card_title SUBVENCIÓN . AYUDA PARA LA FORMACIÓN DE CUALIFICACIÓN...
+          a(href='#') Visitar
+          p.card_id id: 703613
+          p.card_descrip descripción: Quis autem vel eum iure reprehenderit Quis autem vel eum iure reprehenderit
+          p.card_date 16/06/2023
+          p.card_dep MINISTERIO DE EDUCACIÓ Y FORMACIÓN PROFESIONAL
+          p.card_org SECRETARÍA GENERAL DE DORMACIÓN PROFESIONAL
+          button.btn.addFavorites Agregar a favoritos
+    script(src="script.js") 
