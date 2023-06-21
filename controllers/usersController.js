@@ -38,8 +38,9 @@ const deleteUser = (req, res) => {
 };
 
 const loginUser = (req, res) => {
+    let body = req.body
     try {
-        res.status(200).json({
+        res.status(201).json({
             message: "Este método funciona"
         });
     } catch (error) {

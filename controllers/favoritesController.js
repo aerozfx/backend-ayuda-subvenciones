@@ -1,6 +1,6 @@
 const Favorite = require("../models/favorite.js")
 
-const createFavorite = (req, res) => {
+const createUsersFavorite = (req, res) => {
     try { //ocurre cuando se le da al boton de darle a favorito
         res.status(201).json({
             msj: "Esto funciona"
@@ -12,11 +12,19 @@ const createFavorite = (req, res) => {
     }
 }
 
-const deleteFavorite = (req, res) => {
+const deleteFavorite = async (req, res) => {
+    grant = req.params
     try {
-        res.status(200).json({
+        /* res.status(200).json({
             msj: "Esto funciona"
-        })
+        }) */
+        //ESTO ME LLEVA AL MODEL
+        const favorite = req.params.id;
+        const response = await Favorite.deleteGrant(favorite);
+
+        res.status(200).sendStatus(204);
+        return response
+
     } catch (error) {
         res.status(400).json({
             message: error
@@ -24,11 +32,10 @@ const deleteFavorite = (req, res) => {
     }
 }
 
-const getFavorites = async () => {
+const getFavorites = async (req, res) => {
     try {
-        /*      let favorites = await Favorite.find({});
-             res.status(200).json(favorites); */
-        res.status(200).render('favorites.pug')
+        /*  res.status(200).render('favorites.pug') */
+        res.json('funciona')
     } catch (error) {
         res.status(404).json({
             message: error
@@ -37,7 +44,7 @@ const getFavorites = async () => {
 }
 
 module.exports = {
-    createFavorite,
+    createUsersFavorite,
     deleteFavorite,
     getFavorites
 }
