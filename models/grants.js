@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-//require('../utils/db_mongo') // Conexión a BBDD MongoDB
+require('../utils/db-mongo') // Conexión a BBDD MongoDB
 
 const objectSchema = {
     id: {
