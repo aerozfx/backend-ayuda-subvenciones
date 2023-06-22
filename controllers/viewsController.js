@@ -14,7 +14,7 @@ const scrapingData = [
     "departament": "MINISTERIO DE EDUCACIÓ Y FORMACIÓN PROFESIONAL",
     "org": "SECRETARÍA GENERAL DE DORMACIÓN PROFESIONAL",
     "date": "16/06/2023",
-    "title": "SUBVENCIÓN. AYUDA PARA LA FORMACIÓN DE CUALIFICACIÓN...",
+    "title": "AYUDA...",
     "link": "https://www.myswitzerland.com/es-es/"
   },
   { 
@@ -32,19 +32,34 @@ const scrapingData = [
     "departament": "MINISTERIO DE EDUCACIÓ Y FORMACIÓN PROFESIONAL",
     "org": "SECRETARÍA GENERAL DE DORMACIÓN PROFESIONAL",
     "date": "16/06/2023",
-    "title": "SUBVENCIÓN. AYUDA PARA LA FORMACIÓN DE CUALIFICACIÓN...",
+    "title": "BECAPARA LA FORMACIÓN DE CUALIFICACIÓN ...",
     "link": "https://www.atrapalo.com/viajes/caribe_md159.html"
   }
 ];
 
-const renderHomePage = (req, res) => res.render('home', { "page_title": "home", scrapingData });
+let authorised = false;
 
-const renderFavoritesPage = (req, res) => res.render('favorites', { "page_title": "favoritos", scrapingData });
+const homePageController = async(req, res) => {
+  if (authorised) {
+    //if (req.params.query) {
+      // let grants = scrapingData.filter(data => data.title.includes(req.params.query)) //await Grands.find({id:req.params.id},'-_id -__v')
+    //}
+    res.render('home', { "page_title": "home", scrapingData: grants })
+  }
+  else {
+    res.render('homeWeb', { "page_title": "F.A.M Pyme" })
+  }
+};
 
-const renderProfilePage = (req, res) => res.render('profile', {"page_title": "perfil"});
+const favoritesPageController = (req, res) => res.render('favorites', { "page_title": "favoritos", scrapingData });
+
+const profilePageController = (req, res) => res.render('profile', {"page_title": "perfil"});
+
+//Por hacer post-logout
+
 
 module.exports = {
-  renderHomePage,
-  renderFavoritesPage,
-  renderProfilePage
+  homePageController,
+  favoritesPageController,
+  profilePageController
 }

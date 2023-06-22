@@ -3,7 +3,7 @@ const app = express();
 const grantApiRoutes = require("./routes/grantsApiRoutes");
 const favoriteRouter = require("./routes/favoritesRoutes.js");
 const userApiRoutes = require("./routes/userApiRoutes");
-const { renderHomePage, renderFavoritesPage, renderProfilePage } = require("./controllers/viewsController");
+const { homePageController, favoritesPageController, profilePageController } = require("./controllers/viewsController");
 const PORT = 3000;
 
 const helmet = require("helmet");
@@ -32,9 +32,9 @@ app.get("/login", (req, res) => {
 
 });
 
-app.get("/", renderHomePage);
-app.get("/favorites", renderFavoritesPage);
-app.get("/profile", renderProfilePage);
+app.get("/", homePageController);
+app.get("/favorites", favoritesPageController);
+app.get("/profile", profilePageController);
 
 app.listen(PORT, () => {
   console.log(`Servidor funcionando en el puerto ${PORT}`);
