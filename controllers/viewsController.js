@@ -11,7 +11,7 @@ const scrapingData = [
   { 
     "id": "703614", 
     "admin": "ESTADO",
-    "departament": "MINISTERIO DE EDUCACIÓ Y FORMACIÓN PROFESIONAL",
+    "dep": "MINISTERIO DE EDUCACIÓ Y FORMACIÓN PROFESIONAL",
     "org": "SECRETARÍA GENERAL DE DORMACIÓN PROFESIONAL",
     "date": "16/06/2023",
     "title": "AYUDA...",
@@ -20,7 +20,7 @@ const scrapingData = [
   { 
     "id": "703615", 
     "admin": "ESTADO",
-    "departament": "MINISTERIO DE EDUCACIÓ Y FORMACIÓN PROFESIONAL",
+    "dep": "MINISTERIO DE EDUCACIÓ Y FORMACIÓN PROFESIONAL",
     "org": "SECRETARÍA GENERAL DE DORMACIÓN PROFESIONAL",
     "date": "16/06/2023",
     "title": "SUBVENCIÓN. AYUDA PARA LA FORMACIÓN DE CUALIFICACIÓN...",
@@ -29,25 +29,41 @@ const scrapingData = [
   { 
     "id": "703616", 
     "admin": "ESTADO",
-    "departament": "MINISTERIO DE EDUCACIÓ Y FORMACIÓN PROFESIONAL",
+    "dep": "LO QUE PUEDA",
     "org": "SECRETARÍA GENERAL DE DORMACIÓN PROFESIONAL",
     "date": "16/06/2023",
-    "title": "BECAPARA LA FORMACIÓN DE CUALIFICACIÓN ...",
+    "title": "BECA PARA LA FORMACIÓN DE CUALIFICACIÓN ...",
     "link": "https://www.atrapalo.com/viajes/caribe_md159.html"
   }
 ];
 
-let authorised = false;
+let authorised = true;
 
 const homePageController = async(req, res) => {
-  if (authorised) {
-    //if (req.params.query) {
-      // let grants = scrapingData.filter(data => data.title.includes(req.params.query)) //await Grands.find({id:req.params.id},'-_id -__v')
-    //}
-    res.render('home', { "page_title": "home", scrapingData: scrapingData })
+  try {
+
+    if (authorised) {
+      const searchParam = req.query.search;
+      
+      if (searchParam) {
+        const searchTerms = searchParam.toUpperCase().split(' ');
+
+        let grants = scrapingData.filter(data => {
+          const match = searchTerms.some(searchTerm => data.title.toUpperCase().indexOf(searchTerm) !== -1);
+          return match
+        }) //await grant.find({title:req.query.search},'-_id -__v') CON REGEX grant.find({ dep: RegExp(req.query.search, 'i')
+        res.render('home', { "page_title": "home", scrapingData: grants })
+      }
+      else {
+        res.render('home', { "page_title": "home" });
+      }
+    }
+    else {
+      res.render('homeWeb', { "page_title": "F.A.M Pyme" });
+    }
   }
-  else {
-    res.render('homeWeb', { "page_title": "F.A.M Pyme" })
+  catch(error) {
+    res.status(400).json({ msj: `ERROR ${error}`});
   }
 };
 
