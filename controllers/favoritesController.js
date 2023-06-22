@@ -1,4 +1,4 @@
-const Favorite = require("../models/favorite.js")
+const Favorite = require("../models/favorites.js")
 
 const createUsersFavorite = (req, res) => {
     try { //ocurre cuando se le da al boton de darle a favorito
