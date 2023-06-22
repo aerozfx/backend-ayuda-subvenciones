@@ -17,7 +17,7 @@ app.use(helmet());
 app.use("/api", grantApiRoutes); //rutas de subenciones
 app.use("/api", userApiRoutes); //rutas de usuarios
 app.use("/", favoriteRouter); //rutas de favoritos
-app.use("/user", userApiRoutes); // esto deberia de conectar con usersRoutes que aun no existe
+//app.use("/user", userRoutes); // esto deberia de conectar con usersRoutes que aun no existe
 app.use("/", userApiRoutes); // unica ruta que no su endpoint es '/' (inicio), igual se puede quedar como esta en el index.js
 
 app.get("/", (req, res) => res.render('home', { "page_title": "Home" }));
