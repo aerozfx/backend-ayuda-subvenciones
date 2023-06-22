@@ -1,11 +1,11 @@
 const db_favorites_queries = {
   addFavorite: `
-    INSERT INTO favorites (id_user, id_favorite)
+    INSERT INTO favorites (favorite_id, user_id)
     VALUES ($1, $2)
     `,
   deleteFavorite: `
     DELETE FROM favorites
-    WHERE id_favorite = $1`,
+    WHERE favorite_id = $1`,
   getAllFavorites: `
     SELECT *
     FROM favorites`,

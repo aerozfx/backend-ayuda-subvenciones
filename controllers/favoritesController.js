@@ -1,25 +1,24 @@
-const favorite = require("../models/favorites.js");
-const pool = require("../utils/db-sql-favorites.js");
+const favorites = require("../models/favorites.js");
 
-const createFavorite = (req, res) => {
-  let client, result;
+const addFavorite = async (req, res) => {
   try {
-    client = pool.connect();
-    //ocurre cuando se le da al boton de darle a favorito
-    res.status(201).json({
-      msj: "Esto funciona",
-    });
-  } catch (error) {
-    res.status(400).json({
-      message: error,
-    });
-  }
-};
-
-const deleteFavorite = (req, res) => {
-  try {
+    let result = await favorites.addFavorite(req.body);
     res.status(200).json({
-      msj: "Esto funciona",
+      message: `El elemento con favorite_id: ${req.body.favorite_id} ha sido añadido`,
+    });
+    return result;
+  } catch (error) {
+    res.status(400).json({
+      message: error,
+    });
+  }
+};
+
+const deleteFavorite = async (req, res) => {
+  try {
+    let result = await favorites.removeFavorite(req.query.id);
+    res.status(200).json({
+      msj: `El favorito con id: ${req.query.id} ha sido borrado`,
     });
   } catch (error) {
     res.status(400).json({
@@ -28,11 +27,10 @@ const deleteFavorite = (req, res) => {
   }
 };
 
-const getFavorites = async () => {
+const getFavorites = async (req, res) => {
   try {
-    /*      let favorites = await Favorite.find({});
-             res.status(200).json(favorites); */
-    res.status(200).render("favorites.pug");
+    let data = await favorites.getFavorites();
+    res.status(200).json(data);
   } catch (error) {
     res.status(404).json({
       message: error,
@@ -41,7 +39,7 @@ const getFavorites = async () => {
 };
 
 module.exports = {
-  createFavorite,
+  addFavorite,
   deleteFavorite,
   getFavorites,
 };

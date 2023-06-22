@@ -2,11 +2,11 @@ const express = require('express');
 const { getAllGrants, getOneGrant, createOneGrant, updateOneGrant, deleteOneGrant } = require('../controllers/grantsApiControllers');
 const grantRouter = express.Router();
 
-grantRouter.get("/", getAllGrants);
-grantRouter.get(":title?", getOneGrant);
-grantRouter.post('/', createOneGrant);
-grantRouter.put("/:title?", updateOneGrant); //ruta variable para decirle cual cambiar
-grantRouter.delete("/", deleteOneGrant);
+grantRouter.post('/ads', createOneGrant);
+grantRouter.put("/ads/:title?", updateOneGrant); //ruta variable para decirle cual cambiar
+grantRouter.delete("/ads/:title", deleteOneGrant);
+grantRouter.get("/ads/search/:title?", getOneGrant);
+grantRouter.get("/ads", getAllGrants);
 
 
 module.exports = grantRouter;

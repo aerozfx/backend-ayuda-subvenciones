@@ -28,17 +28,10 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   let email = req.query.email;
   try {
-    let row = await users.getUserByEmail(email);
-    if (row) {
-      let result = await users.deleteUser(email);
-      res.status(200).json({
-        message: `El usuario ${email} ha sido borrado`,
-      });
-    } else {
-      res.status(400).json({
-        message: "No existe el usuario",
-      });
-    }
+    await users.deleteUser(email);
+    res.status(200).json({
+      message: `El usuario ${email} ha sido borrado`,
+    });
   } catch (error) {
     res.status(400).json({
       message: error,
@@ -46,24 +39,10 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const getUsers = async (req, res) => {
-  if (req.query.email) {
-    let email = req.query.email;
-    try {
-      let result = await users.getUserByEmail(email);
-      res.status(200).json(result);
-    } catch (err) {}
-  } else {
-    try {
-      let result = await users.getUsers();
-      res.status(200).json(result);
-    } catch (error) {}
-  }
-};
-
 const loginUser = (req, res) => {
+  let body = req.body;
   try {
-    res.status(200).json({
+    res.status(201).json({
       message: "Este método funciona",
     });
   } catch (error) {
@@ -71,5 +50,29 @@ const loginUser = (req, res) => {
       message: error,
     });
   }
+};
+
+const getUsers = async (req, res) => {
+  let result;
+  if (req.query.email) {
+    try {
+      result = await users.getUserByEmail(req.query.email);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(400).json({
+        message: error,
+      });
+    }
+  } else {
+    try {
+      result = await users.getUsers();
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(400).json({
+        message: error,
+      });
+    }
+  }
+  return result;
 };
 module.exports = { createUser, updateUser, deleteUser, loginUser, getUsers };

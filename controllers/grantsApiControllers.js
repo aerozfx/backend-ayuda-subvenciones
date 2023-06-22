@@ -8,6 +8,7 @@ const createOneGrant = async (req, res) => {
         res.status(201).json({
             msj: `Subencion ${answer.title} guardado en el sistema con ID: ${answer.id}`
         });
+
     } catch (error) {
         console.log(`ERROR: ${error.stack}`);
         res.status(400).json({
@@ -16,11 +17,12 @@ const createOneGrant = async (req, res) => {
     }
 }
 
-const getAllGrants = async () => {
+const getAllGrants = async (req, res) => {
     try {
         let grants = await Grant.find({});
         res.status(200)
         res.status(200).render('grants.pug', { "grants": [grants], msj: "un productouna subencion" });
+
     } catch (error) {
         console.log(`ERROR: ${error.stack}`);
         res.status(400).json({
@@ -29,9 +31,11 @@ const getAllGrants = async () => {
     }
 }
 
-const deleteOneGrant = async () => {
+const deleteOneGrant = async (req, res) => {
+    const { grantTitle } = req.params
     try {
-
+        const deleteGrant = await Client.findByIdAndDelete(grantTitle);
+        res.json(deleteGrant);
     } catch (error) {
         console.log(`ERROR: ${error.stack}`);
         res.status(400).json({
@@ -43,7 +47,7 @@ const deleteOneGrant = async () => {
 const getOneGrant = async (req, res) => {
     try {
         let grants = await Grant.find({ id: req.params.id });
-        res.status(200).json(grants[0])
+        res.status(200).json(grants[0]);
     } catch (error) {
         console.log(`ERROR: ${error.stack}`);
         res.status(400).json({
@@ -54,8 +58,11 @@ const getOneGrant = async (req, res) => {
 
 const updateOneGrant = async (req, res) => {
     const updatedGrant = req.body
+    const { grantTitle } = req.params
+    const query = { titulo: grantTitle }
     try {
-        // modificar un elemento elegido
+        const editedGrant = await Grant.findOneAndUpdate(query, updatedGrant, { new: true });
+        res.json(editedGrant);
     } catch (error) {
         console.log(`ERROR: ${error.stack}`);
         res.status(400).json({
