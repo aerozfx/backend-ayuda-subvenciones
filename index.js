@@ -8,9 +8,9 @@ const PORT = 3000;
 
 const helmet = require("helmet");
 
-app.set('view engine', 'pug');
-app.set('views', './views');
-app.use(express.static('public'))
+app.set("view engine", "pug");
+app.set("views", "./views");
+app.use(express.static("public"));
 
 app.use(express.json());
 app.use(helmet());
@@ -29,12 +29,11 @@ app.get("/signup", (req, res) => {
 
 app.get("/login", (req, res) => {
   res.status(200).send("Aquí irá la vista del usuario registrado");
-
 });
 
 app.get("/", homePageController);
 app.get("/favorites", favoritesPageController);
-app.get("/profile", profilePageController);
+app.use("/profile", profilePageController);
 
 app.listen(PORT, () => {
   console.log(`Servidor funcionando en el puerto ${PORT}`);

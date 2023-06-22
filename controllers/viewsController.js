@@ -44,7 +44,7 @@ const homePageController = async(req, res) => {
     //if (req.params.query) {
       // let grants = scrapingData.filter(data => data.title.includes(req.params.query)) //await Grands.find({id:req.params.id},'-_id -__v')
     //}
-    res.render('home', { "page_title": "home", scrapingData: grants })
+    res.render('home', { "page_title": "home", scrapingData: scrapingData })
   }
   else {
     res.render('homeWeb', { "page_title": "F.A.M Pyme" })
