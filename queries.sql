@@ -30,9 +30,17 @@
 
 -- favorites
 
-CREATE TABLE favorites(
-    favorite_id serial NOT NULL PRIMARY KEY,
-    user_id int NOT NULL
-    FOREIGN KEY (user_id) REFERENCES authors(id_user)
-    ON DELETE CASCADE
-)
+    -- createFavoriteTable
+    CREATE TABLE favorites(
+        favorite_id serial NOT NULL PRIMARY KEY,
+        user_id int NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(user_id)
+        ON DELETE CASCADE
+    )
+    -- addFavorite
+    INSERT INTO favorites
+        (favorite_id, user_id)
+        VALUES ($1, $2)
+    -- deleteFavorite
+    DELETE FROM favorites
+        WHERE favorite_id = $1

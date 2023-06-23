@@ -1,50 +1,45 @@
-const Favorite = require("../models/favorites.js")
+const favorites = require("../models/favorites.js");
 
-const createUsersFavorite = (req, res) => {
-    try { //ocurre cuando se le da al boton de darle a favorito
-        res.status(201).json({
-            msj: "Esto funciona"
-        })
-    } catch (error) {
-        res.status(400).json({
-            message: error
-        })
-    }
-}
+const addFavorite = async (req, res) => {
+  try {
+    let result = await favorites.addFavorite(req.body);
+    res.status(200).json({
+      message: `El elemento con favorite_id: ${req.body.favorite_id} ha sido añadido`,
+    });
+    return result;
+  } catch (error) {
+    res.status(400).json({
+      message: error,
+    });
+  }
+};
 
 const deleteFavorite = async (req, res) => {
-    grant = req.params
-    try {
-        /* res.status(200).json({
-            msj: "Esto funciona"
-        }) */
-        //ESTO ME LLEVA AL MODEL
-        const favorite = req.params.id;
-        const response = await Favorite.deleteGrant(favorite);
-
-        res.status(200).sendStatus(204);
-        return response
-
-    } catch (error) {
-        res.status(400).json({
-            message: error
-        })
-    }
-}
+  try {
+    let result = await favorites.removeFavorite(req.query.id);
+    res.status(200).json({
+      msj: `El favorito con id: ${req.query.id} ha sido borrado`,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: error,
+    });
+  }
+};
 
 const getFavorites = async (req, res) => {
-    try {
-        /*  res.status(200).render('favorites.pug') */
-        res.json('funciona')
-    } catch (error) {
-        res.status(404).json({
-            message: error
-        })
-    }
-}
+  try {
+    let data = await favorites.getFavorites();
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(404).json({
+      message: error,
+    });
+  }
+};
 
 module.exports = {
-    createUsersFavorite,
-    deleteFavorite,
-    getFavorites
-}
+  addFavorite,
+  deleteFavorite,
+  getFavorites,
+};
