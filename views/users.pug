@@ -1,0 +1,20 @@
+doctype html
+html(lang="es")
+  include ./head.pug
+  body 
+    include ./header.pug
+    main
+      section#users_list
+        if users
+          -for(let i=0;i<users.length; i++)
+            article.user_card
+              section.userCard_header
+                h1.userCard_title user id: #{users[i].user_id}
+                P.userCard_role Role: #{users[i].role}
+              section.userCard_main
+                img(src="assets/images/crazy-C.jpg")
+                section.userCard_data
+                  P Nombre: #{users[i].name}
+                  P Apellido #{users[i].surname}
+                  P Correo: #{users[i].email}
+    script(src="script.js")
