@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require("express");
+require('./utils/db-mongo') // Conexión a BBDD MongoDB
 const app = express();
 const grantApiRoutes = require("./routes/grantsApiRoutes");
 const favoriteRouter = require("./routes/favoritesRoutes.js");

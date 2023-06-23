@@ -1,10 +1,14 @@
 const Grant = require('../models/grants');
+//const scrappy = require('../utils/scrapper'); //headless para que no de por culo
 
 const createOneGrant = async (req, res) => {
-    const dataGrant = req.body;
+    dataGrant = req.body
+
     try {
-        const response = await new Grant(dataGrant);
+
+        const response = await Grant.insertMany(dataGrant);
         let answer = await response.save()
+        res.json(dataGrant)
         res.status(201).json({
             msj: `Subencion ${answer.title} guardado en el sistema con ID: ${answer.id}`
         });
@@ -20,8 +24,7 @@ const createOneGrant = async (req, res) => {
 const getAllGrants = async (req, res) => {
     try {
         let grants = await Grant.find({});
-        res.status(200)
-        res.status(200).render('grants.pug', { "grants": [grants], msj: "un productouna subencion" });
+        // res.status(200).render('grants.pug', { "grants": [grants], msj: "una subencion" });
 
     } catch (error) {
         console.log(`ERROR: ${error.stack}`);
@@ -50,7 +53,7 @@ const getOneGrant = async (req, res) => {
         res.status(200).json(grants[0]);
     } catch (error) {
         console.log(`ERROR: ${error.stack}`);
-        res.status(400).json({
+        res.status(404).json({
             msj: `ERROR: ${error}`
         });
     }
