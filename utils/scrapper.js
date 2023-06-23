@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-const Grant = require('../models/grants');
+const Grant = require("../models/grants");
 
 const URL = "https://www.pap.hacienda.gob.es/bdnstrans/GE/es/convocatorias";
 
@@ -32,6 +32,8 @@ const scrapper = async () => {
     })
   );
   await browser.close();
+  console.log(tr);
+  Grant.insertMany(tr);
   return tr;
 };
 

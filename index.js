@@ -1,7 +1,8 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
-require('./utils/db-mongo') // Conexión a BBDD MongoDB
+require("./utils/db-mongo"); // Conexión a BBDD MongoDB
 const app = express();
+const scrapper = require("./utils/scrapper");
 const grantApiRoutes = require("./routes/grantsApiRoutes");
 const favoriteRouter = require("./routes/favoritesRoutes.js");
 const userApiRoutes = require("./routes/userApiRoutes");
@@ -13,7 +14,7 @@ const {
 const PORT = 3000;
 
 const helmet = require("helmet");
-
+scrapper();
 app.set("view engine", "pug");
 app.set("views", "./views");
 app.use(express.static("public"));

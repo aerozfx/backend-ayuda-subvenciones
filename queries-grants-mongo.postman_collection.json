@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "fed786e4-0078-4cad-aa9b-be556e411307",
+		"name": "queries-grants-mongo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27955147"
+	},
+	"item": [
+		{
+			"name": "Get all grants",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"ads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one grant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/ads/704510",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"ads",
+						"704510"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete one grant",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/ads/704510",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"ads",
+						"704510"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create one grant",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 123341,\n    \"mrr\": \"no\",\n    \"admin\": \"Aventura\",\n    \"dep\": \"Como me gusta Postman\",\n    \"org\": \"Real De Madrid\",\n    \"date\": \"hoy\",\n    \"title\": \"SUBVENCIÓN PARA JÓVENES QUE SE ACABAN DE SACAR UN BOOTCAMP\",\n    \"title_co\": \"\",\n    \"link\": \"https://www.google.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/ads",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"ads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update one grant",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mrr\": \"si\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/ads/1231",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"ads",
+						"1231"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
