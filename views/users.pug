@@ -4,6 +4,8 @@ html(lang="es")
   body 
     include ./header.pug
     main
+      h1.usersList_title Listado de Usuarios registrados
+      p.usersList_usersAmount Nº: #{usersAmount}
       section#users_list
         if users
           -for(let i=0;i<users.length; i++)

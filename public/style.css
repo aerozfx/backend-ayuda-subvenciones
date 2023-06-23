@@ -72,6 +72,17 @@ label {
   width: 100%;
   min-width: 30rem;
 }
+.usersList_title {
+  text-align: center;
+}
+.usersList_usersAmount {
+  padding: 1rem 2rem;
+  font-size: 2.4rem;
+  text-align: center;
+  width: 100%;
+  margin: 3rem auto;
+  background-color: #eeeeee;
+}
 .user_card {
   display: flex;
   flex-direction: column;
