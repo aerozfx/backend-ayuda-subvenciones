@@ -1,16 +1,21 @@
 html(lang="es")
   include ./head.pug
   body 
-    include ./header.pug
+    header#header_web 
+      button#logInBtn.btn(type="button") Entrar
+      button#signUpBtn.btn(type="Registrarse") Registrarse
     main
-      section.homeWeb_mision
+      section#homeWeb_mainContent
         h1.card_title F.A.M Pyme
         P Es un buscador de subvenciones, ayudas y becas dirigido a emprendedores con pequeñas y medianas empresas relacionadas al mundo digital y tecnológico, su objetivo principal es poner al alcance de un click las ayudas que los emprendedores requieren
-      section.homeWeb_mainContent
         h2.card_subtitle Ayudas
         P Es un buscador de subvenciones, ayudas y becas dirigido a emprendedores con pequeñas y medianas empresas relacionadas al mundo digital y tecnológico, su objetivo principal es poner al alcance de un click las ayudas que los emprendedores requieren
         h2.card_subtitle Subvenciones
         P Es un buscador de subvenciones, ayudas y becas dirigido a emprendedores con pequeñas y medianas empresas relacionadas al mundo digital y tecnológico, su objetivo principal es poner al alcance de un click las ayudas que los emprendedores requieren
         h2.card_subtitle Becas
         P Es un buscador de subvenciones, ayudas y becas dirigido a emprendedores con pequeñas y medianas empresas relacionadas al mundo digital y tecnológico, su objetivo principal es poner al alcance de un click las ayudas que los emprendedores requieren
-        button#signUp_btn.btn(type="submit") entrar
+      section#homeWeb_btns 
+        button#signUp_btn.btn(type="button") Registrarse
+        button#logIn_btn.btn(type="button") Entrar
+    script(src="script.js")
+     

@@ -12,5 +12,5 @@ userRouter.post("/user", createUser);
 userRouter.post("/login", loginUser);
 userRouter.put("/user", updateUser);
 userRouter.delete("/user", deleteUser);
-userRouter.get("/:email?", getUsers);
+// userRouter.get("/:email?", getUsers);
 module.exports = userRouter;
