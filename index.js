@@ -34,7 +34,7 @@ app.get("/signup", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.status(200).send("Aquí irá la vista del usuario registrado");
+  res.status(200).render("login");
 });
 
 app.get("/", homePageController);

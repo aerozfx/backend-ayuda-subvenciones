@@ -1,0 +1,19 @@
+doctype html
+html(lang="es")
+  include ./head.pug
+  body 
+    include ./header.pug
+    main#main_profile
+      h2 Registro
+      form(method="POST" action="/api/user")
+        label(for="name") Nombre
+        input#name(type="text", name="name")
+        label(for="surname") Apellidos
+        input#surname(type="text", name="surname")
+        label(for="email") Correo electrónico
+        input#email(type="email", name="email")
+        label(for="password") Contraseña
+        input#password(type="password", name="password")
+        label(for="avatar") Foto de perfil
+        input#avatar(type="file", name="avatar" accept="image/png, image/jpeg")
+        button#submit_btn.btn(type="submit") Registrarse
