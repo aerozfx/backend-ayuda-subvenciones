@@ -1,5 +1,8 @@
+require("dotenv").config();
 const express = require("express");
+require("./utils/db-mongo"); // Conexión a BBDD MongoDB
 const app = express();
+const scrapper = require("./utils/scrapper");
 const grantApiRoutes = require("./routes/grantsApiRoutes");
 const favoriteRouter = require("./routes/favoritesRoutes.js");
 const userApiRoutes = require("./routes/userApiRoutes");
@@ -11,12 +14,13 @@ const {
 const PORT = 3000;
 
 const helmet = require("helmet");
-
+// scrapper();
 app.set("view engine", "pug");
 app.set("views", "./views");
 app.use(express.static("public"));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 
 app.use("/api", grantApiRoutes); //rutas de subenciones
@@ -30,7 +34,7 @@ app.get("/users", (req, res) => {
 });
 
 app.get("/signup", (req, res) => {
-  res.status(200).send("Aquí irá el registro");
+  res.status(200).render("signup");
 });
 
 app.get("/login", (req, res) => {

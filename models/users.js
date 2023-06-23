@@ -89,6 +89,16 @@ const deleteUser = async (email) => {
   return result;
 };
 
-const users = { createUser, updateUser, deleteUser, getUsers, getUserByEmail };
+const loginUser = async (data) => {
+  console.log(getUserByEmail(data.email));
+};
+const users = {
+  createUser,
+  updateUser,
+  deleteUser,
+  getUsers,
+  getUserByEmail,
+  loginUser,
+};
 
 module.exports = users;

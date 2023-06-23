@@ -1,7 +1,11 @@
 const users = require("../models/users.js");
+const { getUserByEmail } = require("../utils/fetchUserByEmail.js");
+
 const createUser = async (req, res) => {
   const data = req.body;
-  console.log(data);
+  if (data.role == null) {
+    data.role = "user";
+  }
   try {
     let result = await users.createUser(data);
     res.status(201).json({
@@ -40,15 +44,24 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const loginUser = (req, res) => {
-  let body = req.body;
+const loginUser = async (req, res) => {
+  let credentials = req.body;
+  console.log(credentials);
   try {
-    res.status(201).json({
-      message: "Este método funciona",
-    });
+    let response = await getUserByEmail(credentials.email);
+    console.log(response);
+    if (
+      response.email == credentials.email &&
+      response.password == credentials.password
+    ) {
+      // res.status(200).render("home");
+      res.status(200).send("las credenciales coinciden");
+    } else {
+      res.status(200).send("Los datos no coinciden");
+    }
   } catch (error) {
     res.status(200).json({
-      message: error,
+      message: "hola",
     });
   }
 };
