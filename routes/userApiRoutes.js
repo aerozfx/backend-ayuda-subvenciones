@@ -5,7 +5,7 @@ const {
   updateUser,
   loginUser,
   getUsers,
-} = require("../controllers/usersController.js");
+} = require("../controllers/usersApiController.js");
 const userRouter = express.Router();
 
 userRouter.post("/user", createUser);
