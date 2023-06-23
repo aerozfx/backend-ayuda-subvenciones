@@ -49,4 +49,4 @@ const loginUser = (req, res) => {
     });
   };
 };
-module.exports = { createUser, updateUser, deleteUser, loginUser, getUsers };
+module.exports = { createUser, updateUser, deleteUser, loginUser };

@@ -31,20 +31,20 @@ const deleteFavorite = async (req, res) => {
         })
     }
 }
-
+/*
 const getFavorites = async (req, res) => {
     try {
-        /*  res.status(200).render('favorites.pug') */
-        res.json('funciona')
+        res.status(200).render('favorites.pug')
+
     } catch (error) {
         res.status(404).json({
             message: error
         })
     }
 }
-
+*/
 module.exports = {
     createUsersFavorite,
     deleteFavorite,
-    getFavorites
+
 }
