@@ -1,52 +1,43 @@
-const mongoose = require('mongoose');
-//require('../utils/db_mongo') // Conexión a BBDD MongoDB
+const mongoose = require("mongoose");
 
 const objectSchema = {
-    id: {
-        type: Number,
-        required: true,
-        unique: true
-    },
-    mrr: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    admin: {
-        type: String,
-        required: true
-    },
-    dep: {
-        type: String,
-        required: true
-    },
-    org: {
-        type: String,
-    },
-    date: {
-        type: String,
-        required: true
-    },
-    title: {
-        type: String,
-        required: true
-    },
-    title_co: {
-        type: String,
-    },
-    asignedTo: {
-        type: String,
-    },
-    link: {
-        type: String,
-        required: true
-    },
+  id: {
+    type: Number,
+    required: true,
+    unique: true,
+  },
+  mrr: {
+    type: String,
+  },
+  admin: {
+    type: String,
+  },
+  dep: {
+    type: String,
+  },
+  org: {
+    type: String,
+  },
+  date: {
+    type: String,
+  },
+  title: {
+    type: String,
+  },
+  title_co: {
+    type: String,
+  },
+  asignedTo: {
+    type: String,
+  },
+  link: {
+    type: String,
+  },
 };
 // Crear el esquema
-const grantSchema = mongoose.Schema(objectSchema);
-
+const grantSchema = new mongoose.Schema(objectSchema);
 
 // Crear el modelo --> Colección
-const grant = mongoose.model('Product', grantSchema);
+const Grant = mongoose.model("grant", grantSchema);
 
-module.exports = grant;
+module.exports = Grant;
