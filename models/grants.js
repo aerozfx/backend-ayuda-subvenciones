@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const objectSchema = {
     id: {
         type: Number,

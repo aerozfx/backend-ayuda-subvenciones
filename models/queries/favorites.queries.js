@@ -1,14 +1,14 @@
 const db_favorites_queries = {
-  createFavorite: `
-    INSERT INTO favorites (id_user, id_favorite)
+  addFavorite: `
+    INSERT INTO favorites (favorite_id, user_id)
     VALUES ($1, $2)
     `,
   deleteFavorite: `
-    DELETE FROM favorite 
-    WHERE id_favorite = $1`,
+    DELETE FROM favorites
+    WHERE favorite_id = $1`,
   getAllFavorites: `
     SELECT *
-    FROM favorite`,
+    FROM favorites`,
 };
 
 module.exports = db_favorites_queries;

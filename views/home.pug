@@ -4,30 +4,22 @@ html(lang="es")
   body 
     include ./header.pug
     main
-      section#section_search
+      form#section_search(action="/", method="get") 
         label(for='search')
         input#search(type='text', placeholder='search' name='search')
-        button.searchBtn.btn Buscar
+        button.searchBtn.btn(type="submit") Buscar
       section#searchResults
         -var authorised = false; //conditional para mostrar o esconder botón de favoritos
-        -for(let i=0;i<scrapingData.length; i++)
-          if authorised
+        if scrapingData
+          -for(let i=0;i<scrapingData.length; i++)
             article.card
               h2.card_title Title: #{scrapingData[i].title}
               a(href=scrapingData[i].link, target="_blank") Visitar
               p.card_id id: #{scrapingData[i].id}
               p.card_descrip desciption: #{scrapingData[i].title}
               p.card_date fecha: #{scrapingData[i].date}
-              p.card_dep departamento: #{scrapingData[i].departament} 
+              p.card_dep departamento: #{scrapingData[i].dep} 
               p.card_org organismo: #{scrapingData[i].org} 
-              button.btn.addFavorites Agregar a favoritos
-          else 
-            article.card
-                h2.card_title Title: #{scrapingData[i].title}
-                a(href=scrapingData[i].link, target="_blank") Visitar
-                p.card_id id: #{scrapingData[i].id}
-                p.card_descrip desciption: #{scrapingData[i].title}
-                p.card_date fecha: #{scrapingData[i].date}
-                p.card_dep departamento: #{scrapingData[i].departament} 
-                p.card_org organismo: #{scrapingData[i].org} 
+              if authorised
+                button.btn.addFavorites Agregar a favoritos
     script(src="script.js") 
