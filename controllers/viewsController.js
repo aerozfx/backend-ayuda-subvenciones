@@ -9,7 +9,7 @@ const homePageController = async(req, res) => {
       const searchParam = req.query.search;
       
       if (searchParam) {
-        const grants = await grant.find({}) 
+        const grants = await grant.find({});
         const searchTerms = searchParam.toUpperCase().split(' ');
         let matchingGrants = grants.filter(data => {
           const match = searchTerms.some(searchTerm => data.title.toUpperCase().indexOf(searchTerm) !== -1);
@@ -54,7 +54,20 @@ const usersListController = async(req, res) => {
   };
 };
 
-const grantsListController = (req, res) => res.render('grants', {"page_title": "subvenciones"});
+const grantsListController = async(req, res) => {
+  try {
+    const grants = await grant.find({});
+    if (grants) {
+      res.render('grants', { "page_title": "subvenciones", "grantsAmount": grants.length, grants })
+    }
+    else {
+      res.render('grants', { "page_title": "subvenciones", "grantsAmount": grants.length })
+    };
+  }
+  catch(error) {
+    res.status(400).json({ msj: `ERROR ${error}`});
+  };
+};
 
 
 module.exports = {
