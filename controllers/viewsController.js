@@ -1,10 +1,9 @@
 const grant = require('../models/grants')
 
-let authorised = true;
+const authorised = true;
 
 const homePageController = async(req, res) => {
   try {
-
     if (authorised) {
       const searchParam = req.query.search;
       
@@ -15,14 +14,18 @@ const homePageController = async(req, res) => {
           const match = searchTerms.some(searchTerm => data.title.toUpperCase().indexOf(searchTerm) !== -1);
           return match
         }) 
-        res.render('home', { "page_title": "home", scrapingData: matchingGrants })
+        res.render('home', { 
+          "page_title": "home",
+          authorised,
+          scrapingData: matchingGrants 
+        })
       }
       else {
-        res.render('home', { "page_title": "home" });
+        res.render('home', { "page_title": "home", authorised });
       }
     }
     else {
-      res.render('homeWeb', { "page_title": "F.A.M Pyme" });
+      res.render('homeWeb', { "page_title": "F.A.M Pyme", authorised });
     }
   }
   catch(error) {

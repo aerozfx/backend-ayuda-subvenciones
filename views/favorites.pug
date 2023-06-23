@@ -2,17 +2,17 @@ doctype html
 html(lang="es")
   include ./head.pug
   body 
-      include ./header.pug
-      main
-        section#container_favorites
-        -for(let i=0;i<scrapingData.length; i++)
-          article.card
-            h2.card_title Title: #{scrapingData[i].title}
-            a(href='scrapingData[i].link' target='_blank') Visitar
-            p.card_id id: #{scrapingData[i].id}
-            p.card_descrip desciption: #{scrapingData[i].title}
-            p.card_date fecha: #{scrapingData[i].date}
-            p.card_dep departamento: #{scrapingData[i].dep} 
-            p.card_org organismo: #{scrapingData[i].org} 
-            button.btn.addFavorites Quitar de favoritos
-          
+    include ./header.pug
+    main
+      section#container_favorites
+      -for(let i=0;i<scrapingData.length; i++)
+        article.card
+          h2.card_title Title: #{scrapingData[i].title}
+          a(href='scrapingData[i].link' target='_blank') Visitar
+          p.card_id id: #{scrapingData[i].id}
+          p.card_descrip desciption: #{scrapingData[i].title}
+          p.card_date fecha: #{scrapingData[i].date}
+          p.card_dep departamento: #{scrapingData[i].dep} 
+          p.card_org organismo: #{scrapingData[i].org} 
+          button.btn.addFavorites Quitar de favoritos
+    script(src="script.js")          
