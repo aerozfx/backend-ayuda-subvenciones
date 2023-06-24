@@ -33,10 +33,12 @@ const getFavorites = async () => {
   let client, result;
   try {
     client = await pool.connect();
-    let data = await client.query(db_favorites_queries.getAllFavorites);
+    const data = await client.query(db_favorites_queries.getAllFavorites);
     result = data.rows;
   } catch (error) {
     throw error;
+  } finally {
+    client.release();
   }
   return result;
 };
