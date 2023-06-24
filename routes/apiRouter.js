@@ -3,6 +3,7 @@ const apiRouter = express.Router();
 const users = require("../controllers/usersApiController");
 const favorites = require("../controllers/favoritesApiController");
 const grants = require("../controllers/grantsApiControllers");
+const { checkUser } = require("../middlewares/checkUser");
 
 // USER
 // Obtiene todos los usuarios si no se pasa email, o uno si se pasa un email válido
@@ -26,5 +27,7 @@ apiRouter.get("/ads/:id?", grants.getAllGrants);
 apiRouter.post("/ads", grants.createOneGrant);
 apiRouter.patch("/ads/:id?", grants.updateOneGrant);
 apiRouter.delete("/ads/:id?", grants.deleteOneGrant);
+
+apiRouter.post("/login", checkUser, users.loginUser);
 
 module.exports = apiRouter;

@@ -102,6 +102,8 @@ const loginPageController = (req, res) => {
     res.status(400).json({ message: error });
   }
 };
+
+const logoutPageController = (req, res) => {};
 module.exports = {
   homePageController,
   loginPageController,
