@@ -10,6 +10,7 @@ const {
   // favoritesPageController,
   profilePageController,
   usersListController,
+  grantsListController,
 } = require("./controllers/viewsController");
 const PORT = 3000;
 
@@ -29,7 +30,7 @@ app.use("/api", userApiRoutes); //rutas de usuarios
 // app.use("/", userApiRoutes); // unica ruta que no su endpoint es '/' (inicio), igual se puede quedar como esta en el index.js
 
 app.get("/users", usersListController);
-app.get("/grants", usersListController);
+app.get("/grants", grantsListController);
 
 app.get("/signup", (req, res) => {
   res.status(200).send("Aquí irá el registro");
