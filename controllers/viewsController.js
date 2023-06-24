@@ -3,11 +3,11 @@ const user = require('../models/users');
 
 const authorised = true;
 
-const homePageController = async(req, res) => {
+const homePageController = async (req, res) => {
   try {
     if (authorised) {
       const searchParam = req.query.search;
-      
+
       if (searchParam) {
         const grants = await grant.find({});
         const searchTerms = searchParam.toUpperCase().split(' ');
@@ -18,19 +18,16 @@ const homePageController = async(req, res) => {
         res.render('home', { 
           "page_title": "home",
           authorised,
-          scrapingData: matchingGrants 
-        })
+          scrapingData: matchingGrants,
+        });
+      } else {
+        res.render("home", { page_title: "home", authorised });
       }
-      else {
-        res.render('home', { "page_title": "home", authorised });
-      }
+    } else {
+      res.render("homeWeb", { page_title: "F.A.M Pyme", authorised });
     }
-    else {
-      res.render('homeWeb', { "page_title": "F.A.M Pyme", authorised });
-    }
-  }
-  catch(error) {
-    res.status(400).json({ msj: `ERROR ${error}`});
+  } catch (error) {
+    res.status(400).json({ msj: `ERROR ${error}` });
   }
 };
 

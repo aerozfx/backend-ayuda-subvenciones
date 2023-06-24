@@ -1,0 +1,14 @@
+doctype html
+html(lang="es")
+  include ./head.pug
+  body 
+    include ./header.pug
+    main#main_profile
+      h2 Login
+      form#form(method="POST" action="/api/login ")
+        label(for="email") Correo electrónico
+        input#email(type="email", name="email")
+        label(for="password") Contraseña
+        input#password(type="password", name="password")
+        button#submit_btn.btn(type="submit") Entrar
+  script(src="script.js") 
