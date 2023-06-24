@@ -15,6 +15,7 @@ app.set("views", "./views");
 
 app.use(express.static("public"));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 
 // Punto de entrada a la aplicación

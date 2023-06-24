@@ -6,10 +6,10 @@ const webRouter = express.Router();
 webRouter.get("/", webController.homePageController);
 
 // Registro user
-webRouter.get("/signup");
+webRouter.get("/signup", webController.signupPageController);
 
 // User logeado -> Necesitamos middleware que compruebe si el usuario está logueado
-webRouter.get("/login");
+webRouter.get("/login", webController.loginPageController);
 webRouter.get("/favorites", webController.favoritesPageController);
 webRouter.get("/profile", webController.profilePageController);
 

@@ -40,7 +40,7 @@ const favoritesPageController = async (req, res) => {
     if (favoritesResult) {
       res.render("favorites", {
         page_title: "favoritos",
-        favorites: favoritesResult  ,
+        favorites: favoritesResult,
       });
     }
   } catch (error) {}
@@ -87,8 +87,25 @@ const grantsListController = async (req, res) => {
   }
 };
 
+const signupPageController = (req, res) => {
+  try {
+    res.status(200).render("signup");
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
+
+const loginPageController = (req, res) => {
+  try {
+    res.status(200).render("login");
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
 module.exports = {
   homePageController,
+  loginPageController,
+  signupPageController,
   favoritesPageController,
   profilePageController,
   usersListController,
