@@ -1,6 +1,12 @@
 doctype html
 html(lang="es")
+  include ./head.pug
   body 
-    main
-        p Ruta no encontrada
+    include ./header.pug
+    main#main_404
+      img(src="assets/images/notFoundImg.png")
+      section.notFoud_content 
+        h1 Lo sentimos, esta página no se ha encontrado
+        p Puedes volver a la página de inicio pulsando el botón.
+        a.notFoud_homeBtn(href="/", target="_blank") Volver a home
     script(src="script.js")          
