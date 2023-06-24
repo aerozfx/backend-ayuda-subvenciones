@@ -46,22 +46,19 @@ const deleteUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   let credentials = req.body;
-  console.log(credentials);
   try {
     let response = await getUserByEmail(credentials.email);
-    console.log(response);
     if (
       response.email == credentials.email &&
       response.password == credentials.password
     ) {
-      // res.status(200).render("home");
-      res.status(200).send("las credenciales coinciden");
+      res.redirect("/");
     } else {
       res.status(200).send("Los datos no coinciden");
     }
   } catch (error) {
     res.status(200).json({
-      message: "hola",
+      message: error,
     });
   }
 };
@@ -89,4 +86,4 @@ const getUsers = async (req, res) => {
   }
   return result;
 };
-module.exports = { createUser, updateUser, deleteUser, loginUser };
+module.exports = { createUser, updateUser, deleteUser, loginUser, getUsers };
