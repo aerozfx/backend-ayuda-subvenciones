@@ -1,0 +1,21 @@
+doctype html
+html(lang="es")
+  include ./head.pug
+  body 
+    include ./header.pug
+    main
+      h1.grantsList_title Listado de subvenciones
+      p.grantsList_amount Nº: #{grantsAmount}
+      section#grants_list
+        if grants
+          -for(let i=0;i<grants.length; i++)
+            article.grantCard
+              Section.grantCard_header
+                h1.card_id id: #{grants[i].id}
+                p.card_date fecha: #{grants[i].date}
+              Section.grantCard_main
+                h2.card_title Title: #{grants[i].title}
+                p.card_link Link: #{grants[i].link}
+                p.card_descrip desciption: #{grants[i].title}
+                p.card_dep departamento: #{grants[i].dep} 
+                p.card_org organismo: #{grants[i].org} 

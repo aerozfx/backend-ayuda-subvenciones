@@ -17,7 +17,7 @@
     "mongoose": "^7.3.0",
     "pg": "^8.11.0",
     "pug": "^3.0.2",
-    "puppeteer": "^20.7.2"
+    "puppeteer": "^20.7.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
