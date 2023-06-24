@@ -2,6 +2,7 @@ const express = require("express");
 const favoriteRouter = express.Router();
 const favoritesController = require("../controllers/favoritesApiController");
 
+
 //favoriteRouter.get("/favorites", favoritesController.getFavorites);
 favoriteRouter.post("/api/favorites", favoritesController.addFavorite);
 favoriteRouter.delete(
@@ -9,4 +10,4 @@ favoriteRouter.delete(
   favoritesController.deleteFavorite
 );
 
-module.exports = favoriteRouter;
+// module.exports = favoriteRouter;

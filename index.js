@@ -8,6 +8,7 @@ const Grant = require("./models/grants");
 const webRouter = require("./routes/webRouter");
 const apiRouter = require("./routes/apiRouter");
 const handler404 = require("./middlewares/404handler");
+
 const PORT = 3000;
 
 const getDocumentsAmount = async () => {
@@ -33,6 +34,7 @@ app.use("/", webRouter);
 // Endpoints con /api/...
 app.use("/api", apiRouter);
 app.use(handler404);
+
 
 app.listen(PORT, () => {
   console.log(`Servidor funcionando en el puerto ${PORT}`);
