@@ -3,7 +3,8 @@ const favorites = require("../models/favorites");
 const user = require("../models/users");
 
 const authorised = true;
-let userType = "admin";
+let userType = "user";
+let userEmail = "aeroadsad@gmail.com";
 
 const homePageController = async (req, res) => {
   try {
@@ -23,7 +24,7 @@ const homePageController = async (req, res) => {
           res.render("home", {
             page_title: "home",
             authorised,
-             links,
+            "navBar_links": links,
             scrapingData: matchingGrants,
           });
         } else {
@@ -52,10 +53,12 @@ const homePageController = async (req, res) => {
 
 const favoritesPageController = async (req, res) => {
   try {
-    let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };    let favoritesResult = await favorites.getFavorites();
+    let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };
+    let favoritesResult = await favorites.getFavorites();
     if (favoritesResult) {
       res.render("favorites", {
         page_title: "favoritos",
+        "navBar_links": links,
         favorites: favoritesResult,
       });
     }
@@ -64,18 +67,19 @@ const favoritesPageController = async (req, res) => {
   }
 };
 
-const profilePageController = (req, res) => {
+const profilePageController = async (req, res) => {
   try {
     let links = { "/": "inicio", "/favorites": "favoritos", "/logout": "salir" };
+    let currentUser = await user.getUserByEmail(userEmail);
     res.render("profile", { 
       page_title: "perfil",
-      "navBar_links": links
+      "navBar_links": links,
+      "current_user": currentUser
     })
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
   }
 };
-//Por hacer post-logout
 
 const usersListController = async (req, res) => {
   try {
