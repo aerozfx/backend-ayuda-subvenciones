@@ -2,30 +2,41 @@ const grant = require("../models/grants");
 const favorites = require("../models/favorites");
 const user = require("../models/users");
 
-let authorised = true;
+const authorised = true;
+let userType = "admin";
 
 const homePageController = async (req, res) => {
   try {
     if (authorised) {
-      let links = { "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir" };
-      const searchParam = req.query.search;
-      if (searchParam) {
-        const grants = await grant.find({});
-        const searchTerms = searchParam.toUpperCase().split(" ");
-        let matchingGrants = grants.filter((data) => {
-          const match = searchTerms.some(
-            (searchTerm) => data.title.toUpperCase().indexOf(searchTerm) !== -1
-          );
-          return match;
-        });
-        res.render("home", {
-          page_title: "home",
-          authorised,
-           links,
-          scrapingData: matchingGrants,
-        });
-      } else {
-        res.render("home", { 
+      if (userType === "user") {
+        let links = { "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir" };
+        const searchParam = req.query.search;
+        if (searchParam) {
+          const grants = await grant.find({});
+          const searchTerms = searchParam.toUpperCase().split(" ");
+          let matchingGrants = grants.filter((data) => {
+            const match = searchTerms.some(
+              (searchTerm) => data.title.toUpperCase().indexOf(searchTerm) !== -1
+            );
+            return match;
+          });
+          res.render("home", {
+            page_title: "home",
+            authorised,
+             links,
+            scrapingData: matchingGrants,
+          });
+        } else {
+          res.render("home", { 
+            page_title: "home",
+            authorised,
+            "navBar_links": links
+          });
+        }
+      }
+      else if (userType === "admin") {
+        let links = { "/users": "usuarios", "/grants": "subvenciones", "/logout": "salir" };
+        res.render("homeAdmin", {
           page_title: "home",
           authorised,
           "navBar_links": links
@@ -41,12 +52,10 @@ const homePageController = async (req, res) => {
 
 const favoritesPageController = async (req, res) => {
   try {
-    let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };
-    let favoritesResult = await favorites.getFavorites();
+    let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };    let favoritesResult = await favorites.getFavorites();
     if (favoritesResult) {
       res.render("favorites", {
         page_title: "favoritos",
-        "navBar_links": links,
         favorites: favoritesResult,
       });
     }
@@ -91,6 +100,7 @@ const usersListController = async (req, res) => {
   };
 };
 
+
 const grantsListController = async (req, res) => {
   try {
     let links = { "/": "inicio", "/users": "usuarios", "/logout": "salir" };
@@ -131,6 +141,7 @@ const loginPageController = (req, res) => {
 };
 
 const logoutPageController = (req, res) => {};
+
 module.exports = {
   homePageController,
   loginPageController,

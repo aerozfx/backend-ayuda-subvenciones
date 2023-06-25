@@ -68,7 +68,9 @@ a.btn_small {
   width: 30%;
   max-width: 20rem;
 }
-
+a.homeAdmin_btns {
+  font-size: 2.4rem;
+}
 
 .signUp_btn {
   background-color: #F2B66E;
@@ -219,11 +221,34 @@ a.btn_small {
   justify-content: center;
   align-items: center;
 }
+.main {
+  width: 80%;
+}
+.homeAdmin_btns {
+  min-height: 10rem;
+  height: 20rem;
+  max-height: 30rem;
+  min-width: 25rem;
+  width: 100%;
+  max-width: 40rem;
+  border-radius: var(--radius08);
+  font-size: 2.4rem;
+  border: solid 0.1rem #9fa0a0;
+}
+
+
+/* .homeAdmin_section {
+  margin: auto;
+} */
+
 
 #main_profile,
 #main_login {
   gap: 4rem;
   height: 100%;
+}
+#homeAdmin_main {
+  gap: 4rem;
 }
 #header {
   display: flex;
@@ -310,6 +335,13 @@ a.btn_small {
 #submit_btn {
   margin-top: 2rem;
 }
+#homeAdmin_usersBtn {
+  background-color: #faf8d6;
+}
+#homeAdmin_grantsBtn {
+  background-color: #ffefdb;
+}
+
 /* 
 @media (min-width: 768px) {
 
