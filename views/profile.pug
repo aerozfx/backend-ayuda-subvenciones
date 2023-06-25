@@ -3,7 +3,7 @@ html(lang="es")
   include ./head.pug
   body 
     include ./header.pug
-    main#main_profile
+    main#main_profile.flexColCenter
       h2 Perfil
       form(method="POST")
         label(for="name") Nuevo nombre
@@ -14,4 +14,4 @@ html(lang="es")
         input#password(type="password", name="password")
         label(for="avatar") Nueva Foto de perfil
         input#avatar(type="file", name="avatar" accept="image/png, image/jpeg")
-        button#submit_btn.btn(type="submit") Guardar cambios
+        button#submit_btn.fill_btn.btn(type="submit") Guardar cambios

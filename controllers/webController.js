@@ -2,13 +2,13 @@ const grant = require("../models/grants");
 const favorites = require("../models/favorites");
 const user = require("../models/users");
 
-const authorised = true;
+let authorised = true;
 
 const homePageController = async (req, res) => {
   try {
     if (authorised) {
+      let links = { "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir" };
       const searchParam = req.query.search;
-
       if (searchParam) {
         const grants = await grant.find({});
         const searchTerms = searchParam.toUpperCase().split(" ");
@@ -21,13 +21,18 @@ const homePageController = async (req, res) => {
         res.render("home", {
           page_title: "home",
           authorised,
+           links,
           scrapingData: matchingGrants,
         });
       } else {
-        res.render("home", { page_title: "home", authorised });
+        res.render("home", { 
+          page_title: "home",
+          authorised,
+          "navBar_links": links
+        });
       }
     } else {
-      res.render("homeWeb", { page_title: "F.A.M Pyme", authorised });
+      res.render("homeWeb", { page_title: "F.A.M Pyme" });
     }
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
@@ -36,55 +41,77 @@ const homePageController = async (req, res) => {
 
 const favoritesPageController = async (req, res) => {
   try {
+    let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };
     let favoritesResult = await favorites.getFavorites();
     if (favoritesResult) {
       res.render("favorites", {
         page_title: "favoritos",
+        "navBar_links": links,
         favorites: favoritesResult,
       });
-    }
-  } catch (error) {}
-};
-
-const profilePageController = (req, res) =>
-  res.render("profile", { page_title: "perfil" });
-//Por hacer post-logout
-
-const usersListController = async (req, res) => {
-  try {
-    let users = await user.getUsers();
-    if (users) {
-      res.render("users", {
-        page_title: "users",
-        usersAmount: users.length,
-        users,
-      });
-    } else {
-      res.render("users", { page_title: "users", usersAmount: users.length });
     }
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
   }
 };
 
+const profilePageController = (req, res) => {
+  try {
+    let links = { "/": "inicio", "/favorites": "favoritos", "/logout": "salir" };
+    res.render("profile", { 
+      page_title: "perfil",
+      "navBar_links": links
+    })
+  } catch (error) {
+    res.status(400).json({ msj: `ERROR ${error}` });
+  }
+};
+//Por hacer post-logout
+
+const usersListController = async (req, res) => {
+  try {
+    let links = { "/": "inicio", "/grants": "subvenciones", "/logout": "salir" };
+    let users = await user.getUsers();
+    if (users) {
+      res.render("users", {
+        page_title: "users",
+        "navBar_links": links,
+        usersAmount: users.length,
+        users,
+      });
+    } else {
+      res.render("users", { 
+        page_title: "users",
+        "navBar_links": links, 
+        usersAmount: users.length 
+      });
+    };
+  } catch (error) {
+    res.status(400).json({ msj: `ERROR ${error}` });
+  };
+};
+
 const grantsListController = async (req, res) => {
   try {
+    let links = { "/": "inicio", "/users": "usuarios", "/logout": "salir" };
     const grants = await grant.find({});
     if (grants) {
       res.render("grants", {
         page_title: "subvenciones",
+        "navBar_links": links,
         grantsAmount: grants.length,
         grants,
       });
     } else {
       res.render("grants", {
         page_title: "subvenciones",
+        "navBar_links": links,
         grantsAmount: grants.length,
       });
     }
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
-  }
+  };
 };
 
 const signupPageController = (req, res) => {

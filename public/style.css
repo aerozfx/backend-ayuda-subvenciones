@@ -85,12 +85,19 @@ a.btn_small {
 .fill_btn {
   background-color: #F2B66E;
 }
-.searchBtn {
-  margin-top: 0.8rem;
-  width: 60%;
-  font-size: 1.4rem;
-  color: #106fdf;
+.nav_btn {
+  text-decoration: none;
+  font-size: 1.7rem;
+  color: #5C5C5C;
+  border-bottom: 0.1rem solid #F2B66E;
+  list-style: none;
+  padding: 0.8rem 1rem;
+  min-width: fit-content;
+  width: 6rem;
 }
+.searchBtn {
+  width: 60%;
+} 
 .card {
   display: grid;
   grid-template-rows: 1fr;
@@ -213,17 +220,9 @@ a.btn_small {
   align-items: center;
 }
 
-
+#main_profile,
 #main_login {
   gap: 4rem;
-  height: 100%;
-}
-#main_profile {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1.2rem;
   height: 100%;
 }
 #header {
@@ -238,6 +237,7 @@ a.btn_small {
   height: 6.4rem;
   width: 6.4rem;
   border-radius: 50%;
+  margin-right: 3rem;
 }
 #navBar {
   display: flex;
@@ -256,20 +256,11 @@ a.btn_small {
 }
 #navBar > li {
   list-style: none;
-  padding: 0.8rem 1rem;
-}
-#navBar > li > a {
-  text-decoration: none;
-  font-size: 1.7rem;
-  color: #262626;
 }
 #section_search {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 80%;
   margin: auto;
+  gap: 2rem;
 }
 #main_404,
 #grants_list,
