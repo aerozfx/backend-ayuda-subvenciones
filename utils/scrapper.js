@@ -32,7 +32,6 @@ const scrapper = async () => {
     })
   );
   await browser.close();
-  console.log(tr);
   Grant.insertMany(tr);
   Grant.countDocuments({});
   return tr;

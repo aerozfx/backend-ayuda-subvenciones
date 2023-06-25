@@ -43,7 +43,7 @@ const favoritesPageController = async (req, res) => {
         favorites: favoritesResult,
       });
     }
-  } catch (error) {}
+  } catch (error) { }
 };
 
 const profilePageController = (req, res) =>
@@ -103,7 +103,16 @@ const loginPageController = (req, res) => {
   }
 };
 
-const logoutPageController = (req, res) => {};
+const dashboardController = (req, res) => {
+  try {
+    res.status(200).render("dashboard", { page_title: "dashboard" });
+    //pasarle la bd de grants y de users
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
+
+const logoutPageController = (req, res) => { };
 module.exports = {
   homePageController,
   loginPageController,
@@ -112,4 +121,5 @@ module.exports = {
   profilePageController,
   usersListController,
   grantsListController,
+  dashboardController
 };

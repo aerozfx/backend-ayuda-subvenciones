@@ -1,0 +1,50 @@
+doctype html
+html(lang="es")
+  include ./head.pug
+  body 
+    include ./header.pug
+    main#main_dashboard
+      a.dashboardBtn(href="/grant", target="_blank") Subvenciones
+      a.dashboardBtn(href="/users", target="_blank") Usuarios
+
+      button#show_grantForm(type="button") administrar subvención
+      section.dashboard_grantForm
+        form#grantForm(method="POST")
+          label(for="id") id
+          input#id(type="number", name="id")
+          label(for="mrr") mrr
+          input#mrr(type="text", name="mrr")
+          label(for="admin") administracion
+          input#admin(type="text", name="admin")
+          label(for="dep") dep
+          input#dep(type="text", name="dep")
+          label(for="org") Organizacion
+          input#Organizacion(type="text", name="org" )
+          label(for="date") date
+          input#date(type="text", name="date")
+          label(for="title") nombre de la subvencion
+          input#title(type="text", name="title")
+          label(for="title-co") title-co
+          input#title-co(type="text", name="title-co")
+          label(for="link") link
+          input#link(type="text", name="link")
+          button#submit_btn_grant.btn(type="submit") Guardar cambios
+
+      button#show_userForm(type="button") administrar usuario
+      section.admin_userFrom    
+        h2 Crea un usuario
+          form#form(method="POST" action="api/user")
+            label(for="name") Nombre
+            input#name(type="text", name="name")
+            label(for="surname") Apellidos
+            input#surname(type="text", name="surname")
+            label(for="email") Correo electrónico
+            input#email(type="email", name="email")
+            label(for="password") Contraseña
+            input#password(type="password", name="password")
+            label(for="avatar") Foto de perfil
+            input#avatar(type="file", name="avatar" accept="image/png, image/jpeg")
+            button#submit_btn_register.btn(type="button") Registrarse
+            button#submit_btn_edit.btn(type="button") Editar
+            button#delete_user_btn.btn(type="button") Borrar
+  script(src="script.js") 
