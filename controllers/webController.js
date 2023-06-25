@@ -18,8 +18,14 @@ const homePageController = async (req, res) => {
     if (authorised) {
       if (userType === "user") {
         let links = { "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir" };
+        const paramRegex = /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
         const searchParam = req.query.search;
-        if (searchParam) {
+        if (
+          searchParam 
+          && searchParam.trim() !== "" 
+          && !paramRegex.test(searchParam) 
+          && typeof searchParam === "string"
+        ) {
           const grants = await grant.find({});
           const searchTerms = searchParam.toUpperCase().split(" ");
           let matchingGrants = grants.filter((data) => {
