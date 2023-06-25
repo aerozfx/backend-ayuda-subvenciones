@@ -2,13 +2,21 @@ doctype html
 html(lang="es")
   include ./head.pug
   body 
-    include ./header.pug
-    main#main_profile
+    header#header
+      img.header_logo(src="assets/images/logo.png")
+      nav
+        ul#navBar
+          li 
+            a.outline_btn.btn(href="/") inicio
+    main#main_login.flexColCenter
       h2 Login
       form#form(method="POST" action="/api/login ")
         label(for="email") Correo electrónico
         input#email(type="email", name="email")
         label(for="password") Contraseña
         input#password(type="password", name="password")
-        button#submit_btn.btn(type="submit") Entrar
+        button#submit_btn.fill_btn.btn(type="submit") Entrar
+      section.optional_btns.flexColCenter
+        a.outline_btn.btn(href="/signup" role="button") Registrarse
+        button#getIn_btn.btn(type="button") Entrar sin registrarse
   script(src="script.js") 

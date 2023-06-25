@@ -1,0 +1,9 @@
+doctype html
+html(lang="es")
+  include ./head.pug
+  body 
+    include ./header.pug
+    main#homeAdmin_main.main.flexColCenter
+      section.homeAdmin_section.flexColCenter
+      a#homeAdmin_usersBtn.homeAdmin_btns.flexColCenter.btn(href="/users" role="button") Usuarios dados de alta
+      a#homeAdmin_grantsBtn.homeAdmin_btns.flexColCenter.btn(href="/grants" role="button") Sunvenciones dadas de alta
