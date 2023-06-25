@@ -1,14 +1,14 @@
 const grant = require("../models/grants");
 const favorites = require("../models/favorites");
 const user = require("../models/users");
-
-const authorised = true;
+const jwt = require("jsonwebtoken");
+const authorised = false;
 
 const homePageController = async (req, res) => {
   try {
-    if (authorised) {
+    if (req.user) {
+      console.log(req.cookies);
       const searchParam = req.query.search;
-
       if (searchParam) {
         const grants = await grant.find({});
         const searchTerms = searchParam.toUpperCase().split(" ");
@@ -27,13 +27,13 @@ const homePageController = async (req, res) => {
         res.render("home", { page_title: "home", authorised });
       }
     } else {
-      res.render("homeWeb", { page_title: "F.A.M Pyme", authorised });
+      res.render("homeWeb", { page_title: "F.A.M Pyme" });
     }
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
   }
 };
-
+const userLoggedController = async (req, res) => {};
 const favoritesPageController = async (req, res) => {
   try {
     let favoritesResult = await favorites.getFavorites();

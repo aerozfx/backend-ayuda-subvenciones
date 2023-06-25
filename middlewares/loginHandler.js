@@ -1,3 +1,6 @@
+const { json } = require("express");
+const jwt = require("jsonwebtoken");
+
 const checkUser = (req, res, next) => {
   if (req.body.email !== "" && req.body.password !== "") {
     let { email, password } = req.body;
@@ -15,4 +18,7 @@ const checkUser = (req, res, next) => {
   }
 };
 
-module.exports = { checkUser };
+const isLogged = async (req, res, next) => {};
+
+const verifyCookie = (req, res, next) => {};
+module.exports = { checkUser, isLogged, verifyCookie };

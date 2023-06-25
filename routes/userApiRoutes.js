@@ -6,7 +6,7 @@ const {
   loginUser,
   getUsers,
 } = require("../controllers/usersController.js");
-const { checkUser } = require("../middlewares/checkUser.js");
+const { checkUser } = require("../middlewares/loginHandler.js");
 const userRouter = express.Router();
 
 userRouter.post("/user", createUser);
