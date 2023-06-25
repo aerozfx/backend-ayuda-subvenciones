@@ -2,9 +2,16 @@ const grant = require("../models/grants");
 const favorites = require("../models/favorites");
 const user = require("../models/users");
 
-const authorised = true;
-let userType = "user";
-let userEmail = "aeroadsad@gmail.com";
+let authorised;
+let userType;
+let userEmail;
+
+function setSessionValues(credential, user, email) {
+  authorised = credential;
+  userType = user;
+  userEmail = email;
+}
+setSessionValues(true, "user", "aeroadsad@gmail.com");
 
 const homePageController = async (req, res) => {
   try {
