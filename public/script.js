@@ -45,7 +45,7 @@ function selectElements(selectors) {
 }
 
 function setEventListener(element, eventType, functionToExe) {
-  return element.addEventListener(eventType, functionToExe);
+  return element?.addEventListener(eventType, functionToExe);
 }
 
 

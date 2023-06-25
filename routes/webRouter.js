@@ -17,6 +17,6 @@ webRouter.get("/profile", webController.profilePageController);
 webRouter.get("/users", webController.usersListController);
 webRouter.get("/grants", webController.grantsListController);
 
-webRouter.get("/logout", (req, res) => res.send("has salido"));
+webRouter.get("/logout", webController.logoutPageController);
 
 module.exports = webRouter;

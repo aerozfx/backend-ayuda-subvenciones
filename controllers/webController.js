@@ -17,7 +17,7 @@ const homePageController = async (req, res) => {
           const searchTerms = searchParam.toUpperCase().split(" ");
           let matchingGrants = grants.filter((data) => {
             const match = searchTerms.some(
-              (searchTerm) => data.title.toUpperCase().indexOf(searchTerm) !== -1
+              (searchTerm) => data.title?.toUpperCase().indexOf(searchTerm) !== -1
             );
             return match;
           });
@@ -144,14 +144,22 @@ const loginPageController = (req, res) => {
   }
 };
 
-const logoutPageController = (req, res) => {};
+const logoutPageController = (req, res) => {
+  try {
+    res.status(200).render("homeWeb")
+  }
+  catch(error) {
+    res.status(400).json({ message: error })
+  }
+};
 
 module.exports = {
-  homePageController,
-  loginPageController,
   signupPageController,
-  favoritesPageController,
+  homePageController,
   profilePageController,
+  favoritesPageController,
   usersListController,
   grantsListController,
+  loginPageController,
+  logoutPageController
 };
