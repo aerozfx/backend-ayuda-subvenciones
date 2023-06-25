@@ -146,6 +146,29 @@ label {
 .addFavorites {
   margin-top: 1rem;
 }
+.notFoud_homeBtn,
+.dashboardBtn {
+  padding: 1rem 3rem;
+  background-color: #a2e0d1;
+  border-radius: var(--radius04);
+  text-decoration: none;
+  text-align: center;
+  min-width: fit-content;
+  width: 40%;
+}
+.notFoud_homeBtn {
+  margin-top: 2rem;
+  font-size: 1.8rem;
+}
+.notFoud_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 2rem;
+  width: 80%;
+  margin: 3rem auto;
+}
 
 #main_profile {
   display: flex;
@@ -199,6 +222,7 @@ label {
   width: 80%;
   margin: auto;
 }
+#main_404,
 #grants_list,
 #users_list,
 #homeWeb_mainContent,
@@ -212,6 +236,13 @@ label {
   padding: 2rem;
   width: 80%;
   margin: 3rem auto;
+}
+#main_404 {
+  min-width: 30rem;
+}
+#main_404>img {
+  width: 100%;
+  max-width: 40rem;
 }
 #homeWeb_btns {
   display: flex;
