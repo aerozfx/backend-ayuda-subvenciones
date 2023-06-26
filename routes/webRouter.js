@@ -15,7 +15,8 @@ webRouter.get("/profile", webController.profilePageController);
 
 // Admin -> Necesitamos middleware que compruebe el rol
 webRouter.get("/users", webController.usersListController);
-webRouter.get("/dashboard", webController.dashboardController)
+webRouter.get("/dashboard", webController.dashboardController);
+webRouter.post("/dashboard", webController.createGrant);
 webRouter.get("/logout", (req, res) => res.send("has salido"));
 
 module.exports = webRouter;

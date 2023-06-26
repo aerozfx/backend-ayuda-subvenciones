@@ -1,4 +1,4 @@
-const grant = require("../models/grants");
+const Grant = require("../models/grants");
 const favorites = require("../models/favorites");
 const user = require("../models/users");
 
@@ -10,7 +10,7 @@ const homePageController = async (req, res) => {
       const searchParam = req.query.search;
 
       if (searchParam) {
-        const grants = await grant.find({});
+        const grants = await Grant.find({});
         const searchTerms = searchParam.toUpperCase().split(" ");
         let matchingGrants = grants.filter((data) => {
           const match = searchTerms.some(
@@ -69,7 +69,7 @@ const usersListController = async (req, res) => {
 
 const grantsListController = async (req, res) => {
   try {
-    const grants = await grant.find({});
+    const grants = await Grant.find({});
     if (grants) {
       res.render("grants", {
         page_title: "subvenciones",
@@ -112,6 +112,27 @@ const dashboardController = (req, res) => {
   }
 };
 
+const createGrant = (req, res) => {
+  try {
+    let grant = new Grant({
+      id: Number(req.body.id),
+      mrr: req.body.mrr,
+      admin: req.body.admin,
+      dep: req.body.dep,
+      date: req.body.date,
+      title: req.body.title,
+      title_co: req.body.title_co,
+      assignedTo: '', //esta misma linea estaba en el scrapper
+      link: req.body.link
+    });
+    grant.save()
+    res.status(201).redirect('/dashboard');
+  } catch (error) {
+    throw new error
+  }
+
+}
+
 const logoutPageController = (req, res) => { };
 module.exports = {
   homePageController,
@@ -121,5 +142,6 @@ module.exports = {
   profilePageController,
   usersListController,
   grantsListController,
-  dashboardController
+  dashboardController,
+  createGrant
 };

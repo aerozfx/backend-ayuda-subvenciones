@@ -9,33 +9,17 @@ const webRouter = require("./routes/webRouter");
 const apiRouter = require("./routes/apiRouter");
 const handler404 = require("./middlewares/404handler");
 const bodyParser = require('body-parser');
-const Counter = require('./models/counter');
+
 
 const PORT = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-app.post('/dashboard', async (req, res) => {
+/* app.post('/dashboard', async (req, res) => {
 
-  try {
-    let grant = new Grant({
-      id: Number(req.body.id),
-      mrr: req.body.mrr,
-      admin: req.body.admin,
-      dep: req.body.dep,
-      date: req.body.date,
-      title: req.body.title,
-      title_co: req.body.title_co,
-      assignedTo: '', //esta misma linea estaba en el scrapper
-      link: req.body.link
-    });
-    grant.save()
-    res.status(201).redirect('/dashboard');
-  } catch (error) {
-    throw new error
-  }
-})
+
+}) */
 
 
 const getDocumentsAmount = async () => {
