@@ -14,6 +14,9 @@ const addFavorite = async (data) => {
   } catch (error) {
     throw error;
   }
+  finally {
+    client.release();
+  }
   return result;
 };
 

@@ -15,9 +15,8 @@ const inputTitleCo = document.querySelector("#title-co");
 const inputLink = document.querySelector("#link");
 const grantForm = document.querySelector("#grantForm")
 
-console.log(showGrantFromBtn);
-showGrantFromBtn.addEventListener("click", () => sectionGrantForm.classList.toggle('hidden'));
-showUserFromBtn.addEventListener("click", () => userForm.classList.toggle('hidden'));
+showGrantFromBtn?.addEventListener("click", () => sectionGrantForm.classList.toggle('hidden'));
+showUserFromBtn?.addEventListener("click", () => userForm.classList.toggle('hidden'));
 
 function selectElement(selector) {
   return document.querySelector(selector);
@@ -35,5 +34,15 @@ const profileFormToggleBtn = selectElement("#profileForm_toggleBtn");
 const profileFormSection = selectElement("#profileForm_section");
 setEventListener(profileFormToggleBtn, "click", () => profileFormSection.classList.toggle("hidden"));
 
+async function postFavorite(grantId) {
+  await fetch(`http://localhost:3000/api/favorites`, {
+    method: "POST",
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ id: grantId })
+  })
+}
 
-
+selectElements('.addFavorites').forEach(grantCard => grantCard.addEventListener('click', () => postFavorite(grantCard.getAttribute('id'))));
