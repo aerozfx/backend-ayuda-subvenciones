@@ -20,7 +20,7 @@ const getAllGrants = async (req, res) => {
   }
 };
 
-/* const deleteOneGrant = async (req, res) => {
+const deleteOneGrant = async (req, res) => {
   try {
     const deleteGrant = await Grant.deleteOne({ id: { $in: [req.params.id] } });
     res.status(200).json(deleteGrant);
@@ -30,7 +30,7 @@ const getAllGrants = async (req, res) => {
       msj: `ERROR: ${error}`,
     });
   }
-}; */
+};
 
 const updateOneGrant = async (req, res) => {
   const updatedGrant = req.body;
@@ -46,8 +46,29 @@ const updateOneGrant = async (req, res) => {
   }
 };
 
+const createGrant = (req, res) => {
+  try {
+    let grant = new Grant({
+      id: Number(req.body.id),
+      mrr: req.body.mrr,
+      admin: req.body.admin,
+      dep: req.body.dep,
+      date: req.body.date,
+      title: req.body.title,
+      title_co: req.body.title_co,
+      assignedTo: '',
+      link: req.body.link
+    });
+    grant.save()
+    res.status(201).redirect('/dashboard');
+  } catch (error) {
+    throw new error
+  }
+}
+
 module.exports = {
   getAllGrants,
-  //deleteOneGrant,
+  deleteOneGrant,
   updateOneGrant,
+  createGrant
 };

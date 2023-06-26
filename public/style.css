@@ -80,11 +80,13 @@ a.btn {
   min-width: fit-content;
   width: 100%;
 }
+
 a.btn_small {
   min-width: fit-content;
   width: 30%;
   max-width: 20rem;
 }
+
 a.homeAdmin_btns {
   font-size: 2.4rem;
 }
@@ -92,22 +94,27 @@ a.homeAdmin_btns {
 .signUp_btn {
   background-color: #F2B66E;
 }
+
 .outline_btn,
 .logIn_btn {
   border: solid 0.1rem var(--border-gray);
 }
+
 .outlineColor_btn {
   background-color: #fafafa;
   border: solid 0.2rem #95e1aa;
 }
+
 .btn {
   padding: 0.8rem 1rem;
   border-radius: var(--radius08);
   font-size: 1.6rem;
 }
+
 .fill_btn {
   background-color: #F2B66E;
 }
+
 .nav_btn {
   text-decoration: none;
   font-size: 1.7rem;
@@ -255,12 +262,13 @@ a.homeAdmin_btns {
 }
 
 
-#main_profile {
+/* #main_profile {} */
 
 .notFoud_homeBtn {
   margin-top: 2rem;
   font-size: 1.8rem;
 }
+
 .notFoud_content {
   display: flex;
   flex-direction: column;
@@ -270,15 +278,18 @@ a.homeAdmin_btns {
   width: 80%;
   margin: 3rem auto;
 }
+
 .header_logo {
   width: 6.4rem;
 }
+
 .optional_btns {
   width: 60%;
   max-width: 20rem;
   margin-top: 3rem;
   gap: 1.4rem;
 }
+
 .flexColCenter {
 
   display: flex;
@@ -286,13 +297,16 @@ a.homeAdmin_btns {
   justify-content: center;
   align-items: center;
 }
+
 .flexCol {
   display: flex;
   flex-direction: column;
 }
+
 .main {
   width: 80%;
 }
+
 .homeAdmin_btns {
   min-height: 10rem;
   height: 20rem;
@@ -304,6 +318,7 @@ a.homeAdmin_btns {
   font-size: 2.4rem;
   border: solid 0.1rem var(--border-gray);
 }
+
 .hidden {
   display: none;
 }
@@ -322,7 +337,7 @@ a.homeAdmin_btns {
 
 #homeAdmin_main {
   gap: 4rem;
-  }
+}
 
 #header {
   display: flex;
@@ -403,9 +418,11 @@ a.homeAdmin_btns {
   min-width: 30rem;
   color: #5C5C5C;
 }
+
 #main_404 {
   min-width: 30rem;
 }
+
 #main_404>img {
   width: 100%;
   max-width: 40rem;
@@ -437,9 +454,11 @@ a.homeAdmin_btns {
   margin-top: 2rem;
   border: solid 0.2rem #9a9696;
 }
+
 #homeAdmin_usersBtn {
   background-color: #faf8d6;
 }
+
 #homeAdmin_grantsBtn {
   background-color: #ffefdb;
 }
@@ -451,7 +470,7 @@ a.homeAdmin_btns {
   max-width: 60rem;
 }
 
-#profileData_section > p {
+#profileData_section>p {
   font-size: 1.8rem;
 }
 

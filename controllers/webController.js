@@ -7,12 +7,12 @@ let authorised;
 let userType;
 let userEmail;
 
-// function setSessionValues(credential, user, email) {
-//   authorised = credential;
-//   userType = user;
-//   userEmail = email;
-// }
-// setSessionValues(true, "user", "aeroadsad@gmail.com");
+function setSessionValues(credential, user, email) {
+  authorised = credential;
+  userType = user;
+  userEmail = email;
+}
+//setSessionValues(true, "admin", "aeroadsad@gmail.com");
 
 const homePageController = async (req, res) => {
   let token = req.cookies["access-token"];
@@ -32,12 +32,12 @@ const homePageController = async (req, res) => {
         };
         const searchParam = req.query.search;
         if (
-          searchParam 
-          && searchParam.trim() !== "" 
-          && !paramRegex.test(searchParam) 
+          searchParam
+          && searchParam.trim() !== ""
+          && !paramRegex.test(searchParam)
           && typeof searchParam === "string"
         ) {
-          const grants = await grant.find({});
+          const grants = await Grant.find({});
           const searchTerms = searchParam.toUpperCase().split(" ");
           let matchingGrants = grants.filter((data) => {
             const match = searchTerms.some(
@@ -149,7 +149,7 @@ const grantsListController = async (req, res) => {
   try {
 
     let links = { "/": "inicio", "/users": "usuarios", "/logout": "salir" };
-    const grants = await grant.find({});
+    const grants = await Grant.find({});
 
     if (grants) {
       res.render("grants", {
@@ -194,49 +194,16 @@ const dashboardController = (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error });
   }
-}; 
+};
 
- const logoutPageController = (req, res) => {
+const logoutPageController = (req, res) => {
   try {
     res.status(200).render("homeWeb");
 
   } catch (error) {
     res.status(400).json({ message: error });
   }
-}; 
-
-const createGrant = (req, res) => {
-  try {
-    let grant = new Grant({
-      id: Number(req.body.id),
-      mrr: req.body.mrr,
-      admin: req.body.admin,
-      dep: req.body.dep,
-      date: req.body.date,
-      title: req.body.title,
-      title_co: req.body.title_co,
-      assignedTo: '', //esta misma linea estaba en el scrapper
-      link: req.body.link
-    });
-    grant.save()
-    res.status(201).redirect('/dashboard');
-  } catch (error) {
-    throw new error
-  }
-}
-
-const deleteGrant = async (req, res) => {
-  /*  try {
-     const deleteGrant = await Grant.deleteOne({ id: { $in: [req.params.id] } });
-     res.status(200).json(deleteGrant);
-   } catch (error) {
-     console.log(`ERROR: ${error.stack}`);
-     res.status(400).json({
-       msj: `ERROR: ${error}`,
-     });
-   } */
-}
-
+};
 
 
 module.exports = {
@@ -247,8 +214,6 @@ module.exports = {
   usersListController,
   grantsListController,
   dashboardController,
-  createGrant,
-  deleteGrant,
   loginPageController,
   logoutPageController
 };

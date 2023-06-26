@@ -6,8 +6,6 @@ const helmet = require("helmet");
 const session = require("express-session");
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
-const scrapper = require("./utils/scrapper");
-const Grant = require("./models/grants");
 const webRouter = require("./routes/webRouter");
 const apiRouter = require("./routes/apiRouter");
 const handler404 = require("./middlewares/404handler");
@@ -15,9 +13,7 @@ const bodyParser = require('body-parser');
 
 const PORT = 3000;
 
-
 app.use(bodyParser.urlencoded({ extended: false }));
-
 
 // const getDocumentsAmount = async () => {
 //   let result = await Grant.countDocuments({ id: { $gt: 0 } });
@@ -28,7 +24,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //     scrapper();
 //   }
 // });
-
 
 app.set("view engine", "pug");
 app.set("views", "./views");
