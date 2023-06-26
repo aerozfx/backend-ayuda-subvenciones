@@ -19,6 +19,8 @@ const homePageController = async (req, res) => {
   try {
     if (req.user || token) {
       let userData = jwt.verify(token, "secret_key");
+      const paramRegex = /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
+      let links = { "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir" };
       console.log(userData);
       let role = userData.role || "user";
       if (role === "user") {
@@ -28,7 +30,12 @@ const homePageController = async (req, res) => {
           "/logout": "salir",
         };
         const searchParam = req.query.search;
-        if (searchParam) {
+        if (
+          searchParam 
+          && searchParam.trim() !== "" 
+          && !paramRegex.test(searchParam) 
+          && typeof searchParam === "string"
+        ) {
           const grants = await grant.find({});
           const searchTerms = searchParam.toUpperCase().split(" ");
           let matchingGrants = grants.filter((data) => {
