@@ -1,66 +1,144 @@
 const Grant = require("../models/grants");
 const favorites = require("../models/favorites");
 const user = require("../models/users");
+const jwt = require("jsonwebtoken");
 
-const authorised = true;
+let authorised;
+let userType;
+let userEmail;
+
+// function setSessionValues(credential, user, email) {
+//   authorised = credential;
+//   userType = user;
+//   userEmail = email;
+// }
+// setSessionValues(true, "user", "aeroadsad@gmail.com");
 
 const homePageController = async (req, res) => {
+  let token = req.cookies["access-token"];
   try {
-    if (authorised) {
-      const searchParam = req.query.search;
 
-      if (searchParam) {
-        const grants = await Grant.find({});
-        const searchTerms = searchParam.toUpperCase().split(" ");
-        let matchingGrants = grants.filter((data) => {
-          const match = searchTerms.some(
-            (searchTerm) => data.title.toUpperCase().indexOf(searchTerm) !== -1
-          );
-          return match;
-        });
-        res.render("home", {
+    if (req.user || token) {
+      let userData = jwt.verify(token, "secret_key");
+      const paramRegex = /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
+      let links = { "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir" };
+      console.log(userData);
+      let role = userData.role || "user";
+      if (role === "user") {
+        let links = {
+          "/profile": "perfil",
+          "/favorites": "favoritos",
+          "/logout": "salir",
+        };
+        const searchParam = req.query.search;
+        if (
+          searchParam 
+          && searchParam.trim() !== "" 
+          && !paramRegex.test(searchParam) 
+          && typeof searchParam === "string"
+        ) {
+          const grants = await grant.find({});
+          const searchTerms = searchParam.toUpperCase().split(" ");
+          let matchingGrants = grants.filter((data) => {
+            const match = searchTerms.some(
+              (searchTerm) =>
+                data.title?.toUpperCase().indexOf(searchTerm) !== -1
+            );
+            return match;
+          });
+          res.render("home", {
+            page_title: "home",
+            navBar_links: links,
+            scrapingData: matchingGrants,
+          });
+        } else {
+          res.render("home", {
+            page_title: "home",
+            navBar_links: links,
+          });
+        }
+      } else if (role === "admin") {
+        let links = {
+          "/users": "usuarios",
+          "/grants": "subvenciones",
+          "/logout": "salir",
+        };
+        res.render("homeAdmin", {
+
           page_title: "home",
-          authorised,
-          scrapingData: matchingGrants,
+          navBar_links: links,
         });
-      } else {
-        res.render("home", { page_title: "home", authorised });
       }
     } else {
-      res.render("homeWeb", { page_title: "F.A.M Pyme", authorised });
+      res.render("homeWeb", { page_title: "F.A.M Pyme" });
     }
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
   }
 };
-
 const favoritesPageController = async (req, res) => {
   try {
-    let favoritesResult = await favorites.getFavorites();
-    if (favoritesResult) {
+    let token = req.cookies["access-token"];
+    let userData = jwt.verify(token, "secret_key");
+    let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };
+    let favoritesResult = await favorites.getFavoritesByUserId(
+      userData.user_id
+    );
+    if (favoritesResult.length > 0) {
       res.render("favorites", {
         page_title: "favoritos",
+        navBar_links: links,
         favorites: favoritesResult,
       });
+    } else {
+      res.send("no hay favoritos");
     }
-  } catch (error) { }
+
+  } catch (error) {
+    res.status(400).json({ msj: `ERROR ${error}` });
+  }
+
 };
 
-const profilePageController = (req, res) =>
-  res.render("profile", { page_title: "perfil" });
-//Por hacer post-logout
+const profilePageController = async (req, res) => {
+  try {
+    let links = {
+      "/": "inicio",
+      "/favorites": "favoritos",
+      "/logout": "salir",
+    };
+    let currentUser = await user.getUserByEmail(userEmail);
+    res.render("profile", {
+      page_title: "perfil",
+      navBar_links: links,
+      current_user: currentUser,
+    });
+  } catch (error) {
+    res.status(400).json({ msj: `ERROR ${error}` });
+  }
+};
 
 const usersListController = async (req, res) => {
   try {
+    let links = {
+      "/": "inicio",
+      "/grants": "subvenciones",
+      "/logout": "salir",
+    };
     let users = await user.getUsers();
     if (users) {
       res.render("users", {
         page_title: "users",
+        navBar_links: links,
         usersAmount: users.length,
         users,
       });
     } else {
-      res.render("users", { page_title: "users", usersAmount: users.length });
+      res.render("users", {
+        page_title: "users",
+        navBar_links: links,
+        usersAmount: users.length,
+      });
     }
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
@@ -69,16 +147,21 @@ const usersListController = async (req, res) => {
 
 const grantsListController = async (req, res) => {
   try {
-    const grants = await Grant.find({});
+
+    let links = { "/": "inicio", "/users": "usuarios", "/logout": "salir" };
+    const grants = await grant.find({});
+
     if (grants) {
       res.render("grants", {
         page_title: "subvenciones",
+        navBar_links: links,
         grantsAmount: grants.length,
         grants,
       });
     } else {
       res.render("grants", {
         page_title: "subvenciones",
+        navBar_links: links,
         grantsAmount: grants.length,
       });
     }
@@ -103,6 +186,7 @@ const loginPageController = (req, res) => {
   }
 };
 
+
 const dashboardController = (req, res) => {
   try {
     res.status(200).render("dashboard", { page_title: "dashboard" });
@@ -110,7 +194,16 @@ const dashboardController = (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error });
   }
-};
+}; 
+
+ const logoutPageController = (req, res) => {
+  try {
+    res.status(200).render("homeWeb");
+
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+}; 
 
 const createGrant = (req, res) => {
   try {
@@ -144,16 +237,18 @@ const deleteGrant = async (req, res) => {
    } */
 }
 
-const logoutPageController = (req, res) => { };
+
+
 module.exports = {
-  homePageController,
-  loginPageController,
   signupPageController,
-  favoritesPageController,
+  homePageController,
   profilePageController,
+  favoritesPageController,
   usersListController,
   grantsListController,
   dashboardController,
   createGrant,
-  deleteGrant
+  deleteGrant,
+  loginPageController,
+  logoutPageController
 };

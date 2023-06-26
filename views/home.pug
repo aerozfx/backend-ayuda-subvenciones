@@ -4,10 +4,10 @@ html(lang="es")
   body 
     include ./header.pug
     main
-      form#section_search(action="/", method="get") 
+      form#section_search.flexColCenter(action="/", method="get") 
         label(for='search')
         input#search(type='text', placeholder='search' name='search')
-        button.searchBtn.btn(type="submit") Buscar
+        button.searchBtn.fill_btn.btn(type="submit") Buscar
       section#searchResults
         -var authorised = false; //conditional para mostrar o esconder botón de favoritos
         if scrapingData

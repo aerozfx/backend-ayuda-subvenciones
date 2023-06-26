@@ -11,6 +11,7 @@
   --radius08: 0.8rem;
   --radius04: 0.4rem;
   --regular-text: 1.4rem;
+  --border-gray: #9fa0a0;
 }
 
 html {
@@ -38,6 +39,7 @@ input {
   padding: 0.8rem;
   font-size: 1.6rem;
   border-radius: var(--radius04);
+  border: solid 0.1rem #b2b2b2;
 }
 
 h1 {
@@ -46,6 +48,10 @@ h1 {
 
 h2 {
   font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.6rem;
 }
 
 p {
@@ -63,23 +69,69 @@ label {
   font-size: 1.6rem;
 }
 
+
+a.btn {
+  text-decoration: none;
+  padding: 1rem 3rem;
+  font-size: 1.6rem;
+  text-align: center;
+  color: #262626;
+  border-radius: var(--radius04);
+  min-width: fit-content;
+  width: 100%;
+}
+a.btn_small {
+  min-width: fit-content;
+  width: 30%;
+  max-width: 20rem;
+}
+a.homeAdmin_btns {
+  font-size: 2.4rem;
+}
+
+.signUp_btn {
+  background-color: #F2B66E;
+}
+.outline_btn,
+.logIn_btn {
+  border: solid 0.1rem var(--border-gray);
+}
+.outlineColor_btn {
+  background-color: #fafafa;
+  border: solid 0.2rem #95e1aa;
+}
 .btn {
   padding: 0.8rem 1rem;
   border-radius: var(--radius08);
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+}
+.fill_btn {
+  background-color: #F2B66E;
+}
+.nav_btn {
+  text-decoration: none;
+  font-size: 1.7rem;
+  color: #5C5C5C;
+  border-bottom: 0.1rem solid #F2B66E;
+  list-style: none;
+  padding: 0.8rem 1rem;
+  min-width: fit-content;
+  width: 6rem;
 }
 
 .searchBtn {
-  margin-top: 0.8rem;
   width: 60%;
+
   font-size: 1.4rem;
   color: #106fdf;
 }
 
+
+
 .card {
   display: grid;
   grid-template-rows: 1fr;
-  border: solid 0.1rem #9fa0a0;
+  border: solid 0.1rem var(--border-gray);
   border-radius: var(--radius08);
   padding: 1.4rem 2rem;
   gap: 0.8rem;
@@ -118,7 +170,7 @@ label {
 .grantCard {
   display: flex;
   flex-direction: column;
-  border: solid 0.1rem #9fa0a0;
+  border: solid 0.1rem var(--border-gray);
   border-radius: var(--radius08);
   padding: 1.4rem 2rem;
   gap: 0.8rem;
@@ -128,7 +180,7 @@ label {
 .user_card {
   display: flex;
   flex-direction: column;
-  border: solid 0.1rem #9fa0a0;
+  border: solid 0.1rem var(--border-gray);
   border-radius: var(--radius08);
   padding: 1.4rem 2rem;
   gap: 0.8rem;
@@ -188,6 +240,7 @@ label {
   width: 40%;
 }
 
+
 .notFoud_content {
   display: flex;
   flex-direction: column;
@@ -203,19 +256,80 @@ label {
 
 
 #main_profile {
+
+.notFoud_homeBtn {
+  margin-top: 2rem;
+  font-size: 1.8rem;
+}
+.notFoud_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 2rem;
+  width: 80%;
+  margin: 3rem auto;
+}
+.header_logo {
+  width: 6.4rem;
+}
+.optional_btns {
+  width: 60%;
+  max-width: 20rem;
+  margin-top: 3rem;
+  gap: 1.4rem;
+}
+.flexColCenter {
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.2rem;
+}
+.flexCol {
+  display: flex;
+  flex-direction: column;
+}
+.main {
+  width: 80%;
+}
+.homeAdmin_btns {
+  min-height: 10rem;
+  height: 20rem;
+  max-height: 30rem;
+  min-width: 25rem;
+  width: 100%;
+  max-width: 40rem;
+  border-radius: var(--radius08);
+  font-size: 2.4rem;
+  border: solid 0.1rem var(--border-gray);
+}
+.hidden {
+  display: none;
+}
+
+
+/* .homeAdmin_section {
+  margin: auto;
+} */
+
+
+#main_profile,
+#main_login {
+  gap: 4rem;
   height: 100%;
 }
+
+#homeAdmin_main {
+  gap: 4rem;
+  }
 
 #header {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1.6rem 2.4rem;
+  min-width: 30rem;
   width: 100%;
 }
 
@@ -223,6 +337,7 @@ label {
   height: 6.4rem;
   width: 6.4rem;
   border-radius: 50%;
+  margin-right: 3rem;
 }
 
 #navBar {
@@ -244,6 +359,7 @@ label {
 
 #navBar>li {
   list-style: none;
+
   padding: 0.8rem 1rem;
 }
 
@@ -251,16 +367,15 @@ label {
   text-decoration: none;
   font-size: 1.7rem;
   color: #262626;
+
 }
 
 #section_search {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 80%;
   margin: auto;
+  gap: 2rem;
 }
+
 
 #main_404,
 #main_dashboard,
@@ -283,6 +398,19 @@ label {
   width: 60%;
 }
 
+#homeWeb_mainContent {
+  max-width: 60rem;
+  min-width: 30rem;
+  color: #5C5C5C;
+}
+#main_404 {
+  min-width: 30rem;
+}
+#main_404>img {
+  width: 100%;
+  max-width: 40rem;
+}
+
 #homeWeb_btns {
   display: flex;
   flex-direction: column;
@@ -290,6 +418,11 @@ label {
   max-width: 30rem;
   margin: auto;
   gap: 1.4rem;
+}
+
+#getIn_btn {
+  background-color: transparent;
+  border: none;
 }
 
 #container_favorites {
@@ -301,9 +434,27 @@ label {
 }
 
 #submit_btn {
-  background-color: rgb(108, 203, 103);
-  margin-top: 1.4rem;
+  margin-top: 2rem;
+  border: solid 0.2rem #9a9696;
 }
+#homeAdmin_usersBtn {
+  background-color: #faf8d6;
+}
+#homeAdmin_grantsBtn {
+  background-color: #ffefdb;
+}
+
+#profileData_section {
+  gap: 1.6rem;
+  min-width: 25rem;
+  width: 80%;
+  max-width: 60rem;
+}
+
+#profileData_section > p {
+  font-size: 1.8rem;
+}
+
 
 /* 
 @media (min-width: 768px) {

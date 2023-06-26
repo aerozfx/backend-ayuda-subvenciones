@@ -3,7 +3,7 @@ const apiRouter = express.Router();
 const users = require("../controllers/usersApiController");
 const favorites = require("../controllers/favoritesApiController");
 const grants = require("../controllers/grantsApiControllers");
-const { checkUser } = require("../middlewares/checkUser");
+const { checkUser } = require("../middlewares/loginHandler");
 
 // USER
 // Obtiene todos los usuarios si no se pasa email, o uno si se pasa un email válido

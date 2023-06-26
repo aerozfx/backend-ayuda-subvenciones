@@ -2,20 +2,19 @@ html(lang="es")
   include ./head.pug
   body 
     header#header_web 
-      button#logInBtn.btn(type="button") Entrar
-      button#signUpBtn.btn(type="Registrarse") Registrarse
+      a.logIn_btn.btn.btn_small(href="/login" role="button") Entrar
+      a.signUp_btn.btn.btn_small(href="/signup" role="button") Registrarse
     main
       section#homeWeb_mainContent
         h1.card_title F.A.M Pyme
         P Es un buscador de subvenciones, ayudas y becas dirigido a emprendedores con pequeñas y medianas empresas relacionadas al mundo digital y tecnológico, su objetivo principal es poner al alcance de un click las ayudas que los emprendedores requieren
         h2.card_subtitle Ayudas
-        P Es un buscador de subvenciones, ayudas y becas dirigido a emprendedores con pequeñas y medianas empresas relacionadas al mundo digital y tecnológico, su objetivo principal es poner al alcance de un click las ayudas que los emprendedores requieren
+        P Se otorgan a empresas que realicen proyectos de investigación y desarrollo tecnológico, para gastos relacionados con la investigación, la contratación de personal cualificado, la adquisición de equipamiento o la protección de la propiedad intelectual.
         h2.card_subtitle Subvenciones
-        P Es un buscador de subvenciones, ayudas y becas dirigido a emprendedores con pequeñas y medianas empresas relacionadas al mundo digital y tecnológico, su objetivo principal es poner al alcance de un click las ayudas que los emprendedores requieren
-        h2.card_subtitle Becas
-        P Es un buscador de subvenciones, ayudas y becas dirigido a emprendedores con pequeñas y medianas empresas relacionadas al mundo digital y tecnológico, su objetivo principal es poner al alcance de un click las ayudas que los emprendedores requieren
+        P Destinadas a fomentar la creación y el desarrollo de empresas, para la puesta en marcha de nuevos negocios, expansión de empresas existentes, creación de empleo, inversión en investigación y desarrollo, entre otros.
       section#homeWeb_btns 
-        button#signUp_btn.btn(type="button") Registrarse
-        button#logIn_btn.btn(type="button") Entrar
+        a.signUp_btn.btn(href="/signup" role="button") Registrarse
+        a.logIn_btn.btn(href="/login" role="button") Entrar
+        button#getIn_btn.btn(type="button") Entrar sin registrarse
     script(src="script.js")
      

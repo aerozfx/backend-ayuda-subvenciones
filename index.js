@@ -3,6 +3,9 @@ const express = require("express");
 require("./utils/db-mongo"); // Conexión a BBDD MongoDB
 const app = express();
 const helmet = require("helmet");
+const session = require("express-session");
+const passport = require("passport");
+const cookieParser = require("cookie-parser");
 const scrapper = require("./utils/scrapper");
 const Grant = require("./models/grants");
 const webRouter = require("./routes/webRouter");
@@ -12,17 +15,20 @@ const bodyParser = require('body-parser');
 
 const PORT = 3000;
 
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const getDocumentsAmount = async () => {
-  let result = await Grant.countDocuments({ id: { $gt: 0 } });
-  return result;
-};
-getDocumentsAmount().then((data) => {
-  if (!data === 0) {
-    scrapper();
-  };
-});
+
+// const getDocumentsAmount = async () => {
+//   let result = await Grant.countDocuments({ id: { $gt: 0 } });
+//   return result;
+// };
+// getDocumentsAmount().then((data) => {
+//   if (data < 50) {
+//     scrapper();
+//   }
+// });
+
 
 app.set("view engine", "pug");
 app.set("views", "./views");
@@ -31,6 +37,10 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
+app.use(cookieParser());
+app.use(session({ secret: "SECRET" }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Punto de entrada a la aplicación
 app.use("/", webRouter);

@@ -42,10 +42,23 @@ const getFavorites = async () => {
   }
   return result;
 };
-
+const getFavoritesByUserId = async (id) => {
+  let client, result;
+  try {
+    client = await pool.connect();
+    let data = await client.query(db_favorites_queries.getFavoritesById, [id]);
+    result = data.rows;
+  } catch (error) {
+    throw error;
+  } finally {
+    client.release();
+  }
+  return result;
+};
 const favorites = {
   addFavorite,
   removeFavorite,
   getFavorites,
+  getFavoritesByUserId,
 };
 module.exports = favorites;

@@ -9,6 +9,10 @@ const db_favorites_queries = {
   getAllFavorites: `
     SELECT *
     FROM favorites`,
+  getFavoritesById: `
+    SELECT *
+    FROM favorites
+    WHERE user_id=$1`,
 };
 
 module.exports = db_favorites_queries;
