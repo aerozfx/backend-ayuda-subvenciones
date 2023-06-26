@@ -130,11 +130,18 @@ const createGrant = (req, res) => {
   } catch (error) {
     throw new error
   }
-
 }
 
-const deleteGrant = (req, res) => {
-
+const deleteGrant = async (req, res) => {
+  /*  try {
+     const deleteGrant = await Grant.deleteOne({ id: { $in: [req.params.id] } });
+     res.status(200).json(deleteGrant);
+   } catch (error) {
+     console.log(`ERROR: ${error.stack}`);
+     res.status(400).json({
+       msj: `ERROR: ${error}`,
+     });
+   } */
 }
 
 const logoutPageController = (req, res) => { };

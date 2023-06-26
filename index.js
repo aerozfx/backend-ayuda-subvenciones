@@ -10,7 +10,6 @@ const apiRouter = require("./routes/apiRouter");
 const handler404 = require("./middlewares/404handler");
 const bodyParser = require('body-parser');
 
-
 const PORT = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
