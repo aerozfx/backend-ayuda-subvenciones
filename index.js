@@ -15,13 +15,6 @@ const PORT = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
-/* app.post('/dashboard', async (req, res) => {
-
-
-}) */
-
-
 const getDocumentsAmount = async () => {
   let result = await Grant.countDocuments({ id: { $gt: 0 } });
   return result;
@@ -45,7 +38,6 @@ app.use("/", webRouter);
 // Endpoints con /api/...
 app.use("/api", apiRouter);
 app.use(handler404);
-
 
 app.listen(PORT, () => {
   console.log(`Servidor funcionando en el puerto ${PORT}`);

@@ -133,6 +133,10 @@ const createGrant = (req, res) => {
 
 }
 
+const deleteGrant = (req, res) => {
+
+}
+
 const logoutPageController = (req, res) => { };
 module.exports = {
   homePageController,
@@ -143,5 +147,6 @@ module.exports = {
   usersListController,
   grantsListController,
   dashboardController,
-  createGrant
+  createGrant,
+  deleteGrant
 };

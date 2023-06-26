@@ -17,6 +17,7 @@ webRouter.get("/profile", webController.profilePageController);
 webRouter.get("/users", webController.usersListController);
 webRouter.get("/dashboard", webController.dashboardController);
 webRouter.post("/dashboard", webController.createGrant);
+webRouter.delete("/dashboard", webController.deleteGrant)
 webRouter.get("/logout", (req, res) => res.send("has salido"));
 
 module.exports = webRouter;
