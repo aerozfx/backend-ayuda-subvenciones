@@ -34,25 +34,23 @@ const checkCookie = (req, res, next) => {
   try {
     let token = jwt.verify(req.cookies["access-token"], "secret_key");
     console.log("has accedido con token " + token);
-    if (token) next();
-  } catch (error) {
-    res.send("no hay cookie");
-  }
-};
-const auth = (req, res, next) => {
-  let token = req.cookies["access-token"];
-  console.log(token);
-  if (!token) {
-    return res.send("no hay token");
-  }
-  try {
-    const data = jwt.verify(token, "secret_key");
-    req.userId = data.id;
-    req.userRole = data.role;
-    return next();
-  } catch {
-    return res.sendStatus(403);
-  }
+    if (token) {
+      next();
+    } else {
+      res.redirect("/");
+    }
+  } catch (error) {}
 };
 
-module.exports = { checkUser, auth, checkCookie };
+const checkRole = (req, res, next) => {
+  try {
+    let token = jwt.verify(req.cookies["access-token"], "secret_key");
+    if (token.role === "admin") {
+      next();
+    } else {
+      res.redirect("/");
+    }
+  } catch (error) {}
+};
+
+module.exports = { checkUser, checkRole, checkCookie };

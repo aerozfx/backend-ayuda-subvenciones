@@ -58,7 +58,12 @@ webRouter.get("/profile", webController.profilePageController);
 // Admin -> Necesitamos middleware que compruebe el rol
 webRouter.get("/users", webController.usersListController);
 
-webRouter.get("/dashboard", webController.dashboardController);
+webRouter.get(
+  "/dashboard",
+  loginHandler.checkCookie,
+  loginHandler.checkRole,
+  webController.dashboardController
+);
 webRouter.post("/dashboard", webController.createGrant);
 webRouter.delete("/dashboard/:id", webController.deleteGrant);
 webRouter.get("/logout", (req, res) => res.send("has salido"));
@@ -66,6 +71,5 @@ webRouter.get("/logout", (req, res) => res.send("has salido"));
 webRouter.get("/grants", webController.grantsListController);
 
 webRouter.get("/logout", webController.logoutPageController);
-
 
 module.exports = webRouter;

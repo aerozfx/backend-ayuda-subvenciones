@@ -17,11 +17,10 @@ let userEmail;
 const homePageController = async (req, res) => {
   let token = req.cookies["access-token"];
   try {
-
     if (req.user || token) {
       let userData = jwt.verify(token, "secret_key");
-      const paramRegex = /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
-      let links = { "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir" };
+      const paramRegex =
+        /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
       console.log(userData);
       let role = userData.role || "user";
       if (role === "user") {
@@ -32,12 +31,12 @@ const homePageController = async (req, res) => {
         };
         const searchParam = req.query.search;
         if (
-          searchParam 
-          && searchParam.trim() !== "" 
-          && !paramRegex.test(searchParam) 
-          && typeof searchParam === "string"
+          searchParam &&
+          searchParam.trim() !== "" &&
+          !paramRegex.test(searchParam) &&
+          typeof searchParam === "string"
         ) {
-          const grants = await grant.find({});
+          const grants = await Grant.find({});
           const searchTerms = searchParam.toUpperCase().split(" ");
           let matchingGrants = grants.filter((data) => {
             const match = searchTerms.some(
@@ -64,7 +63,6 @@ const homePageController = async (req, res) => {
           "/logout": "salir",
         };
         res.render("homeAdmin", {
-
           page_title: "home",
           navBar_links: links,
         });
@@ -93,11 +91,9 @@ const favoritesPageController = async (req, res) => {
     } else {
       res.send("no hay favoritos");
     }
-
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
   }
-
 };
 
 const profilePageController = async (req, res) => {
@@ -147,9 +143,8 @@ const usersListController = async (req, res) => {
 
 const grantsListController = async (req, res) => {
   try {
-
     let links = { "/": "inicio", "/users": "usuarios", "/logout": "salir" };
-    const grants = await grant.find({});
+    const grants = await Grant.find({});
 
     if (grants) {
       res.render("grants", {
@@ -186,7 +181,6 @@ const loginPageController = (req, res) => {
   }
 };
 
-
 const dashboardController = (req, res) => {
   try {
     res.status(200).render("dashboard", { page_title: "dashboard" });
@@ -194,16 +188,15 @@ const dashboardController = (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error });
   }
-}; 
+};
 
- const logoutPageController = (req, res) => {
+const logoutPageController = (req, res) => {
   try {
     res.status(200).render("homeWeb");
-
   } catch (error) {
     res.status(400).json({ message: error });
   }
-}; 
+};
 
 const createGrant = (req, res) => {
   try {
@@ -215,15 +208,15 @@ const createGrant = (req, res) => {
       date: req.body.date,
       title: req.body.title,
       title_co: req.body.title_co,
-      assignedTo: '', //esta misma linea estaba en el scrapper
-      link: req.body.link
+      assignedTo: "", //esta misma linea estaba en el scrapper
+      link: req.body.link,
     });
-    grant.save()
-    res.status(201).redirect('/dashboard');
+    grant.save();
+    res.status(201).redirect("/dashboard");
   } catch (error) {
-    throw new error
+    throw new error();
   }
-}
+};
 
 const deleteGrant = async (req, res) => {
   /*  try {
@@ -235,9 +228,7 @@ const deleteGrant = async (req, res) => {
        msj: `ERROR: ${error}`,
      });
    } */
-}
-
-
+};
 
 module.exports = {
   signupPageController,
@@ -250,5 +241,5 @@ module.exports = {
   createGrant,
   deleteGrant,
   loginPageController,
-  logoutPageController
+  logoutPageController,
 };

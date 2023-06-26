@@ -69,7 +69,6 @@ label {
   font-size: 1.6rem;
 }
 
-
 a.btn {
   text-decoration: none;
   padding: 1rem 3rem;
@@ -90,7 +89,7 @@ a.homeAdmin_btns {
 }
 
 .signUp_btn {
-  background-color: #F2B66E;
+  background-color: #f2b66e;
 }
 .outline_btn,
 .logIn_btn {
@@ -106,13 +105,13 @@ a.homeAdmin_btns {
   font-size: 1.6rem;
 }
 .fill_btn {
-  background-color: #F2B66E;
+  background-color: #f2b66e;
 }
 .nav_btn {
   text-decoration: none;
   font-size: 1.7rem;
-  color: #5C5C5C;
-  border-bottom: 0.1rem solid #F2B66E;
+  color: #5c5c5c;
+  border-bottom: 0.1rem solid #f2b66e;
   list-style: none;
   padding: 0.8rem 1rem;
   min-width: fit-content;
@@ -125,8 +124,6 @@ a.homeAdmin_btns {
   font-size: 1.4rem;
   color: #106fdf;
 }
-
-
 
 .card {
   display: grid;
@@ -208,7 +205,7 @@ a.homeAdmin_btns {
   font-size: 1.8rem;
 }
 
-.userCard_main>img {
+.userCard_main > img {
   max-width: 6.4rem;
   max-height: 6.4rem;
   min-width: 5rem;
@@ -216,12 +213,12 @@ a.homeAdmin_btns {
   width: 100%;
 }
 
-.userCard_data>p {
+.userCard_data > p {
   font-size: 1.6rem;
   flex-wrap: wrap;
 }
 
-.card>a {
+.card > a {
   font-size: 1.4rem;
 }
 
@@ -240,7 +237,6 @@ a.homeAdmin_btns {
   width: 40%;
 }
 
-
 .notFoud_content {
   display: flex;
   flex-direction: column;
@@ -254,208 +250,200 @@ a.homeAdmin_btns {
   display: none;
 }
 
-
 #main_profile {
+  .notFoud_homeBtn {
+    margin-top: 2rem;
+    font-size: 1.8rem;
+  }
+  .notFoud_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+    padding: 2rem;
+    width: 80%;
+    margin: 3rem auto;
+  }
+  .header_logo {
+    width: 6.4rem;
+  }
+  .optional_btns {
+    width: 60%;
+    max-width: 20rem;
+    margin-top: 3rem;
+    gap: 1.4rem;
+  }
+  .flexColCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .flexCol {
+    display: flex;
+    flex-direction: column;
+  }
+  .main {
+    width: 80%;
+  }
+  .homeAdmin_btns {
+    min-height: 10rem;
+    height: 20rem;
+    max-height: 30rem;
+    min-width: 25rem;
+    width: 100%;
+    max-width: 40rem;
+    border-radius: var(--radius08);
+    font-size: 2.4rem;
+    border: solid 0.1rem var(--border-gray);
+  }
+  .hidden {
+    display: none;
+  }
 
-.notFoud_homeBtn {
-  margin-top: 2rem;
-  font-size: 1.8rem;
-}
-.notFoud_content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.4rem;
-  padding: 2rem;
-  width: 80%;
-  margin: 3rem auto;
-}
-.header_logo {
-  width: 6.4rem;
-}
-.optional_btns {
-  width: 60%;
-  max-width: 20rem;
-  margin-top: 3rem;
-  gap: 1.4rem;
-}
-.flexColCenter {
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.flexCol {
-  display: flex;
-  flex-direction: column;
-}
-.main {
-  width: 80%;
-}
-.homeAdmin_btns {
-  min-height: 10rem;
-  height: 20rem;
-  max-height: 30rem;
-  min-width: 25rem;
-  width: 100%;
-  max-width: 40rem;
-  border-radius: var(--radius08);
-  font-size: 2.4rem;
-  border: solid 0.1rem var(--border-gray);
-}
-.hidden {
-  display: none;
-}
-
-
-/* .homeAdmin_section {
+  /* .homeAdmin_section {
   margin: auto;
 } */
 
-
-#main_profile,
-#main_login {
-  gap: 4rem;
-  height: 100%;
-}
-
-#homeAdmin_main {
-  gap: 4rem;
+  #main_profile,
+  #main_login {
+    gap: 4rem;
+    height: 100%;
   }
 
-#header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1.6rem 2.4rem;
-  min-width: 30rem;
-  width: 100%;
-}
+  #homeAdmin_main {
+    gap: 4rem;
+  }
 
-#header>img {
-  height: 6.4rem;
-  width: 6.4rem;
-  border-radius: 50%;
-  margin-right: 3rem;
-}
+  #header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.6rem 2.4rem;
+    min-width: 30rem;
+    width: 100%;
+  }
 
-#navBar {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  gap: 1.2rem;
-  min-width: fit-content;
-}
+  #header > img {
+    height: 6.4rem;
+    width: 6.4rem;
+    border-radius: 50%;
+    margin-right: 3rem;
+  }
 
-#header_web {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  gap: 1.2rem;
-  padding: 1.6rem 2.4rem;
-  width: 100%;
-}
+  #navBar {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 1.2rem;
+    min-width: fit-content;
+  }
 
-#navBar>li {
-  list-style: none;
+  #header_web {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.6rem 2.4rem;
+    width: 100%;
+  }
 
-  padding: 0.8rem 1rem;
-}
+  #navBar > li {
+    list-style: none;
 
-#navBar>li>a {
-  text-decoration: none;
-  font-size: 1.7rem;
-  color: #262626;
+    padding: 0.8rem 1rem;
+  }
 
-}
+  #navBar > li > a {
+    text-decoration: none;
+    font-size: 1.7rem;
+    color: #262626;
+  }
 
-#section_search {
-  width: 80%;
-  margin: auto;
-  gap: 2rem;
-}
+  #section_search {
+    width: 80%;
+    margin: auto;
+    gap: 2rem;
+  }
 
+  #main_404,
+  #main_dashboard,
+  #grants_list,
+  #users_list,
+  #homeWeb_mainContent,
+  #searchResults,
+  #container_favorites {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.4rem;
+    padding: 2rem;
+    width: 80%;
+    margin: 3rem auto;
+  }
 
-#main_404,
-#main_dashboard,
-#grants_list,
-#users_list,
-#homeWeb_mainContent,
-#searchResults,
-#container_favorites {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1.4rem;
-  padding: 2rem;
-  width: 80%;
-  margin: 3rem auto;
-}
+  #main_404 > img {
+    width: 60%;
+  }
 
-#main_404>img {
-  width: 60%;
-}
+  #homeWeb_mainContent {
+    max-width: 60rem;
+    min-width: 30rem;
+    color: #5c5c5c;
+  }
+  #main_404 {
+    min-width: 30rem;
+  }
+  #main_404 > img {
+    width: 100%;
+    max-width: 40rem;
+  }
 
-#homeWeb_mainContent {
-  max-width: 60rem;
-  min-width: 30rem;
-  color: #5C5C5C;
-}
-#main_404 {
-  min-width: 30rem;
-}
-#main_404>img {
-  width: 100%;
-  max-width: 40rem;
-}
+  #homeWeb_btns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 30rem;
+    margin: auto;
+    gap: 1.4rem;
+  }
 
-#homeWeb_btns {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 30rem;
-  margin: auto;
-  gap: 1.4rem;
-}
+  #getIn_btn {
+    background-color: transparent;
+    border: none;
+  }
 
-#getIn_btn {
-  background-color: transparent;
-  border: none;
-}
+  #container_favorites {
+    margin-top: 0;
+  }
 
-#container_favorites {
-  margin-top: 0;
-}
+  #search {
+    width: 100%;
+  }
 
-#search {
-  width: 100%;
-}
+  #submit_btn {
+    margin-top: 2rem;
+    border: solid 0.2rem #9a9696;
+  }
+  #homeAdmin_usersBtn {
+    background-color: #faf8d6;
+  }
+  #homeAdmin_grantsBtn {
+    background-color: #ffefdb;
+  }
 
-#submit_btn {
-  margin-top: 2rem;
-  border: solid 0.2rem #9a9696;
-}
-#homeAdmin_usersBtn {
-  background-color: #faf8d6;
-}
-#homeAdmin_grantsBtn {
-  background-color: #ffefdb;
-}
+  #profileData_section {
+    gap: 1.6rem;
+    min-width: 25rem;
+    width: 80%;
+    max-width: 60rem;
+  }
 
-#profileData_section {
-  gap: 1.6rem;
-  min-width: 25rem;
-  width: 80%;
-  max-width: 60rem;
+  #profileData_section > p {
+    font-size: 1.8rem;
+  }
 }
-
-#profileData_section > p {
-  font-size: 1.8rem;
-}
-
-
 /* 
 @media (min-width: 768px) {
 
