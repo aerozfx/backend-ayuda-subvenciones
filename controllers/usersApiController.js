@@ -1,4 +1,5 @@
 const users = require("../models/users.js");
+const bcrypt = require("bcrypt");
 const { getUserByEmail } = require("../utils/fetchUserByEmail.js");
 
 const createUser = async (req, res) => {
@@ -7,7 +8,10 @@ const createUser = async (req, res) => {
     data.role = "user";
   }
   try {
-    let result = await users.createUser(data);
+    bcrypt.hash(data.password, 15, async (err, hash) => {
+      data.password = hash;
+      let result = await users.createUser(data);
+    });
     res.status(201).json({
       message: `El usuario ${data.email} ha sido guardado`,
     });
@@ -45,17 +49,8 @@ const deleteUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  let credentials = req.body;
   try {
-    let response = await getUserByEmail(credentials.email);
-    if (
-      response.email == credentials.email &&
-      response.password == credentials.password
-    ) {
-      res.redirect("/");
-    } else {
-      res.status(200).send("Los datos no coinciden");
-    }
+    res.redirect("/");
   } catch (error) {
     res.status(200).json({
       message: error,

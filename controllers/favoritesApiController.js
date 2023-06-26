@@ -1,4 +1,5 @@
 const favorites = require("../models/favorites.js");
+const jwt = require("jsonwebtoken");
 
 const addFavorite = async (req, res) => {
   try {
@@ -39,8 +40,16 @@ const getFavorites = async (req, res) => {
   }
 };
 
+const getFavoritesByUserId = async (req, res) => {
+  try {
+    let token = jwt.verify(req.cookies[("access-token", "secret_key")]);
+    let data = await favorites.getFavoritesByUserId(token.user_id);
+    res.send("bien");
+  } catch (error) {}
+};
 module.exports = {
   addFavorite,
   deleteFavorite,
   getFavorites,
+  getFavoritesByUserId,
 };
