@@ -39,6 +39,8 @@ const getFavorites = async (req, res) => {
   }
 };
 
+const getFavoritesByUserId = async (req, res) => {};
+
 module.exports = {
   addFavorite,
   deleteFavorite,

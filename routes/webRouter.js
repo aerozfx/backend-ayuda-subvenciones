@@ -4,7 +4,7 @@ const loginHandler = require("../middlewares/loginHandler");
 const webRouter = express.Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-require("../utils/auth");
+require("../utils/google-auth");
 
 // Vista principal -> Debe tener un renderizado condicional, dependiendo si el usuario está logeado o no
 webRouter.get("/", webController.homePageController);
@@ -27,7 +27,6 @@ webRouter.get(
     const payload = {
       //save here data
       check: true,
-      authorised: true,
     };
     const token = jwt.sign(payload, `secret_key`, {
       expiresIn: "20m",
@@ -37,7 +36,7 @@ webRouter.get(
       httpOnly: true,
       sameSite: "strict",
     });
-    res.cookie("authorised", "true").redirect("/");
+    res.redirect("/");
   }
 );
 
@@ -51,12 +50,15 @@ webRouter.get("/logout", (req, res) => {
 webRouter.get("/error", (req, res) => res.send("error"));
 webRouter.get(
   "/favorites",
-  loginHandler.isLogged,
+  loginHandler.checkCookie,
   webController.favoritesPageController
 );
 webRouter.get("/profile", webController.profilePageController);
 
 // Admin -> Necesitamos middleware que compruebe el rol
 webRouter.get("/users", webController.usersListController);
+webRouter.get("/grants", webController.grantsListController);
+
+webRouter.get("/logout", webController.logoutPageController);
 
 module.exports = webRouter;

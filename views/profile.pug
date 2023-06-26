@@ -3,15 +3,23 @@ html(lang="es")
   include ./head.pug
   body 
     include ./header.pug
-    main#main_profile
+    main#main_profile.flexColCenter
+      -var user=current_user[0];
       h2 Perfil
-      form(method="POST")
-        label(for="name") Nuevo nombre
-        input#name(type="text", name="name")
-        label(for="email") Correo electrónico
-        input#email(type="email", name="email")
-        label(for="password") Nueva Contraseña
-        input#password(type="password", name="password")
-        label(for="avatar") Nueva Foto de perfil
-        input#avatar(type="file", name="avatar" accept="image/png, image/jpeg")
-        button#submit_btn.btn(type="submit") Guardar cambios
+      article.card#profileData_section.flexCol
+        h2 Nombre: #{user.name} #{user.surname}
+        p Correo electrónico: #{user.email}
+        p Rol: #{user.role} 
+      button#profileForm_toggleBtn.outlineColor_btn.btn Editar datos
+      section#profileForm_section.flexCol.hidden
+        form#profileForm(method="POST")
+          label(for="name") Nuevo nombre
+          input#name(type="text", name="name" value=user.name) 
+          label(for="email") Correo electrónico
+          input#email(type="email", name="email" value=user.email)
+          label(for="password") Nueva Contraseña
+          input#password(type="password", name="password")
+          label(for="avatar") Nueva Foto de perfil
+          input#avatar(type="file", name="avatar" accept="image/png, image/jpeg")
+          button#submit_btn.fill_btn.btn(type="submit") Guardar cambios
+    script(src="script.js")

@@ -2,8 +2,13 @@ doctype html
 html(lang="es")
   include ./head.pug
   body 
-    include ./header.pug
-    main#main_profile
+    header#header
+      img.header_logo(src="assets/images/logo.png")
+      nav
+        ul#navBar
+          li 
+            a.outline_btn.btn(href="/") inicio
+    main#main_profile.flexColCenter
       h2 Registro
       form#form(method="POST" action="api/user")
         label(for="name") Nombre
@@ -16,5 +21,8 @@ html(lang="es")
         input#password(type="password", name="password")
         label(for="avatar") Foto de perfil
         input#avatar(type="file", name="avatar" accept="image/png, image/jpeg")
-        button#submit_btn.btn(type="submit") Registrarse
+        button#submit_btn.fill_btn.btn(type="submit") Registrarse
+      section.optional_btns.flexColCenter
+        a.logIn_btn.btn(href="/login" role="button") Entrar
+        button#getIn_btn.btn(type="button") Entrar sin registrarse
   script(src="script.js") 
