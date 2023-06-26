@@ -24,9 +24,8 @@ apiRouter.delete("/favorites/:id?", favorites.deleteFavorite);
 // GRANTS
 // Todas las subvenciones o una si se pasa un id específico
 apiRouter.get("/ads/:id?", grants.getAllGrants);
-apiRouter.post("/ads", grants.createOneGrant);
 apiRouter.patch("/ads/:id?", grants.updateOneGrant);
-apiRouter.delete("/ads/:id?", grants.deleteOneGrant);
+//apiRouter.delete("/ads/:id?", grants.deleteOneGrant);
 
 apiRouter.post("/login", checkUser, users.loginUser);
 

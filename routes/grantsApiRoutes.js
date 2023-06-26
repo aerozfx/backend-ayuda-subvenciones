@@ -9,7 +9,7 @@ const grantRouter = express.Router();
 
 grantRouter.post("/ads", createOneGrant);
 grantRouter.patch("/ads/:id?", updateOneGrant); //ruta variable para decirle cual cambiar
-grantRouter.delete("/ads/:id?", deleteOneGrant);
+//grantRouter.delete("/ads/:id?", deleteOneGrant);
 grantRouter.get("/ads/:id?", getAllGrants);
 
 module.exports = grantRouter;

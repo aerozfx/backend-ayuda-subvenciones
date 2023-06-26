@@ -11,8 +11,13 @@ const Grant = require("./models/grants");
 const webRouter = require("./routes/webRouter");
 const apiRouter = require("./routes/apiRouter");
 const handler404 = require("./middlewares/404handler");
+const bodyParser = require('body-parser');
 
 const PORT = 3000;
+
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 // const getDocumentsAmount = async () => {
 //   let result = await Grant.countDocuments({ id: { $gt: 0 } });
@@ -23,6 +28,7 @@ const PORT = 3000;
 //     scrapper();
 //   }
 // });
+
 
 app.set("view engine", "pug");
 app.set("views", "./views");

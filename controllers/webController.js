@@ -1,4 +1,4 @@
-const grant = require("../models/grants");
+const Grant = require("../models/grants");
 const favorites = require("../models/favorites");
 const user = require("../models/users");
 const jwt = require("jsonwebtoken");
@@ -17,6 +17,7 @@ let userEmail;
 const homePageController = async (req, res) => {
   let token = req.cookies["access-token"];
   try {
+
     if (req.user || token) {
       let userData = jwt.verify(token, "secret_key");
       const paramRegex = /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
@@ -63,6 +64,7 @@ const homePageController = async (req, res) => {
           "/logout": "salir",
         };
         res.render("homeAdmin", {
+
           page_title: "home",
           navBar_links: links,
         });
@@ -91,9 +93,11 @@ const favoritesPageController = async (req, res) => {
     } else {
       res.send("no hay favoritos");
     }
+
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
   }
+
 };
 
 const profilePageController = async (req, res) => {
@@ -143,8 +147,10 @@ const usersListController = async (req, res) => {
 
 const grantsListController = async (req, res) => {
   try {
+
     let links = { "/": "inicio", "/users": "usuarios", "/logout": "salir" };
     const grants = await grant.find({});
+
     if (grants) {
       res.render("grants", {
         page_title: "subvenciones",
@@ -180,13 +186,58 @@ const loginPageController = (req, res) => {
   }
 };
 
-const logoutPageController = (req, res) => {
+
+const dashboardController = (req, res) => {
   try {
-    res.status(200).render("homeWeb");
+    res.status(200).render("dashboard", { page_title: "dashboard" });
+    //pasarle la bd de grants y de users
   } catch (error) {
     res.status(400).json({ message: error });
   }
-};
+}; 
+
+ const logoutPageController = (req, res) => {
+  try {
+    res.status(200).render("homeWeb");
+
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+}; 
+
+const createGrant = (req, res) => {
+  try {
+    let grant = new Grant({
+      id: Number(req.body.id),
+      mrr: req.body.mrr,
+      admin: req.body.admin,
+      dep: req.body.dep,
+      date: req.body.date,
+      title: req.body.title,
+      title_co: req.body.title_co,
+      assignedTo: '', //esta misma linea estaba en el scrapper
+      link: req.body.link
+    });
+    grant.save()
+    res.status(201).redirect('/dashboard');
+  } catch (error) {
+    throw new error
+  }
+}
+
+const deleteGrant = async (req, res) => {
+  /*  try {
+     const deleteGrant = await Grant.deleteOne({ id: { $in: [req.params.id] } });
+     res.status(200).json(deleteGrant);
+   } catch (error) {
+     console.log(`ERROR: ${error.stack}`);
+     res.status(400).json({
+       msj: `ERROR: ${error}`,
+     });
+   } */
+}
+
+
 
 module.exports = {
   signupPageController,
@@ -195,6 +246,9 @@ module.exports = {
   favoritesPageController,
   usersListController,
   grantsListController,
+  dashboardController,
+  createGrant,
+  deleteGrant,
   loginPageController,
-  logoutPageController,
+  logoutPageController
 };

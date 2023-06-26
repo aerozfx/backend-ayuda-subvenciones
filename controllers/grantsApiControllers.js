@@ -1,21 +1,8 @@
 const Grant = require("../models/grants");
-//const scrappy = require('../utils/scrapper'); //headless para que no de por culo
+//const formValues = require('../public/script');
+//const scrappy = require('../utils/scrapper'); 
 
-const createOneGrant = async (req, res) => {
-  dataGrant = req.body;
-  try {
-    let grant = new Grant(dataGrant);
-    let result = await grant.save();
-    res.status(201).json({
-      msj: `Subvención creada correctamente`,
-      data: result,
-    });
-  } catch (error) {
-    res.status(400).json({
-      msj: `ERROR: ${error}`,
-    });
-  }
-};
+
 
 const getAllGrants = async (req, res) => {
   if (req.params.id) {
@@ -33,7 +20,7 @@ const getAllGrants = async (req, res) => {
   }
 };
 
-const deleteOneGrant = async (req, res) => {
+/* const deleteOneGrant = async (req, res) => {
   try {
     const deleteGrant = await Grant.deleteOne({ id: { $in: [req.params.id] } });
     res.status(200).json(deleteGrant);
@@ -43,7 +30,7 @@ const deleteOneGrant = async (req, res) => {
       msj: `ERROR: ${error}`,
     });
   }
-};
+}; */
 
 const updateOneGrant = async (req, res) => {
   const updatedGrant = req.body;
@@ -60,8 +47,7 @@ const updateOneGrant = async (req, res) => {
 };
 
 module.exports = {
-  createOneGrant,
   getAllGrants,
-  deleteOneGrant,
+  //deleteOneGrant,
   updateOneGrant,
 };
