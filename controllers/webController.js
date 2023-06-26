@@ -69,14 +69,20 @@ const homePageController = async (req, res) => {
 };
 const favoritesPageController = async (req, res) => {
   try {
+    let token = req.cookies["access-token"];
+    let userData = jwt.verify(token, "secret_key");
     let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };
-    let favoritesResult = await favorites.getFavorites();
-    if (favoritesResult) {
+    let favoritesResult = await favorites.getFavoritesByUserId(
+      userData.user_id
+    );
+    if (favoritesResult.length > 0) {
       res.render("favorites", {
         page_title: "favoritos",
         navBar_links: links,
         favorites: favoritesResult,
       });
+    } else {
+      res.send("no hay favoritos");
     }
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
