@@ -9,7 +9,7 @@ html(lang="es")
 
       button#show_grantForm(type="button") administrar subvención
       section.dashboard_grantForm
-        form#grantForm(method="POST")
+        form#grantForm(method="POST" action="/dashboard")
           label(for="id") id
           input#id(type="number", name="id")
           label(for="mrr") mrr
@@ -24,8 +24,8 @@ html(lang="es")
           input#date(type="text", name="date")
           label(for="title") nombre de la subvencion
           input#title(type="text", name="title")
-          label(for="title-co") title-co
-          input#title-co(type="text", name="title-co")
+          label(for="title_co") title_co
+          input#title-co(type="text", name="title_co")
           label(for="link") link
           input#link(type="text", name="link")
           button#submit_btn_grant.btn(type="submit") Guardar cambios
@@ -47,4 +47,5 @@ html(lang="es")
             button#submit_btn_register.btn(type="button") Registrarse
             button#submit_btn_edit.btn(type="button") Editar
             button#delete_user_btn.btn(type="button") Borrar
+            //cambiar el action de este form por DOM. Los formularios solo admiten get y post OJO
   script(src="script.js") 

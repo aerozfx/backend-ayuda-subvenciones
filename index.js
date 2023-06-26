@@ -9,17 +9,18 @@ const webRouter = require("./routes/webRouter");
 const apiRouter = require("./routes/apiRouter");
 const handler404 = require("./middlewares/404handler");
 const bodyParser = require('body-parser');
+const Counter = require('./models/counter');
 
 const PORT = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-//peticion post de prueba
+
 app.post('/dashboard', async (req, res) => {
+
   try {
-    console.log(req.body.id)
-    let grant = Grant.insertMany([{
-      id: req.body.id,
+    let grant = new Grant({
+      id: Number(req.body.id),
       mrr: req.body.mrr,
       admin: req.body.admin,
       dep: req.body.dep,
@@ -28,17 +29,11 @@ app.post('/dashboard', async (req, res) => {
       title_co: req.body.title_co,
       assignedTo: '', //esta misma linea estaba en el scrapper
       link: req.body.link
-    }]);
-    let result = await grant.save();
-    res.redirect('/dashboard')
-    res.status(201).json({
-      msj: `Subvención creada correctamente`,
-      data: result,
     });
+    grant.save()
+    res.status(201).redirect('/dashboard');
   } catch (error) {
-    res.status(400).json({
-      msj: `ERROR: ${error}`,
-    });
+    throw new error
   }
 })
 

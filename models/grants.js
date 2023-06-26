@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
+
 const objectSchema = {
   id: {
     type: Number,
-    required: true,
-    unique: true,
+    //unique: true,
   },
   mrr: {
     type: String,
@@ -39,5 +39,7 @@ const grantSchema = new mongoose.Schema(objectSchema);
 
 // Crear el modelo --> Colección
 const Grant = mongoose.model("grant", grantSchema);
+
+
 
 module.exports = Grant;
