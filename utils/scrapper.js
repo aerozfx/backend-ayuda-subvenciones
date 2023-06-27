@@ -32,7 +32,12 @@ const scrapper = async () => {
     })
   );
   await browser.close();
-  Grant.insertMany(tr);
+  try {
+    Grant.insertMany(tr);
+  } catch (error) {
+    console.log("hay elementos duplicados");
+    throw new Error(error);
+  }
   return tr;
 };
 

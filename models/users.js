@@ -30,7 +30,7 @@ const getUsers = async () => {
   return result;
 };
 const createUser = async (data) => {
-  let { email, name, surname, password, role } = data;
+  let { email, name, surname, password, role = "user" } = data;
   let client, result;
   try {
     client = await pool.connect();
@@ -52,7 +52,6 @@ const createUser = async (data) => {
 };
 
 const updateUser = async (data) => {
-  console.log(data);
   let { newName, newSurname, newEmail, newPassword, newRole, email } = data;
   let client, result;
   try {

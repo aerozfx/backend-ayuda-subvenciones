@@ -1,8 +1,8 @@
+require("dotenv").config();
 const Grant = require("../models/grants");
 const favorites = require("../models/favorites");
 const user = require("../models/users");
 const jwt = require("jsonwebtoken");
-
 
 const homePageController = async (req, res) => {
   try {
@@ -38,7 +38,6 @@ const homePageController = async (req, res) => {
             page_title: "home",
             navBar_links: links,
             isAuthorized: userData.authorised,
-            handlerOnclick: () => console.log("estoy vivo"),
             scrapingData: matchingGrants,
             authorised: userData.authorised,
           });
@@ -190,7 +189,6 @@ const loginPageController = (req, res) => {
 const dashboardController = (req, res) => {
   try {
     res.status(200).render("dashboard", { page_title: "dashboard" });
-
   } catch (error) {
     res.status(400).json({ message: error });
   }
@@ -204,17 +202,16 @@ const logoutPageController = (req, res) => {
   }
 };
 
-
 const googleLogin = async (req, res) => {
   let userRes = await fetch(
-    `http://localhost:3000/api/users/${req.user.emails[0].value}`
+    `${process.env.PRODUCTION_DOMAIN}/api/users/${req.user.emails[0].value}`
   );
   let response = await userRes.json();
   let { givenName: name, familyName: surname } = req.user.name;
   let email = req.user.emails[0].value;
 
   if (!response[0]) {
-    await fetch(`http://localhost:3000/api/users`, {
+    await fetch(`${process.env.PRODUCTION_DOMAIN}/api/users`, {
       method: "POST",
       headers: {
         Accept: "application/json",
