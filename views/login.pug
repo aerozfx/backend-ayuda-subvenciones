@@ -2,7 +2,7 @@ doctype html
 html(lang="es")
   include ./head.pug
   body 
-    header#header
+    header.general_header
       img.header_logo(src="assets/images/logo.png")
       nav
         ul#navBar
@@ -16,8 +16,8 @@ html(lang="es")
         label(for="password") Contraseña
         input#password(type="password", name="password")
         button#submit_btn.fill_btn.btn(type="submit") Entrar
-        a(href="/login/google") Identificarse con google
+        a.outline_btn.btn.google_Auth(href="/login/google") Identificarse con google
       section.optional_btns.flexColCenter
         a.outline_btn.btn(href="/signup" role="button") Registrarse
-        button#getIn_btn.btn(type="button") Entrar sin registrarse
+        button.text_btn.btn(type="button") Entrar sin registrarse
   script(src="script.js") 

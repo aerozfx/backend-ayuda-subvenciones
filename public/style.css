@@ -15,7 +15,7 @@
 }
 
 html {
-  height: 100%;
+  height: 100vh;
 }
 
 body {
@@ -291,7 +291,6 @@ a.homeAdmin_btns {
 }
 
 .flexColCenter {
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -318,16 +317,22 @@ a.homeAdmin_btns {
   font-size: 2.4rem;
   border: solid 0.1rem var(--border-gray);
 }
+.general_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.6rem 2.4rem;
+  min-width: 30rem;
+  width: 100%;
+}
+.google_Auth {
+  background-color: #d9f9e3;
+  margin-top: 1rem;
+}
 
 .hidden {
   display: none;
 }
-
-
-/* .homeAdmin_section {
-  margin: auto;
-} */
-
 
 #main_profile,
 #main_login {
@@ -341,6 +346,7 @@ a.homeAdmin_btns {
 
 #header {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1.6rem 2.4rem;
@@ -437,7 +443,7 @@ a.homeAdmin_btns {
   gap: 1.4rem;
 }
 
-#getIn_btn {
+.text_btn {
   background-color: transparent;
   border: none;
 }
