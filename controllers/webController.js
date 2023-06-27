@@ -5,14 +5,13 @@ const jwt = require("jsonwebtoken");
 
 
 const homePageController = async (req, res) => {
-  let token = req.cookies["access-token"];
   try {
-
-    if (req.user || token) {
+    if (req.cookies["access-token"]) {
+      let token = req.cookies["access-token"];
       let userData = jwt.verify(token, "secret_key");
-      const paramRegex = /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
-      console.log(userData);
-      let role = userData.role || "user";
+      const paramRegex =
+        /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
+      let role = userData?.role || "user";
       if (role === "user") {
         let links = {
           "/profile": "perfil",
@@ -21,10 +20,10 @@ const homePageController = async (req, res) => {
         };
         const searchParam = req.query.search;
         if (
-          searchParam
-          && searchParam.trim() !== ""
-          && !paramRegex.test(searchParam)
-          && typeof searchParam === "string"
+          searchParam &&
+          searchParam.trim() !== "" &&
+          !paramRegex.test(searchParam) &&
+          typeof searchParam === "string"
         ) {
           const grants = await Grant.find({});
           const searchTerms = searchParam.toUpperCase().split(" ");
@@ -41,6 +40,7 @@ const homePageController = async (req, res) => {
             isAuthorized: userData.authorised,
             handlerOnclick: () => console.log("estoy vivo"),
             scrapingData: matchingGrants,
+            authorised: userData.authorised,
           });
         } else {
           res.render("home", {
@@ -66,7 +66,7 @@ const homePageController = async (req, res) => {
       res.render("homeWeb", { page_title: "F.A.M Pyme" });
     }
   } catch (error) {
-    res.status(400).json({ msj: `ERROR ${error}` });
+    res.status(200).redirect("/");
   }
 };
 const favoritesPageController = async (req, res) => {
@@ -86,26 +86,35 @@ const favoritesPageController = async (req, res) => {
     } else {
       res.send("no hay favoritos");
     }
-
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
   }
-
 };
 
 const profilePageController = async (req, res) => {
   try {
-    let links = {
-      "/": "inicio",
-      "/favorites": "favoritos",
-      "/logout": "salir",
-    };
-    let currentUser = await user.getUserByEmail(userEmail);
-    res.render("profile", {
-      page_title: "perfil",
-      navBar_links: links,
-      current_user: currentUser,
-    });
+    let token = jwt.verify(req.cookies["access-token"], "secret_key");
+    if (token) {
+      let links = {
+        "/": "inicio",
+        "/favorites": "favoritos",
+        "/logout": "salir",
+      };
+      let currentUser = await user.getUserByEmail(token.email);
+      if (currentUser.length > 0) {
+        res.render("profile", {
+          page_title: "perfil",
+          navBar_links: links,
+          current_user: currentUser,
+        });
+      } else {
+        res.render("profile", {
+          page_title: "perfil",
+          navBar_links: links,
+          token,
+        });
+      }
+    }
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
   }
@@ -140,7 +149,6 @@ const usersListController = async (req, res) => {
 
 const grantsListController = async (req, res) => {
   try {
-
     let links = { "/": "inicio", "/users": "usuarios", "/logout": "salir" };
     const grants = await Grant.find({});
 
@@ -175,10 +183,9 @@ const loginPageController = (req, res) => {
   try {
     res.status(200).render("login");
   } catch (error) {
-    res.status(400).json({ message: error });
+    res.redirect("/");
   }
 };
-
 
 const dashboardController = (req, res) => {
   try {
@@ -192,38 +199,49 @@ const dashboardController = (req, res) => {
 const logoutPageController = (req, res) => {
   try {
     res.status(200).render("homeWeb");
-
   } catch (error) {
     res.status(400).json({ message: error });
   }
-
 };
 
-}; 
 
-const createGrant = (req, res) => {
-  try {
-    let grant = new Grant({
-      id: Number(req.body.id),
-      mrr: req.body.mrr,
-      admin: req.body.admin,
-      dep: req.body.dep,
-      date: req.body.date,
-      title: req.body.title,
-      title_co: req.body.title_co,
-      assignedTo: '', //esta misma linea estaba en el scrapper
-      link: req.body.link
+const googleLogin = async (req, res) => {
+  let userRes = await fetch(
+    `http://localhost:3000/api/users/${req.user.emails[0].value}`
+  );
+  let response = await userRes.json();
+  let { givenName: name, familyName: surname } = req.user.name;
+  let email = req.user.emails[0].value;
+
+  if (!response[0]) {
+    await fetch(`http://localhost:3000/api/users`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, surname, email }),
     });
-    Grant.save()
-    res.status(201).redirect('/dashboard');
-  } catch (error) {
-    throw new error
   }
-}
-
-
-
-
+  const payload = {
+    email,
+    authorised: true,
+    user_id: response[0].user_id,
+    name,
+    surname,
+    image: req.user.photos[0].value,
+    rol: req.user?.rol || "user ",
+  };
+  const token = jwt.sign(payload, `secret_key`, {
+    expiresIn: "20m",
+  });
+  //Almacenamos el token en las cookies
+  res.cookie("access-token", token, {
+    httpOnly: true,
+    sameSite: "lax",
+  });
+  res.status(200).redirect("/");
+};
 
 module.exports = {
   signupPageController,
@@ -234,5 +252,6 @@ module.exports = {
   grantsListController,
   dashboardController,
   loginPageController,
-  logoutPageController
+  logoutPageController,
+  googleLogin,
 };
