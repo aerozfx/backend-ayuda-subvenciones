@@ -69,7 +69,6 @@ label {
   font-size: 1.6rem;
 }
 
-
 a.btn {
   text-decoration: none;
   padding: 1rem 3rem;
@@ -92,7 +91,7 @@ a.homeAdmin_btns {
 }
 
 .signUp_btn {
-  background-color: #F2B66E;
+  background-color: #f2b66e;
 }
 
 .outline_btn,
@@ -112,14 +111,14 @@ a.homeAdmin_btns {
 }
 
 .fill_btn {
-  background-color: #F2B66E;
+  background-color: #f2b66e;
 }
 
 .nav_btn {
   text-decoration: none;
   font-size: 1.7rem;
-  color: #5C5C5C;
-  border-bottom: 0.1rem solid #F2B66E;
+  color: #5c5c5c;
+  border-bottom: 0.1rem solid #f2b66e;
   list-style: none;
   padding: 0.8rem 1rem;
   min-width: fit-content;
@@ -132,8 +131,6 @@ a.homeAdmin_btns {
   font-size: 1.4rem;
   color: #106fdf;
 }
-
-
 
 .card {
   display: grid;
@@ -215,7 +212,7 @@ a.homeAdmin_btns {
   font-size: 1.8rem;
 }
 
-.userCard_main>img {
+.userCard_main > img {
   max-width: 6.4rem;
   max-height: 6.4rem;
   min-width: 5rem;
@@ -223,12 +220,12 @@ a.homeAdmin_btns {
   width: 100%;
 }
 
-.userCard_data>p {
+.userCard_data > p {
   font-size: 1.6rem;
   flex-wrap: wrap;
 }
 
-.card>a {
+.card > a {
   font-size: 1.4rem;
 }
 
@@ -247,7 +244,6 @@ a.homeAdmin_btns {
   width: 40%;
 }
 
-
 .notFoud_content {
   display: flex;
   flex-direction: column;
@@ -260,7 +256,6 @@ a.homeAdmin_btns {
 .hidden {
   display: none;
 }
-
 
 /* #main_profile {} */
 
@@ -354,7 +349,7 @@ a.homeAdmin_btns {
   width: 100%;
 }
 
-#header>img {
+#header > img {
   height: 6.4rem;
   width: 6.4rem;
   border-radius: 50%;
@@ -378,17 +373,16 @@ a.homeAdmin_btns {
   width: 100%;
 }
 
-#navBar>li {
+#navBar > li {
   list-style: none;
 
   padding: 0.8rem 1rem;
 }
 
-#navBar>li>a {
+#navBar > li > a {
   text-decoration: none;
   font-size: 1.7rem;
   color: #262626;
-
 }
 
 #section_search {
@@ -396,7 +390,6 @@ a.homeAdmin_btns {
   margin: auto;
   gap: 2rem;
 }
-
 
 #main_404,
 #main_dashboard,
@@ -415,21 +408,21 @@ a.homeAdmin_btns {
   margin: 3rem auto;
 }
 
-#main_404>img {
+#main_404 > img {
   width: 60%;
 }
 
 #homeWeb_mainContent {
   max-width: 60rem;
   min-width: 30rem;
-  color: #5C5C5C;
+  color: #5c5c5c;
 }
 
 #main_404 {
   min-width: 30rem;
 }
 
-#main_404>img {
+#main_404 > img {
   width: 100%;
   max-width: 40rem;
 }
@@ -476,7 +469,7 @@ a.homeAdmin_btns {
   max-width: 60rem;
 }
 
-#profileData_section>p {
+#profileData_section > p {
   font-size: 1.8rem;
 }
 

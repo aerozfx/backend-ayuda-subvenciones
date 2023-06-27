@@ -52,6 +52,7 @@ const createUser = async (data) => {
 };
 
 const updateUser = async (data) => {
+  console.log(data);
   let { newName, newSurname, newEmail, newPassword, newRole, email } = data;
   let client, result;
   try {
@@ -89,16 +90,12 @@ const deleteUser = async (email) => {
   return result;
 };
 
-const loginUser = async (data) => {
-  console.log(getUserByEmail(data.email));
-};
 const users = {
   createUser,
   updateUser,
   deleteUser,
   getUsers,
   getUserByEmail,
-  loginUser,
 };
 
 module.exports = users;
