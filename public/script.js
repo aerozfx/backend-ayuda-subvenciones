@@ -35,14 +35,37 @@ const profileFormSection = selectElement("#profileForm_section");
 setEventListener(profileFormToggleBtn, "click", () => profileFormSection.classList.toggle("hidden"));
 
 async function postFavorite(grantId) {
-  await fetch(`http://localhost:3000/api/favorites`, {
-    method: "POST",
-    headers: {
+  try {
+    await fetch(`http://localhost:3000/api/favorites`, {
+      method: "POST",
+      headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ id: grantId })
-  })
-}
+      },
+      body: JSON.stringify({ id: grantId })
+    });
+  }
+  catch(error) {
+    console.error(error);
+  }
+};
+
+async function deleteFavorite(grantId) {
+  try {
+    await fetch(`http://localhost:3000/api/favorites/${grantId}`, {
+      method: "DELETE",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        credentials: "include"
+      },
+      body: JSON.stringify({ id: grantId })
+    });
+  }
+  catch(error) {
+    console.error(error);
+  }
+};
 
 selectElements('.addFavorites').forEach(grantCard => grantCard.addEventListener('click', () => postFavorite(grantCard.getAttribute('id'))));
+selectElements('.deleteFavorite').forEach(grantCard => grantCard.addEventListener('click', () => deleteFavorite((grantCard.getAttribute('id')))));
