@@ -4,7 +4,7 @@ html(lang="es")
   body 
     include ./header.pug
     main#main_dashboard
-      a.dashboardBtn(href="/grant", target="_blank") Subvenciones
+      a.dashboardBtn(href="/grants", target="_blank") Subvenciones  
       a.dashboardBtn(href="/users", target="_blank") Usuarios
 
       button#show_grantForm(type="button") administrar subvención
@@ -28,9 +28,9 @@ html(lang="es")
           input#title-co(type="text", name="title_co")
           label(for="link") link
           input#link(type="text", name="link")
-          button#submit_btn_grant.btn(type="submit") Guardar cambios
+          button#submit_btn_grant.btn(type="submit" ) Guardar cambios
           
-
+  //
       button#show_userForm(type="button") administrar usuario
       section.admin_userFrom    
         h2 Crea un usuario
@@ -48,5 +48,5 @@ html(lang="es")
             button#submit_btn_register.btn(type="button") Registrarse
             button#submit_btn_edit.btn(type="button") Editar
             button#delete_user_btn.btn(type="button") Borrar
-            //cambiar el action de este form por DOM. Los formularios solo admiten get y post OJO
+            cambiar el action de este form por DOM. Los formularios solo admiten get y post OJO
   script(src="script.js") 

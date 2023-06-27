@@ -5,7 +5,7 @@ html(lang="es")
     include ./header.pug
     main
       h1.grantsList_title Listado de subvenciones
-      p.grantsList_amount Nº: #{grantsAmount}
+      p.grantsList_amount Nº: #{grants.length}
       section#grants_list
         if grants
           -for(let i=0;i<grants.length; i++)
@@ -19,5 +19,6 @@ html(lang="es")
                 p.card_descrip desciption: #{grants[i].title}
                 p.card_dep departamento: #{grants[i].dep} 
                 p.card_org organismo: #{grants[i].org}
-                p hola 
-                button#delete_btn_grant.btn Borrar 
+                button#delete_grant_btn.btn(type="submit") Borrar 
+                button#submit_btn_grant.btn(type="submit" style="display:none")
+  script(src="script.js") 

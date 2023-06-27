@@ -2,7 +2,8 @@ header#header
   img(src="assets/images/crazy-C.jpg")
   nav
     ul#navBar
-      -var navBarLinks=navBar_links
-      each val, key in navBarLinks
-        li 
-          a.nav_btn(href=key role="button")=val
+      -let navBarLinks=navBar_links
+      
+      a.nav_btn(href="/profile" role="button")="perfil"
+      a.nav_btn(href="/favorites" role="button")="favoritos"
+      a.nav_btn(href="/logout" role="button")="salir"

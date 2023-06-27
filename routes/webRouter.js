@@ -1,5 +1,6 @@
 const express = require("express");
 const webController = require("../controllers/webController");
+const grantApicontroller = require("../controllers/grantsApiControllers")
 const loginHandler = require("../middlewares/loginHandler");
 const webRouter = express.Router();
 const passport = require("passport");
@@ -59,12 +60,10 @@ webRouter.get("/profile", webController.profilePageController);
 webRouter.get("/users", webController.usersListController);
 
 webRouter.get("/dashboard", webController.dashboardController);
-webRouter.post("/dashboard", webController.createGrant);
-webRouter.delete("/dashboard/:id", webController.deleteGrant);
 webRouter.get("/logout", (req, res) => res.send("has salido"));
+webRouter.post("/dashboard", grantApicontroller.createGrant);
 
 webRouter.get("/grants", webController.grantsListController);
-
 webRouter.get("/logout", webController.logoutPageController);
 
 

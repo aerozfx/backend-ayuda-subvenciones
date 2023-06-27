@@ -3,6 +3,7 @@ const favorites = require("../models/favorites");
 const user = require("../models/users");
 const jwt = require("jsonwebtoken");
 
+
 const homePageController = async (req, res) => {
   let token = req.cookies["access-token"];
   try {
@@ -20,9 +21,9 @@ const homePageController = async (req, res) => {
         };
         const searchParam = req.query.search;
         if (
-          searchParam 
-          && searchParam.trim() !== "" 
-          && !paramRegex.test(searchParam) 
+          searchParam
+          && searchParam.trim() !== ""
+          && !paramRegex.test(searchParam)
           && typeof searchParam === "string"
         ) {
           const grants = await Grant.find({});
@@ -182,19 +183,22 @@ const loginPageController = (req, res) => {
 const dashboardController = (req, res) => {
   try {
     res.status(200).render("dashboard", { page_title: "dashboard" });
-    //pasarle la bd de grants y de users
+
   } catch (error) {
     res.status(400).json({ message: error });
   }
-}; 
+};
 
- const logoutPageController = (req, res) => {
+const logoutPageController = (req, res) => {
   try {
     res.status(200).render("homeWeb");
 
   } catch (error) {
     res.status(400).json({ message: error });
   }
+
+};
+
 }; 
 
 const createGrant = (req, res) => {
@@ -217,17 +221,7 @@ const createGrant = (req, res) => {
   }
 }
 
-const deleteGrant = async (req, res) => {
-  /*  try {
-     const deleteGrant = await Grant.deleteOne({ id: { $in: [req.params.id] } });
-     res.status(200).json(deleteGrant);
-   } catch (error) {
-     console.log(`ERROR: ${error.stack}`);
-     res.status(400).json({
-       msj: `ERROR: ${error}`,
-     });
-   } */
-}
+
 
 
 
@@ -239,8 +233,6 @@ module.exports = {
   usersListController,
   grantsListController,
   dashboardController,
-  createGrant,
-  deleteGrant,
   loginPageController,
   logoutPageController
 };
