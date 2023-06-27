@@ -3,17 +3,6 @@ const favorites = require("../models/favorites");
 const user = require("../models/users");
 const jwt = require("jsonwebtoken");
 
-let authorised;
-let userType;
-let userEmail;
-
-// function setSessionValues(credential, user, email) {
-//   authorised = credential;
-//   userType = user;
-//   userEmail = email;
-// }
-// setSessionValues(true, "user", "aeroadsad@gmail.com");
-
 const homePageController = async (req, res) => {
   let token = req.cookies["access-token"];
   try {
@@ -21,7 +10,6 @@ const homePageController = async (req, res) => {
     if (req.user || token) {
       let userData = jwt.verify(token, "secret_key");
       const paramRegex = /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
-      let links = { "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir" };
       console.log(userData);
       let role = userData.role || "user";
       if (role === "user") {
@@ -37,7 +25,7 @@ const homePageController = async (req, res) => {
           && !paramRegex.test(searchParam) 
           && typeof searchParam === "string"
         ) {
-          const grants = await grant.find({});
+          const grants = await Grant.find({});
           const searchTerms = searchParam.toUpperCase().split(" ");
           let matchingGrants = grants.filter((data) => {
             const match = searchTerms.some(
@@ -49,24 +37,28 @@ const homePageController = async (req, res) => {
           res.render("home", {
             page_title: "home",
             navBar_links: links,
+            isAuthorized: userData.authorised,
+            handlerOnclick: () => console.log("estoy vivo"),
             scrapingData: matchingGrants,
           });
         } else {
           res.render("home", {
             page_title: "home",
             navBar_links: links,
+            isAuthorized: userData.authorised,
           });
         }
       } else if (role === "admin") {
         let links = {
           "/users": "usuarios",
           "/grants": "subvenciones",
+          "/dashboard": "dashboard",
           "/logout": "salir",
         };
         res.render("homeAdmin", {
-
           page_title: "home",
           navBar_links: links,
+          isAuthorized: userData.authorised,
         });
       }
     } else {
@@ -149,7 +141,7 @@ const grantsListController = async (req, res) => {
   try {
 
     let links = { "/": "inicio", "/users": "usuarios", "/logout": "salir" };
-    const grants = await grant.find({});
+    const grants = await Grant.find({});
 
     if (grants) {
       res.render("grants", {
@@ -218,7 +210,7 @@ const createGrant = (req, res) => {
       assignedTo: '', //esta misma linea estaba en el scrapper
       link: req.body.link
     });
-    grant.save()
+    Grant.save()
     res.status(201).redirect('/dashboard');
   } catch (error) {
     throw new error

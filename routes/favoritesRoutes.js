@@ -7,4 +7,4 @@ favoriteRouter.post("/api/favorites", favoritesController.addFavorite);
 favoriteRouter.delete("/api/favorites/:id?", favoritesController.deleteFavorite
 );
 
-// module.exports = favoriteRouter;
+module.exports = favoriteRouter;
