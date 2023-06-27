@@ -65,12 +65,12 @@ webRouter.post(
   "/dashboard",
   loginHandler.checkCookie,
   loginHandler.checkRole,
-  webController.createGrant
+  //webController.createGrant
 );
 webRouter.delete(
   "/dashboard/:id",
   loginHandler.checkRole,
-  webController.deleteGrant
+  //webController.deleteGrant
 );
 webRouter.get("/logout", (req, res) => res.send("has salido"));
 webRouter.post("/dashboard", grantApicontroller.createGrant);

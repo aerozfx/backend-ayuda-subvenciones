@@ -1,4 +1,20 @@
+/**
+ * @author Fer y Alvaro
+ * @exports routes 
+ * @namespace grantApiControllers 
+ */
+
 const Grant = require("../models/grants");
+
+/** 
+* @memberof grantApiControllers 
+* @method getAllGrants 
+* @async 
+* @param {Object} req objeto de petición HTTP
+* @param {Object} res objeto de respuesta HTTP
+* @return {json} objeto con todas las entries encontradas
+* @throws {error} 
+*/
 
 const getAllGrants = async (req, res) => {
   if (req.params.id) {
@@ -16,6 +32,16 @@ const getAllGrants = async (req, res) => {
   }
 };
 
+/** 
+* @memberof grantApiControllers 
+* @method deleteOneGrant 
+* @async 
+* @param {Object} req objeto de petición HTTP
+* @param {Object} res objeto de respuesta HTTP
+* @return {json} objeto con todas las entries encontradas
+* @throws {error} 
+*/
+
 const deleteOneGrant = async (req, res) => {
   try {
     const deleteGrant = await Grant.deleteOne({ id: { $in: [req.params.id] } });
@@ -29,6 +55,16 @@ const deleteOneGrant = async (req, res) => {
   }
 };
 
+
+/** 
+* @memberof grantApiControllers 
+* @method updateOneGrant 
+* @async 
+* @param {Object} req objeto de petición HTTP
+* @param {Object} res objeto de respuesta HTTP
+* @return {json} objeto con todas las entries encontradas
+* @throws {error} 
+*/
 const updateOneGrant = async (req, res) => {
   const updatedGrant = req.body;
   const id = { id: req.params.id };
@@ -42,6 +78,16 @@ const updateOneGrant = async (req, res) => {
     });
   }
 };
+
+/** 
+* @memberof grantApiControllers 
+* @method createGrant 
+* @async 
+* @param {Object} req objeto de petición HTTP
+* @param {Object} res objeto de respuesta HTTP
+* @return {number} numero de entries creadas
+* @throws {error} 
+*/
 
 const createGrant = (req, res) => {
   try {

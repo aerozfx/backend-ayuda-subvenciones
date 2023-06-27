@@ -16,7 +16,7 @@ const PORT = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const getDocumentsAmount = async () => {
+/* const getDocumentsAmount = async () => {
   let result = await Grant.countDocuments({ id: { $gt: 0 } });
   return result;
 };
@@ -24,7 +24,7 @@ getDocumentsAmount().then((data) => {
   if (data < 50) {
     scrapper();
   }
-});
+}); */
 
 app.set("view engine", "pug");
 app.set("views", "./views");

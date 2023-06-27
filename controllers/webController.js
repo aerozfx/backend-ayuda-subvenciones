@@ -1,9 +1,23 @@
+/**
+ * @author Fer y Alvaro
+ * @exports routes 
+ * @namespace webController 
+ */
+
 const Grant = require("../models/grants");
 const favorites = require("../models/favorites");
 const user = require("../models/users");
 const jwt = require("jsonwebtoken");
 
-
+/** 
+* @memberof webController 
+* @method homePageController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} renderiza la pagina home en base a quien esté logeado
+* @throws {error} 
+*/
 const homePageController = async (req, res) => {
   try {
     if (req.cookies["access-token"]) {
@@ -69,6 +83,16 @@ const homePageController = async (req, res) => {
     res.status(200).redirect("/");
   }
 };
+
+/** 
+* @memberof webController 
+* @method favoritesPageController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina de subvenciones favoritas en funcion del usuario que esta logeado
+* @throws {error} 
+*/
 const favoritesPageController = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
@@ -90,6 +114,16 @@ const favoritesPageController = async (req, res) => {
     res.status(400).json({ msj: `ERROR ${error}` });
   }
 };
+
+/** 
+* @memberof webController 
+* @method profilePageController
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina de perfil en funcion del usuario que esta logeado
+* @throws {error} 
+*/
 
 const profilePageController = async (req, res) => {
   try {
@@ -120,6 +154,16 @@ const profilePageController = async (req, res) => {
   }
 };
 
+/** 
+* @memberof webController 
+* @method usersListController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina con la lista de usuarios en funcion del usuario que esta logeado
+* @throws {error} 
+*/
+
 const usersListController = async (req, res) => {
   try {
     let links = {
@@ -147,6 +191,16 @@ const usersListController = async (req, res) => {
   }
 };
 
+/** 
+* @memberof webController 
+* @method grantsListController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina de subvenciones 
+* @throws {error} 
+*/
+
 const grantsListController = async (req, res) => {
   try {
     let links = { "/": "inicio", "/users": "usuarios", "/logout": "salir" };
@@ -171,6 +225,16 @@ const grantsListController = async (req, res) => {
   }
 };
 
+/** 
+* @memberof webController 
+* @method signupPageController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina para registrarse
+* @throws {error} 
+*/
+
 const signupPageController = (req, res) => {
   try {
     res.status(200).render("signup");
@@ -179,6 +243,16 @@ const signupPageController = (req, res) => {
   }
 };
 
+/** 
+* @memberof webController 
+* @method loginPageController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina para hacer log in
+* @throws {error} 
+*/
+
 const loginPageController = (req, res) => {
   try {
     res.status(200).render("login");
@@ -186,6 +260,16 @@ const loginPageController = (req, res) => {
     res.redirect("/");
   }
 };
+
+/** 
+* @memberof webController 
+* @method dashboardController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina de dashboard accesible por un usuario de tipo administrador
+* @throws {error} 
+*/
 
 const dashboardController = (req, res) => {
   try {
@@ -196,6 +280,16 @@ const dashboardController = (req, res) => {
   }
 };
 
+/** 
+* @memberof webController 
+* @method logoutPageController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina que nos muestra que hemos hecho log out
+* @throws {error} 
+*/
+
 const logoutPageController = (req, res) => {
   try {
     res.status(200).render("homeWeb");
@@ -204,6 +298,15 @@ const logoutPageController = (req, res) => {
   }
 };
 
+/** 
+* @memberof webController 
+* @method googleLogin 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} hace log in mediante nuestra cuenta de google
+* @throws {error} 
+*/
 
 const googleLogin = async (req, res) => {
   let userRes = await fetch(

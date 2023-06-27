@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "generate-docs": "jsdoc -c /path/to/my/conf.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +19,8 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "helmet": "^7.0.0",
+    "jsdoc": "^4.0.2",
+    "jsdocs": "^1.0.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.3.0",
     "passport": "^0.6.0",

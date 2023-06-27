@@ -1,6 +1,20 @@
+/**
+ * @author Fer y Alvaro
+ * @exports routes 
+ * @namespace favoriteApiController 
+ */
 const favorites = require("../models/favorites.js");
 const jwt = require("jsonwebtoken");
 
+/** 
+* @memberof favoriteApiController 
+* @method addFavorite 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {number} Número de entries creadas
+* @throws {error} 
+*/
 const addFavorite = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
@@ -18,8 +32,17 @@ const addFavorite = async (req, res) => {
       message: error,
     });
   }
-};
+}
 
+/** 
+* @memberof favoriteApiController 
+* @method deleteFavorite 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {json} Mensaje con la subvención borrada
+* @throws {error} 
+*/
 const deleteFavorite = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
@@ -39,6 +62,16 @@ const deleteFavorite = async (req, res) => {
   }
 };
 
+
+/** 
+* @memberof favoriteApiController 
+* @method getFavorites 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {json} Objeto con todas las entries encontradas
+* @throws {error} 
+*/
 const getFavorites = async (req, res) => {
   try {
     let data = await favorites.getFavorites();
@@ -49,6 +82,16 @@ const getFavorites = async (req, res) => {
     });
   }
 };
+
+/** 
+* @memberof favoriteApiController 
+* @method getFavoritesByUserId 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {json} Objeto con todas las entries encontradas
+* @throws {error} 
+*/
 
 const getFavoritesByUserId = async (req, res) => {
   try {
@@ -67,3 +110,4 @@ module.exports = {
   getFavorites,
   getFavoritesByUserId,
 };
+
