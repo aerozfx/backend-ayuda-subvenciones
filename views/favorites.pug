@@ -6,7 +6,7 @@ html(lang="es")
     main
       section#container_favorites
       -for(let i=0;i<favorites.length; i++)
-        article.card
+        article.card(id=`favorite-${favorites[i].favorite_id}`)
           p.card_id Id: #{favorites[i].favorite_id}
           p.card_id Id de usuario: #{favorites[i].user_id}
           h2.card_title Title: #{grants[i].title}
