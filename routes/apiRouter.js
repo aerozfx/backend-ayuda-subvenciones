@@ -14,7 +14,7 @@ const {
 // Obtiene todos los usuarios si no se pasa email, o uno si se pasa un email válido
 apiRouter.get("/users/:email?", users.getUsers);
 // Crea un usuario
-apiRouter.post("/users", checkCookie, checkRole, users.createUser);
+apiRouter.post("/users", users.createUser);
 // Actualiza un usuario por email
 apiRouter.post("/users/:email?", checkCookie, users.updateUser);
 // Borra un usuario por email

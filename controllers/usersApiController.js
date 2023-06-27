@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const createUser = async (req, res) => {
   const data = req.body;
+  console.log(data);
   if (!data.password) {
     data.password = "1";
     bcrypt.hash(data.password, 15, async (err, hash) => {
@@ -19,9 +20,7 @@ const createUser = async (req, res) => {
       data.password = hash;
       let result = await users.createUser(data);
     });
-    res.status(201).json({
-      message: `El usuario ${data.email} ha sido guardado`,
-    });
+    res.status(201).redirect("/");
   } catch (error) {
     res.status(400).json({
       message: error,
