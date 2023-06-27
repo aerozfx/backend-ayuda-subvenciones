@@ -3,16 +3,6 @@ const favorites = require("../models/favorites");
 const user = require("../models/users");
 const jwt = require("jsonwebtoken");
 
-let authorised;
-let userType;
-let userEmail;
-
-function setSessionValues(credential, user, email) {
-  authorised = credential;
-  userType = user;
-  userEmail = email;
-}
-//setSessionValues(true, "admin", "aeroadsad@gmail.com");
 
 const homePageController = async (req, res) => {
   let token = req.cookies["access-token"];
@@ -21,7 +11,6 @@ const homePageController = async (req, res) => {
     if (req.user || token) {
       let userData = jwt.verify(token, "secret_key");
       const paramRegex = /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
-      let links = { "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir" };
       console.log(userData);
       let role = userData.role || "user";
       if (role === "user") {
@@ -49,24 +38,28 @@ const homePageController = async (req, res) => {
           res.render("home", {
             page_title: "home",
             navBar_links: links,
+            isAuthorized: userData.authorised,
+            handlerOnclick: () => console.log("estoy vivo"),
             scrapingData: matchingGrants,
           });
         } else {
           res.render("home", {
             page_title: "home",
             navBar_links: links,
+            isAuthorized: userData.authorised,
           });
         }
       } else if (role === "admin") {
         let links = {
           "/users": "usuarios",
           "/grants": "subvenciones",
+          "/dashboard": "dashboard",
           "/logout": "salir",
         };
         res.render("homeAdmin", {
-
           page_title: "home",
           navBar_links: links,
+          isAuthorized: userData.authorised,
         });
       }
     } else {
@@ -203,7 +196,33 @@ const logoutPageController = (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error });
   }
+
 };
+
+}; 
+
+const createGrant = (req, res) => {
+  try {
+    let grant = new Grant({
+      id: Number(req.body.id),
+      mrr: req.body.mrr,
+      admin: req.body.admin,
+      dep: req.body.dep,
+      date: req.body.date,
+      title: req.body.title,
+      title_co: req.body.title_co,
+      assignedTo: '', //esta misma linea estaba en el scrapper
+      link: req.body.link
+    });
+    Grant.save()
+    res.status(201).redirect('/dashboard');
+  } catch (error) {
+    throw new error
+  }
+}
+
+
+
 
 
 module.exports = {

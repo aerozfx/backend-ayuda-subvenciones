@@ -17,8 +17,8 @@ const inputLink = document.querySelector("#link");
 const grantForm = document.querySelector("#grantForm");
 const grantCard = document.querySelectorAll(".grantCard")
 
-//showGrantFromBtn.addEventListener("click", () => sectionGrantForm.classList.toggle('hidden'));
-//showUserFromBtn.addEventListener("click", () => userForm.classList.toggle('hidden'));
+showGrantFromBtn?.addEventListener("click", () => sectionGrantForm.classList.toggle('hidden'));
+showUserFromBtn?.addEventListener("click", () => userForm.classList.toggle('hidden'));
 
 function selectElement(selector) {
   return document.querySelector(selector);
@@ -36,39 +36,43 @@ function setEventListener(element, eventType, functionToExe) {
 // const profileFormSection = selectElement("#profileForm_section");
 // setEventListener(profileFormToggleBtn, "click", () => profileFormSection.classList.toggle("hidden"));
 
-
-
-
-
-/*INSPIRACION document.querySelectorAll(".grantCard").forEach(node=> console.log(node))*/
-//console.log(grantCards[0].textContent.split(":")[1])
-
-/* console.log(grantsId[1].outerText.split(":")[1]);
-
-deleteGrantBtn.addEventListener('click', async (e) => {
+async function postFavorite(grantId) {
   try {
-    const getGrantId = () => {
+    await fetch(`http://localhost:3000/api/favorites`, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: grantId })
+    });
+  }
+  catch(error) {
+    console.error(error);
+  }
+};
 
-      for (let i = 0; i < grantsId.length; i++) {
-
-        let grantId = grantsId[i].outerText.split(":")[1];
-      };
-
-    }
-    await fetch(`/api/ads/${grantId}`, {
+async function deleteFavorite(grantId) {
+  try {
+    await fetch(`http://localhost:3000/api/favorites/${grantId}`, {
       method: "DELETE",
       headers: {
         'Accept': 'application/json',
+        'Content-Type': 'application/json',
         credentials: "include"
       },
       body: JSON.stringify({ id: grantId })
-    })
+    });
   }
-  catch (error) {
+  catch(error) {
     console.error(error);
   }
-})
- */
+};
+
+
+
+
+
 
 grantCard.forEach((node) => {
   let grantId = node.childNodes[0].firstChild.outerText.split(":")[1]
@@ -93,22 +97,6 @@ grantCard.forEach((node) => {
 })
 
 
+selectElements('.addFavorites').forEach(grantCard => grantCard.addEventListener('click', () => postFavorite(grantCard.getAttribute('id'))));
+selectElements('.deleteFavorite').forEach(grantCard => grantCard.addEventListener('click', () => deleteFavorite((grantCard.getAttribute('id')))));
 
-/* for (let i = 0; i < grantCard.length; i++) {
-  deleteGrantBtn.addEventListener('click', async (e) => {
-    try {
-      let grantId = grantsId[i].outerText.split(":")[0];
-      await fetch(`/api/ads/${grantId}`, {
-        method: "DELETE",
-        headers: {
-          'Accept': 'application/json',
-          credentials: "include"
-        },
-        body: JSON.stringify({ id: grantId })
-      })
-    }
-    catch (error) {
-      console.error(error);
-    }
-  })
-} */
