@@ -194,7 +194,7 @@ const dashboardController = (req, res) => {
   }
 }; 
 
- const logoutPageController = (req, res) => {
+const logoutPageController = (req, res) => {
   try {
     res.status(200).render("homeWeb");
 
@@ -248,5 +248,5 @@ module.exports = {
   createGrant,
   deleteGrant,
   loginPageController,
-  logoutPageController
+  logoutPageController,
 };
