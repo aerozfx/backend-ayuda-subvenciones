@@ -8,12 +8,12 @@ const checkUser = async (req, res, next) => {
     let user = await users.getUserByEmail(email);
     let result = await bcrypt.compare(password, user[0].password);
     if (result) {
-      let { role } = user[0];
-      console.log(user[0]);
+      let { role, email, user_id } = user[0];
       const payload = {
         authorised: true,
         role: role || "user",
-        user_id: user[0].user_id,
+        email,
+        user_id,
       };
       let token = jwt.sign(payload, "secret_key", {
         expiresIn: "10m",
@@ -33,15 +33,15 @@ const checkUser = async (req, res, next) => {
 const checkCookie = (req, res, next) => {
   try {
     let token = jwt.verify(req.cookies["access-token"], "secret_key");
-    console.log("has accedido con token " + token);
     if (token) {
       next();
     } else {
       res.redirect("/");
     }
-  } catch (error) {}
+  } catch (error) {
+    res.status(404).render("404");
+  }
 };
-
 const checkRole = (req, res, next) => {
   try {
     let token = jwt.verify(req.cookies["access-token"], "secret_key");
@@ -50,7 +50,9 @@ const checkRole = (req, res, next) => {
     } else {
       res.redirect("/");
     }
-  } catch (error) {}
+  } catch (error) {
+    res.status(404).render("404");
+  }
 };
 
 module.exports = { checkUser, checkRole, checkCookie };

@@ -1,4 +1,5 @@
 const express = require("express");
+const handler404 = require("../middlewares/404handler");
 const apiRouter = express.Router();
 const users = require("../controllers/usersApiController");
 const favorites = require("../controllers/favoritesApiController");
@@ -28,5 +29,5 @@ apiRouter.patch("/ads/:id?", grants.updateOneGrant);
 //apiRouter.delete("/ads/:id?", grants.deleteOneGrant);
 
 apiRouter.post("/login", checkUser, users.loginUser);
-
+apiRouter.use(handler404);
 module.exports = apiRouter;

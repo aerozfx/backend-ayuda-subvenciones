@@ -9,7 +9,6 @@ html(lang="es")
         input#search(type='text', placeholder='search' name='search')
         button.searchBtn.fill_btn.btn(type="submit") Buscar
       section#searchResults
-        -var authorised = false; //conditional para mostrar o esconder botón de favoritos
         if scrapingData
           -for(let i=0;i<scrapingData.length; i++)
             article.card

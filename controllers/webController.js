@@ -3,26 +3,15 @@ const favorites = require("../models/favorites");
 const user = require("../models/users");
 const jwt = require("jsonwebtoken");
 
-let authorised;
-let userType;
-let userEmail;
-
-// function setSessionValues(credential, user, email) {
-//   authorised = credential;
-//   userType = user;
-//   userEmail = email;
-// }
-// setSessionValues(true, "user", "aeroadsad@gmail.com");
-
 const homePageController = async (req, res) => {
-  let token = req.cookies["access-token"];
   try {
-    if (req.user || token) {
+    if (req.cookies["access-token"]) {
+      let token = req.cookies["access-token"];
       let userData = jwt.verify(token, "secret_key");
       const paramRegex =
         /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
+      let role = userData?.role || "user";
       console.log(userData);
-      let role = userData.role || "user";
       if (role === "user") {
         let links = {
           "/profile": "perfil",
@@ -49,11 +38,13 @@ const homePageController = async (req, res) => {
             page_title: "home",
             navBar_links: links,
             scrapingData: matchingGrants,
+            authorised: userData.authorised,
           });
         } else {
           res.render("home", {
             page_title: "home",
             navBar_links: links,
+            authorised: userData.authorised,
           });
         }
       } else if (role === "admin") {
@@ -98,17 +89,28 @@ const favoritesPageController = async (req, res) => {
 
 const profilePageController = async (req, res) => {
   try {
-    let links = {
-      "/": "inicio",
-      "/favorites": "favoritos",
-      "/logout": "salir",
-    };
-    let currentUser = await user.getUserByEmail(userEmail);
-    res.render("profile", {
-      page_title: "perfil",
-      navBar_links: links,
-      current_user: currentUser,
-    });
+    let token = jwt.verify(req.cookies["access-token"], "secret_key");
+    if (token) {
+      let links = {
+        "/": "inicio",
+        "/favorites": "favoritos",
+        "/logout": "salir",
+      };
+      let currentUser = await user.getUserByEmail(token.email);
+      if (currentUser.length > 0) {
+        res.render("profile", {
+          page_title: "perfil",
+          navBar_links: links,
+          current_user: currentUser,
+        });
+      } else {
+        res.render("profile", {
+          page_title: "perfil",
+          navBar_links: links,
+          token,
+        });
+      }
+    }
   } catch (error) {
     res.status(400).json({ msj: `ERROR ${error}` });
   }

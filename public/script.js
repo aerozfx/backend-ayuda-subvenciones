@@ -14,7 +14,6 @@ const inputTitleCo = document.querySelector("#title-co");
 const inputLink = document.querySelector("#link");
 const grantForm = document.querySelector("#grantForm");
 
-console.log(showGrantFromBtn);
 showGrantFromBtn.addEventListener("click", () =>
   sectionGrantForm.classList.toggle("hidden")
 );

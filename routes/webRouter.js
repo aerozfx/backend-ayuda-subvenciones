@@ -22,11 +22,20 @@ webRouter.get(
 );
 webRouter.get(
   "/callback",
-  passport.authenticate("google", { failureRedirect: "/error" }),
+  passport.authenticate("google", {
+    failureRedirect: "/error",
+  }),
   (req, res) => {
+    let { familyName: surname, givenName: name } = req.user.name;
+    console.log(req.user);
     const payload = {
-      //save here data
-      check: true,
+      email: req.user.emails[0].value,
+      authorised: true,
+      id: req.user.id,
+      name,
+      surname,
+      image: req.user.photos[0].value,
+      rol: req.user?.rol || "user ",
     };
     const token = jwt.sign(payload, `secret_key`, {
       expiresIn: "20m",
@@ -34,9 +43,9 @@ webRouter.get(
     //Almacenamos el token en las cookies
     res.cookie("access-token", token, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "lax",
     });
-    res.redirect("/");
+    res.status(200).redirect("/");
   }
 );
 
@@ -53,10 +62,19 @@ webRouter.get(
   loginHandler.checkCookie,
   webController.favoritesPageController
 );
-webRouter.get("/profile", webController.profilePageController);
+webRouter.get(
+  "/profile",
+  loginHandler.checkCookie,
+  webController.profilePageController
+);
 
 // Admin -> Necesitamos middleware que compruebe el rol
-webRouter.get("/users", webController.usersListController);
+webRouter.get(
+  "/users",
+  loginHandler.checkCookie,
+  loginHandler.checkRole,
+  webController.usersListController
+);
 
 webRouter.get(
   "/dashboard",
@@ -64,11 +82,25 @@ webRouter.get(
   loginHandler.checkRole,
   webController.dashboardController
 );
-webRouter.post("/dashboard", webController.createGrant);
-webRouter.delete("/dashboard/:id", webController.deleteGrant);
+webRouter.post(
+  "/dashboard",
+  loginHandler.checkCookie,
+  loginHandler.checkRole,
+  webController.createGrant
+);
+webRouter.delete(
+  "/dashboard/:id",
+  loginHandler.checkRole,
+  webController.deleteGrant
+);
 webRouter.get("/logout", (req, res) => res.send("has salido"));
 
-webRouter.get("/grants", webController.grantsListController);
+webRouter.get(
+  "/grants",
+  loginHandler.checkCookie,
+  loginHandler.checkRole,
+  webController.grantsListController
+);
 
 webRouter.get("/logout", webController.logoutPageController);
 

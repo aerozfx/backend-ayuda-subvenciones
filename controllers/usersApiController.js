@@ -48,11 +48,11 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const loginUser = async (req, res) => {
+const loginUser = (req, res) => {
   try {
-    res.redirect("/");
+    res.status(200).redirect("/");
   } catch (error) {
-    res.status(200).json({
+    res.status(400).json({
       message: error,
     });
   }
