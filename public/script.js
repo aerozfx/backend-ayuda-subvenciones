@@ -72,6 +72,28 @@ async function deleteFavorite(grantId) {
   }
 };
 
+grantCard.forEach((node) => {
+  let grantId = node.childNodes[0].firstChild.outerText.split(":")[1]
+  let button = node.querySelector(".btn")
+  button.addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      node.style.display = "none"
+      await fetch(`/api/grants/${grantId}`, {
+        method: "DELETE",
+        headers: {
+          'Accept': 'application/json',
+          credentials: "include"
+        },
+        body: JSON.stringify({ id: grantId })
+      })
+    }
+    catch (error) {
+      console.error(error);
+    }
+  })
+})
+
 selectElements('.addFavorites').forEach(addBtn => addBtn.addEventListener('click', () => postFavorite(addBtn.getAttribute('id'))));
 selectElements('.deleteFavorite').forEach(deleteBtn => deleteBtn.addEventListener('click', () => {
   const suffixId = deleteBtn.getAttribute('id');
