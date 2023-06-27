@@ -10,7 +10,8 @@ const webRouter = require("./routes/webRouter");
 const apiRouter = require("./routes/apiRouter");
 const handler404 = require("./middlewares/404handler");
 const bodyParser = require('body-parser');
-
+const Grant = require("./models/grants.js")
+const scrapper = require("./utils/scrapper.js")
 const PORT = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));

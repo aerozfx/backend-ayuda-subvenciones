@@ -1,8 +1,4 @@
 const Grant = require("../models/grants");
-//const formValues = require('../public/script');
-//const scrappy = require('../utils/scrapper'); 
-
-
 
 const getAllGrants = async (req, res) => {
   if (req.params.id) {
@@ -23,7 +19,8 @@ const getAllGrants = async (req, res) => {
 const deleteOneGrant = async (req, res) => {
   try {
     const deleteGrant = await Grant.deleteOne({ id: { $in: [req.params.id] } });
-    res.status(200).json(deleteGrant);
+    res.status(200).json({ message: `Subvención con id ${req.params.id} se ha borrado correctamente` })
+
   } catch (error) {
     console.log(`ERROR: ${error.stack}`);
     res.status(400).json({

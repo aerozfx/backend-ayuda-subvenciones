@@ -62,7 +62,6 @@ webRouter.get("/users", webController.usersListController);
 webRouter.get("/dashboard", webController.dashboardController);
 webRouter.get("/logout", (req, res) => res.send("has salido"));
 webRouter.post("/dashboard", grantApicontroller.createGrant);
-webRouter.delete("/dashboard/:id", grantApicontroller.deleteOneGrant);
 
 webRouter.get("/grants", webController.grantsListController);
 webRouter.get("/logout", webController.logoutPageController);
