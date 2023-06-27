@@ -1,5 +1,5 @@
 const db_users_queries = require("./queries/users.queries.js");
-const pool = require("../utils/db-sql-users.js");
+const pool = require("../utils/db-sql.js");
 
 const getUserByEmail = async (email) => {
   let client, result;

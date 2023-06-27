@@ -36,7 +36,7 @@ const checkCookie = (req, res, next) => {
     console.log("has accedido con token " + token);
     if (token) next();
   } catch (error) {
-    res.send("no hay cookie");
+    res.status(401).redirect("/login");
   }
 };
 const auth = (req, res, next) => {

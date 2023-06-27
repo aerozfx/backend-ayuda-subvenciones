@@ -1,4 +1,4 @@
-const pool = require("../utils/db-sql-favorites");
+const pool = require("../utils/db-sql");
 const db_favorites_queries = require("./queries/favorites.queries");
 
 const addFavorite = async (data) => {

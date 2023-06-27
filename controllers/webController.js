@@ -10,7 +10,6 @@ const homePageController = async (req, res) => {
     if (req.user || token) {
       let userData = jwt.verify(token, "secret_key");
       const paramRegex = /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
-      console.log(userData);
       let role = userData.role || "user";
       if (role === "user") {
         let links = {
@@ -38,7 +37,6 @@ const homePageController = async (req, res) => {
             page_title: "home",
             navBar_links: links,
             isAuthorized: userData.authorised,
-            handlerOnclick: () => console.log("estoy vivo"),
             scrapingData: matchingGrants,
           });
         } else {
@@ -68,19 +66,27 @@ const homePageController = async (req, res) => {
     res.status(400).json({ msj: `ERROR ${error}` });
   }
 };
+
 const favoritesPageController = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
     let userData = jwt.verify(token, "secret_key");
+    console.log({userData});
     let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };
     let favoritesResult = await favorites.getFavoritesByUserId(
       userData.user_id
     );
+    console.log({favoritesResult});
     if (favoritesResult.length > 0) {
+      const favoriteIds = favoritesResult.map(favorite => {
+        return { id: favorite.favorite_id }
+      })
+      const grants = await Grant.find( { $or:favoriteIds});
       res.render("favorites", {
         page_title: "favoritos",
         navBar_links: links,
         favorites: favoritesResult,
+        grants: grants
       });
     } else {
       res.send("no hay favoritos");
