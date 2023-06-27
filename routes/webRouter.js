@@ -3,7 +3,6 @@ const webController = require("../controllers/webController");
 const loginHandler = require("../middlewares/loginHandler");
 const webRouter = express.Router();
 const passport = require("passport");
-const jwt = require("jsonwebtoken");
 require("../utils/google-auth");
 
 // Vista principal -> Debe tener un renderizado condicional, dependiendo si el usuario está logeado o no
@@ -25,28 +24,7 @@ webRouter.get(
   passport.authenticate("google", {
     failureRedirect: "/error",
   }),
-  (req, res) => {
-    let { familyName: surname, givenName: name } = req.user.name;
-    console.log(req.user);
-    const payload = {
-      email: req.user.emails[0].value,
-      authorised: true,
-      id: req.user.id,
-      name,
-      surname,
-      image: req.user.photos[0].value,
-      rol: req.user?.rol || "user ",
-    };
-    const token = jwt.sign(payload, `secret_key`, {
-      expiresIn: "20m",
-    });
-    //Almacenamos el token en las cookies
-    res.cookie("access-token", token, {
-      httpOnly: true,
-      sameSite: "lax",
-    });
-    res.status(200).redirect("/");
-  }
+  webController.googleLogin
 );
 
 webRouter.get("/logout", (req, res) => {

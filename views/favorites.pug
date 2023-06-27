@@ -16,5 +16,5 @@ html(lang="es")
           p.card_date fecha: #{favorites[i].date}
           p.card_dep departamento: #{favorites[i].dep} 
           p.card_org organismo: #{favorites[i].org} 
-          button.btn.addFavorites Quitar de favoritos
+          button.btn.deleteFavorite(id=favorites[i].favorite_id) Quitar de favoritos
     script(src="script.js")          

@@ -7,24 +7,31 @@ const addFavorite = async (data) => {
   try {
     client = await pool.connect();
     let data = await client.query(db_favorites_queries.addFavorite, [
+      +favorite_id,
+      user_id,
+    ]);
+    result = data.rows;
+  } catch (error) {
+    throw error;
+  } finally {
+    client.release();
+  }
+  return result;
+};
+
+const removeFavorite = async ({ favorite_id, user_id }) => {
+  let client, result;
+  try {
+    client = await pool.connect();
+    let data = await client.query(db_favorites_queries.deleteFavorite, [
       favorite_id,
       user_id,
     ]);
     result = data.rows;
   } catch (error) {
     throw error;
-  }
-  return result;
-};
-
-const removeFavorite = async (id) => {
-  let client, result;
-  try {
-    client = await pool.connect();
-    let data = await client.query(db_favorites_queries.deleteFavorite, [id]);
-    result = data.rows;
-  } catch (error) {
-    throw error;
+  } finally {
+    client.release();
   }
   return result;
 };

@@ -52,6 +52,7 @@ const createUser = async (data) => {
 };
 
 const updateUser = async (data) => {
+  console.log(data);
   let { newName, newSurname, newEmail, newPassword, newRole, email } = data;
   let client, result;
   try {

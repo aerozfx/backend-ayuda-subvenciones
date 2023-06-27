@@ -5,7 +5,7 @@ const db_favorites_queries = {
     `,
   deleteFavorite: `
     DELETE FROM favorites
-    WHERE favorite_id = $1`,
+    WHERE favorite_id=$1 AND user_id=$2`,
   getAllFavorites: `
     SELECT *
     FROM favorites`,

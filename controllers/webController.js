@@ -11,7 +11,6 @@ const homePageController = async (req, res) => {
       const paramRegex =
         /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
       let role = userData?.role || "user";
-      console.log(userData);
       if (role === "user") {
         let links = {
           "/profile": "perfil",
@@ -37,6 +36,8 @@ const homePageController = async (req, res) => {
           res.render("home", {
             page_title: "home",
             navBar_links: links,
+            isAuthorized: userData.authorised,
+            handlerOnclick: () => console.log("estoy vivo"),
             scrapingData: matchingGrants,
             authorised: userData.authorised,
           });
@@ -44,25 +45,27 @@ const homePageController = async (req, res) => {
           res.render("home", {
             page_title: "home",
             navBar_links: links,
-            authorised: userData.authorised,
+            isAuthorized: userData.authorised,
           });
         }
       } else if (role === "admin") {
         let links = {
           "/users": "usuarios",
           "/grants": "subvenciones",
+          "/dashboard": "dashboard",
           "/logout": "salir",
         };
         res.render("homeAdmin", {
           page_title: "home",
           navBar_links: links,
+          isAuthorized: userData.authorised,
         });
       }
     } else {
       res.render("homeWeb", { page_title: "F.A.M Pyme" });
     }
   } catch (error) {
-    res.status(400).json({ msj: `ERROR ${error}` });
+    res.status(200).redirect("/");
   }
 };
 const favoritesPageController = async (req, res) => {
@@ -179,7 +182,7 @@ const loginPageController = (req, res) => {
   try {
     res.status(200).render("login");
   } catch (error) {
-    res.status(400).json({ message: error });
+    res.redirect("/");
   }
 };
 
@@ -213,7 +216,7 @@ const createGrant = (req, res) => {
       assignedTo: "", //esta misma linea estaba en el scrapper
       link: req.body.link,
     });
-    grant.save();
+    Grant.save();
     res.status(201).redirect("/dashboard");
   } catch (error) {
     throw new error();
@@ -232,6 +235,44 @@ const deleteGrant = async (req, res) => {
    } */
 };
 
+const googleLogin = async (req, res) => {
+  let userRes = await fetch(
+    `http://localhost:3000/api/users/${req.user.emails[0].value}`
+  );
+  let response = await userRes.json();
+  let { givenName: name, familyName: surname } = req.user.name;
+  let email = req.user.emails[0].value;
+
+  if (!response[0]) {
+    await fetch(`http://localhost:3000/api/users`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, surname, email }),
+    });
+  }
+  const payload = {
+    email,
+    authorised: true,
+    user_id: response[0].user_id,
+    name,
+    surname,
+    image: req.user.photos[0].value,
+    rol: req.user?.rol || "user ",
+  };
+  const token = jwt.sign(payload, `secret_key`, {
+    expiresIn: "20m",
+  });
+  //Almacenamos el token en las cookies
+  res.cookie("access-token", token, {
+    httpOnly: true,
+    sameSite: "lax",
+  });
+  res.status(200).redirect("/");
+};
+
 module.exports = {
   signupPageController,
   homePageController,
@@ -244,4 +285,5 @@ module.exports = {
   deleteGrant,
   loginPageController,
   logoutPageController,
+  googleLogin,
 };
