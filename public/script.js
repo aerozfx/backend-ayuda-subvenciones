@@ -1,6 +1,7 @@
 const showGrantFromBtn = document.querySelector("#show_grantForm");
 const showUserFromBtn = document.querySelector("#show_userForm");
 const submitBtn = document.querySelector("#submit_btn.btn");
+const deleteGrantBtn = document.querySelector('#delete_grant_btn')
 const sectionGrantForm = document.querySelector(".dashboard_grantForm");
 const userForm = document.querySelector(".admin_userFrom");
 const inputId = document.querySelector("#id");
@@ -13,6 +14,7 @@ const inputTitle = document.querySelector("#title");
 const inputTitleCo = document.querySelector("#title-co");
 const inputLink = document.querySelector("#link");
 const grantForm = document.querySelector("#grantForm");
+const grantCard = document.querySelectorAll(".grantCard")
 
 showGrantFromBtn?.addEventListener("click", () =>
   sectionGrantForm.classList.toggle("hidden")
@@ -23,20 +25,21 @@ showUserFromBtn?.addEventListener("click", () =>
 
 function selectElement(selector) {
   return document.querySelector(selector);
-}
+};
 function selectElements(selectors) {
   return document.querySelectorAll(selectors);
-}
+};
 
 function setEventListener(element, eventType, functionToExe) {
   return element?.addEventListener(eventType, functionToExe);
-}
+};
 
 const profileFormToggleBtn = selectElement("#profileForm_toggleBtn");
 const profileFormSection = selectElement("#profileForm_section");
 setEventListener(profileFormToggleBtn, "click", () =>
   profileFormSection.classList.toggle("hidden")
 );
+
 
 async function postFavorite(grantId) {
   try {
@@ -69,13 +72,28 @@ async function deleteFavorite(grantId) {
   }
 }
 
-selectElements(".addFavorites").forEach((grantCard) =>
-  grantCard.addEventListener("click", () =>
-    postFavorite(grantCard.getAttribute("id"))
-  )
-);
-selectElements(".deleteFavorite").forEach((grantCard) =>
-  grantCard.addEventListener("click", () =>
-    deleteFavorite(grantCard.getAttribute("id"))
-  )
-);
+grantCard.forEach((node) => {
+  let grantId = node.childNodes[0].firstChild.outerText.split(":")[1]
+  let button = node.querySelector(".btn")
+  button.addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      node.style.display = "none"
+      await fetch(`/api/grants/${grantId}`, {
+        method: "DELETE",
+        headers: {
+          'Accept': 'application/json',
+          credentials: "include"
+        },
+        body: JSON.stringify({ id: grantId })
+      })
+    }
+    catch (error) {
+      console.error(error);
+    }
+  })
+})
+
+selectElements('.addFavorites').forEach(grantCard => grantCard.addEventListener('click', () => postFavorite(grantCard.getAttribute('id'))));
+selectElements('.deleteFavorite').forEach(grantCard => grantCard.addEventListener('click', () => deleteFavorite((grantCard.getAttribute('id')))));
+

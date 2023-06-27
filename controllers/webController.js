@@ -3,6 +3,7 @@ const favorites = require("../models/favorites");
 const user = require("../models/users");
 const jwt = require("jsonwebtoken");
 
+
 const homePageController = async (req, res) => {
   try {
     if (req.cookies["access-token"]) {
@@ -189,7 +190,7 @@ const loginPageController = (req, res) => {
 const dashboardController = (req, res) => {
   try {
     res.status(200).render("dashboard", { page_title: "dashboard" });
-    //pasarle la bd de grants y de users
+
   } catch (error) {
     res.status(400).json({ message: error });
   }
@@ -203,37 +204,6 @@ const logoutPageController = (req, res) => {
   }
 };
 
-const createGrant = (req, res) => {
-  try {
-    let grant = new Grant({
-      id: Number(req.body.id),
-      mrr: req.body.mrr,
-      admin: req.body.admin,
-      dep: req.body.dep,
-      date: req.body.date,
-      title: req.body.title,
-      title_co: req.body.title_co,
-      assignedTo: "", //esta misma linea estaba en el scrapper
-      link: req.body.link,
-    });
-    Grant.save();
-    res.status(201).redirect("/dashboard");
-  } catch (error) {
-    throw new error();
-  }
-};
-
-const deleteGrant = async (req, res) => {
-  /*  try {
-     const deleteGrant = await Grant.deleteOne({ id: { $in: [req.params.id] } });
-     res.status(200).json(deleteGrant);
-   } catch (error) {
-     console.log(`ERROR: ${error.stack}`);
-     res.status(400).json({
-       msj: `ERROR: ${error}`,
-     });
-   } */
-};
 
 const googleLogin = async (req, res) => {
   let userRes = await fetch(
@@ -281,8 +251,6 @@ module.exports = {
   usersListController,
   grantsListController,
   dashboardController,
-  createGrant,
-  deleteGrant,
   loginPageController,
   logoutPageController,
   googleLogin,
