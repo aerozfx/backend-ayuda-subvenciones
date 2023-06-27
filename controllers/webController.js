@@ -187,7 +187,16 @@ const loginPageController = (req, res) => {
 
 const dashboardController = (req, res) => {
   try {
-    res.status(200).render("dashboard", { page_title: "dashboard" });
+    let links = {
+      "/users": "usuarios",
+      "/grants": "subvenciones",
+      "/": "home",
+      "/logout": "salir",
+    };
+    res.status(200).render("dashboard", { 
+      page_title: "dashboard",
+      navBar_links: links,
+    });
     //pasarle la bd de grants y de users
   } catch (error) {
     res.status(400).json({ message: error });
@@ -234,7 +243,6 @@ const deleteGrant = async (req, res) => {
      });
    } */
 }
-
 
 
 module.exports = {
