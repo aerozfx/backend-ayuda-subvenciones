@@ -12,7 +12,6 @@ const scrapper = async () => {
       "--no-zygote",
     ],
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-    headless: false,
   });
   const page = await browser.newPage();
   page.setDefaultTimeout(300000);
