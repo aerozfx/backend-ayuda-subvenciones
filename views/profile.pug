@@ -16,7 +16,7 @@ html(lang="es")
         article.card#profileData_section.flexCol
           h2 Nombre: #{user.surname} #{user.name}
           p Correo electrónico: #{user.email}
-          p Rol: #{user.rol} 
+          p Rol: #{user.role} 
       section#profileForm_section.flexCol
         form#profileForm(method="POST" action=`/api/users/${user.email}`)
           label(for="name") Nuevo nombre

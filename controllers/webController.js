@@ -1,7 +1,7 @@
 require("dotenv").config();
 /**
- * @exports routes 
- * @namespace webController 
+ * @exports routes
+ * @namespace webController
  */
 
 const Grant = require("../models/grants");
@@ -9,16 +9,15 @@ const favorites = require("../models/favorites");
 const user = require("../models/users");
 const jwt = require("jsonwebtoken");
 
-
-/** 
-* @memberof webController 
-* @method homePageController 
-* @async 
-* @param {Object} req Objeto de petición HTTP
-* @param {Object} res Objeto de respuesta HTTP
-* @return {render} renderiza la pagina home en base a quien esté logeado
-* @throws {error} 
-*/
+/**
+ * @memberof webController
+ * @method homePageController
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {render} renderiza la pagina home en base a quien esté logeado
+ * @throws {error}
+ */
 
 const homePageController = async (req, res) => {
   try {
@@ -87,26 +86,25 @@ const homePageController = async (req, res) => {
   }
 };
 
-
-/** 
-* @memberof webController 
-* @method favoritesPageController 
-* @async 
-* @param {Object} req Objeto de petición HTTP
-* @param {Object} res Objeto de respuesta HTTP
-* @return {render} Renderiza la pagina de subvenciones favoritas en funcion del usuario que esta logeado
-* @throws {error} 
-*/
+/**
+ * @memberof webController
+ * @method favoritesPageController
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {render} Renderiza la pagina de subvenciones favoritas en funcion del usuario que esta logeado
+ * @throws {error}
+ */
 
 const favoritesPageController = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
     let userData = jwt.verify(token, "secret_key");
-    console.log({ userData });
     let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };
     let favoritesResult = await favorites.getFavoritesByUserId(
       userData.user_id
     );
+    console.log(userData.user_id);
     if (favoritesResult.length > 0) {
       const favoriteIds = favoritesResult.map((favorite) => {
         return { id: favorite.favorite_id };
@@ -126,21 +124,26 @@ const favoritesPageController = async (req, res) => {
   }
 };
 
-/** 
-* @memberof webController 
-* @method profilePageController
-* @async 
-* @param {Object} req Objeto de petición HTTP
-* @param {Object} res Objeto de respuesta HTTP
-* @return {render} Renderiza la pagina de perfil en funcion del usuario que esta logeado
-* @throws {error} 
-*/
+/**
+ * @memberof webController
+ * @method profilePageController
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {render} Renderiza la pagina de perfil en funcion del usuario que esta logeado
+ * @throws {error}
+ */
 
 const profilePageController = async (req, res) => {
   try {
     let token = jwt.verify(req.cookies["access-token"], "secret_key");
     if (token) {
-      let links = { "/": "inicio", "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir"};
+      let links = {
+        "/": "inicio",
+        "/profile": "perfil",
+        "/favorites": "favoritos",
+        "/logout": "salir",
+      };
       let currentUser = await user.getUserByEmail(token.email);
       if (currentUser.length > 0) {
         res.render("profile", {
@@ -161,15 +164,15 @@ const profilePageController = async (req, res) => {
   }
 };
 
-/** 
-* @memberof webController 
-* @method usersListController 
-* @async 
-* @param {Object} req Objeto de petición HTTP
-* @param {Object} res Objeto de respuesta HTTP
-* @return {render} Renderiza la pagina con la lista de usuarios en funcion del usuario que esta logeado
-* @throws {error} 
-*/
+/**
+ * @memberof webController
+ * @method usersListController
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {render} Renderiza la pagina con la lista de usuarios en funcion del usuario que esta logeado
+ * @throws {error}
+ */
 
 const usersListController = async (req, res) => {
   try {
@@ -200,15 +203,15 @@ const usersListController = async (req, res) => {
   }
 };
 
-/** 
-* @memberof webController 
-* @method grantsListController 
-* @async 
-* @param {Object} req Objeto de petición HTTP
-* @param {Object} res Objeto de respuesta HTTP
-* @return {render} Renderiza la pagina de subvenciones 
-* @throws {error} 
-*/
+/**
+ * @memberof webController
+ * @method grantsListController
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {render} Renderiza la pagina de subvenciones
+ * @throws {error}
+ */
 
 const grantsListController = async (req, res) => {
   try {
@@ -240,15 +243,15 @@ const grantsListController = async (req, res) => {
   }
 };
 
-/** 
-* @memberof webController 
-* @method signupPageController 
-* @async 
-* @param {Object} req Objeto de petición HTTP
-* @param {Object} res Objeto de respuesta HTTP
-* @return {render} Renderiza la pagina para registrarse
-* @throws {error} 
-*/
+/**
+ * @memberof webController
+ * @method signupPageController
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {render} Renderiza la pagina para registrarse
+ * @throws {error}
+ */
 
 const signupPageController = (req, res) => {
   try {
@@ -258,15 +261,15 @@ const signupPageController = (req, res) => {
   }
 };
 
-/** 
-* @memberof webController 
-* @method loginPageController 
-* @async 
-* @param {Object} req Objeto de petición HTTP
-* @param {Object} res Objeto de respuesta HTTP
-* @return {render} Renderiza la pagina para hacer log in
-* @throws {error} 
-*/
+/**
+ * @memberof webController
+ * @method loginPageController
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {render} Renderiza la pagina para hacer log in
+ * @throws {error}
+ */
 
 const loginPageController = (req, res) => {
   try {
@@ -276,15 +279,15 @@ const loginPageController = (req, res) => {
   }
 };
 
-/** 
-* @memberof webController 
-* @method dashboardController 
-* @async 
-* @param {Object} req Objeto de petición HTTP
-* @param {Object} res Objeto de respuesta HTTP
-* @return {render} Renderiza la pagina de dashboard accesible por un usuario de tipo administrador
-* @throws {error} 
-*/
+/**
+ * @memberof webController
+ * @method dashboardController
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {render} Renderiza la pagina de dashboard accesible por un usuario de tipo administrador
+ * @throws {error}
+ */
 
 const dashboardController = (req, res) => {
   try {
@@ -294,8 +297,8 @@ const dashboardController = (req, res) => {
       "/users": "usuarios",
       "/logout": "salir",
     };
-    res.status(200).render("dashboard", { 
-      page_title: "dashboard", 
+    res.status(200).render("dashboard", {
+      page_title: "dashboard",
       navBar_links: links,
     });
   } catch (error) {
@@ -303,15 +306,15 @@ const dashboardController = (req, res) => {
   }
 };
 
-/** 
-* @memberof webController 
-* @method logoutPageController 
-* @async 
-* @param {Object} req Objeto de petición HTTP
-* @param {Object} res Objeto de respuesta HTTP
-* @return {render} Renderiza la pagina que nos muestra que hemos hecho log out
-* @throws {error} 
-*/
+/**
+ * @memberof webController
+ * @method logoutPageController
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {render} Renderiza la pagina que nos muestra que hemos hecho log out
+ * @throws {error}
+ */
 
 const logoutPageController = (req, res) => {
   try {
@@ -321,16 +324,15 @@ const logoutPageController = (req, res) => {
   }
 };
 
-
-/** 
-* @memberof webController 
-* @method googleLogin 
-* @async 
-* @param {Object} req Objeto de petición HTTP
-* @param {Object} res Objeto de respuesta HTTP
-* @return {render} hace log in mediante nuestra cuenta de google
-* @throws {error} 
-*/
+/**
+ * @memberof webController
+ * @method googleLogin
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {render} hace log in mediante nuestra cuenta de google
+ * @throws {error}
+ */
 
 const googleLogin = async (req, res) => {
   let userRes = await fetch(
@@ -357,7 +359,7 @@ const googleLogin = async (req, res) => {
     name,
     surname,
     image: req.user.photos[0].value,
-    rol: req.user?.rol || "user ",
+    role: req.user?.role || "user",
   };
   const token = jwt.sign(payload, `secret_key`, {
     expiresIn: "20m",

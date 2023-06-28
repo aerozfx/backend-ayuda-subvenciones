@@ -1,21 +1,21 @@
 /**
- * @exports routes 
- * @namespace UserApiController 
+ * @exports routes
+ * @namespace UserApiController
  */
 
 const users = require("../models/users.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-/** 
-* @memberof UserApiController 
-* @method createUser 
-* @async 
-* @param {Object} req objeto de petición HTTP
-* @param {Object} res objeto de respuesta HTTP
-* @return {number} numero de entries creadas
-* @throws {error} 
-*/
+/**
+ * @memberof UserApiController
+ * @method createUser
+ * @async
+ * @param {Object} req objeto de petición HTTP
+ * @param {Object} res objeto de respuesta HTTP
+ * @return {number} numero de entries creadas
+ * @throws {error}
+ */
 
 const createUser = async (req, res) => {
   const data = req.body;
@@ -61,15 +61,15 @@ const createUser = async (req, res) => {
   }
 };
 
-/** 
-* @memberof UserApiController 
-* @method updateUser 
-* @async 
-* @param {Object} req objeto de petición HTTP
-* @param {Object} res objeto de respuesta HTTP
-* @return {json} objeto con las entries encontradas
-* @throws {error} 
-*/
+/**
+ * @memberof UserApiController
+ * @method updateUser
+ * @async
+ * @param {Object} req objeto de petición HTTP
+ * @param {Object} res objeto de respuesta HTTP
+ * @return {json} objeto con las entries encontradas
+ * @throws {error}
+ */
 
 const updateUser = async (req, res) => {
   try {
@@ -112,15 +112,15 @@ const updateUser = async (req, res) => {
   }
 };
 
-/** 
-* @memberof UserApiController 
-* @method deleteUser 
-* @async 
-* @param {Object} req objeto de petición HTTP
-* @param {Object} res objeto de respuesta HTTP
-* @return {number} Mensaje con el user borrado
-* @throws {error} 
-*/
+/**
+ * @memberof UserApiController
+ * @method deleteUser
+ * @async
+ * @param {Object} req objeto de petición HTTP
+ * @param {Object} res objeto de respuesta HTTP
+ * @return {number} Mensaje con el user borrado
+ * @throws {error}
+ */
 
 const deleteUser = async (req, res) => {
   let email = req.query.email;
@@ -136,15 +136,15 @@ const deleteUser = async (req, res) => {
   }
 };
 
-/** 
-* @memberof UserApiController 
-* @method loginUser 
-* @async 
-* @param {Object} req objeto de petición HTTP
-* @param {Object} res objeto de respuesta HTTP
-* @return {json} redirige a pagina de inicio
-* @throws {error} 
-*/
+/**
+ * @memberof UserApiController
+ * @method loginUser
+ * @async
+ * @param {Object} req objeto de petición HTTP
+ * @param {Object} res objeto de respuesta HTTP
+ * @return {json} redirige a pagina de inicio
+ * @throws {error}
+ */
 
 const loginUser = (req, res) => {
   try {
@@ -156,15 +156,15 @@ const loginUser = (req, res) => {
   }
 };
 
-/** 
-* @memberof UserApiController 
-* @method getUsers 
-* @async 
-* @param {Object} req objeto de petición HTTP
-* @param {Object} res objeto de respuesta HTTP
-* @return {json} Objeto con todas las entries encontradas
-* @throws {error} 
-*/
+/**
+ * @memberof UserApiController
+ * @method getUsers
+ * @async
+ * @param {Object} req objeto de petición HTTP
+ * @param {Object} res objeto de respuesta HTTP
+ * @return {json} Objeto con todas las entries encontradas
+ * @throws {error}
+ */
 
 const getUsers = async (req, res) => {
   let result;
@@ -197,7 +197,7 @@ const apiDocs = (req, res) => {
 const generateToken = (req, res) => {
   try {
     const payload = {
-      rol: "guest",
+      role: "guest",
     };
     let token = jwt.sign(payload, "secret_key", {
       expiresIn: "5m",
