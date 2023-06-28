@@ -2,10 +2,10 @@ doctype html
 html(lang="es")
   include ./head.pug
   body 
-    header#header
+    header.header_general
       img.header_logo(src="assets/images/logo.png")
       nav
-        ul#navBar
+        ul.navBar_general
           li 
             a.outline_btn.btn(href="/") inicio
     main#main_login.flexColCenter
@@ -16,8 +16,8 @@ html(lang="es")
         label(for="password") Contraseña
         input#password(type="password", name="password")
         button#submit_btn.fill_btn.btn(type="submit") Entrar
-        a(href="/login/google") Identificarse con google
+        a#google_btn.btn(href="/login/google") Identificarse con google
       section.optional_btns.flexColCenter
         a.outline_btn.btn(href="/signup" role="button") Registrarse
         button#getIn_btn.btn(type="button") Entrar sin registrarse
-  script(src="script.js") 
+  script(src="script.js")

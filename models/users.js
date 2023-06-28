@@ -4,7 +4,7 @@
  */
 
 const db_users_queries = require("./queries/users.queries.js");
-const pool = require("../utils/db-sql-users.js");
+const pool = require("../utils/db-sql.js");
 
 /** 
 * @memberof users_model

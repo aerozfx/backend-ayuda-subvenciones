@@ -70,7 +70,7 @@ async function deleteFavorite(grantId) {
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 grantCard.forEach((node) => {
   let grantId = node.childNodes[0].firstChild.outerText.split(":")[1]
@@ -94,6 +94,9 @@ grantCard.forEach((node) => {
   })
 })
 
-selectElements('.addFavorites').forEach(grantCard => grantCard.addEventListener('click', () => postFavorite(grantCard.getAttribute('id'))));
-selectElements('.deleteFavorite').forEach(grantCard => grantCard.addEventListener('click', () => deleteFavorite((grantCard.getAttribute('id')))));
-
+selectElements('.addFavorites').forEach(addBtn => addBtn.addEventListener('click', () => postFavorite(addBtn.getAttribute('id'))));
+selectElements('.deleteFavorite').forEach(deleteBtn => deleteBtn.addEventListener('click', () => {
+  const suffixId = deleteBtn.getAttribute('id');
+  selectElement(`#favorite-${suffixId}`).classList.add("hidden");
+  deleteFavorite((deleteBtn.getAttribute('id')));
+}));

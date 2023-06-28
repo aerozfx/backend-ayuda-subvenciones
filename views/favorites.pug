@@ -5,16 +5,15 @@ html(lang="es")
     include ./header.pug
     main
       section#container_favorites
-      -for(let i=0;i<favorites.length; i++)
-        article.card
-          p dato:#{favorites[i].favorite_id}
-          p dato2: #{favorites[i].user_id}
-          h2.card_title Title: #{favorites[i].title}
-          a(href='favorites[i].link' target='_blank') Visitar
-          p.card_id id: #{favorites[i].id}
-          p.card_descrip desciption: #{favorites[i].title}
-          p.card_date fecha: #{favorites[i].date}
-          p.card_dep departamento: #{favorites[i].dep} 
-          p.card_org organismo: #{favorites[i].org} 
-          button.btn.deleteFavorite(id=favorites[i].favorite_id) Quitar de favoritos
-    script(src="script.js")          
+        -for(let i=0;i<favorites.length; i++)
+          article.card.favorites_card(id=`favorite-${favorites[i].favorite_id}`)
+            p.card_id Id: #{favorites[i].favorite_id}
+            p.card_id Id de usuario: #{favorites[i].user_id}
+            h2.card_title Title: #{grants[i].title}
+            a(href='favorites[i].link' target='_blank') Visitar
+            p.card_descrip desciption: #{grants[i].title}
+            p.card_date fecha: #{grants[i].date}
+            p.card_dep departamento: #{grants[i].dep} 
+            p.card_org organismo: #{grants[i].org} 
+            button.btn.deleteFavorite(id=favorites[i].favorite_id) Quitar de favoritos
+    script(src="script.js")            

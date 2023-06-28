@@ -24,7 +24,7 @@ getDocumentsAmount().then((data) => {
   if (data < 50) {
     scrapper();
   }
-}); */
+});
 
 app.set("view engine", "pug");
 app.set("views", "./views");

@@ -27,6 +27,7 @@ const homePageController = async (req, res) => {
       let role = userData?.role || "user";
       if (role === "user") {
         let links = {
+          "/": "inicio",
           "/profile": "perfil",
           "/favorites": "favoritos",
           "/logout": "salir",
@@ -64,6 +65,7 @@ const homePageController = async (req, res) => {
         }
       } else if (role === "admin") {
         let links = {
+          "/": "inicio",
           "/users": "usuarios",
           "/grants": "subvenciones",
           "/dashboard": "dashboard",
@@ -83,6 +85,7 @@ const homePageController = async (req, res) => {
   }
 };
 
+
 /** 
 * @memberof webController 
 * @method favoritesPageController 
@@ -92,19 +95,26 @@ const homePageController = async (req, res) => {
 * @return {render} Renderiza la pagina de subvenciones favoritas en funcion del usuario que esta logeado
 * @throws {error} 
 */
+
 const favoritesPageController = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
     let userData = jwt.verify(token, "secret_key");
+    console.log({ userData });
     let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };
     let favoritesResult = await favorites.getFavoritesByUserId(
       userData.user_id
     );
     if (favoritesResult.length > 0) {
+      const favoriteIds = favoritesResult.map((favorite) => {
+        return { id: favorite.favorite_id };
+      });
+      const grants = await Grant.find({ $or: favoriteIds });
       res.render("favorites", {
         page_title: "favoritos",
         navBar_links: links,
         favorites: favoritesResult,
+        grants: grants,
       });
     } else {
       res.send("no hay favoritos");
@@ -128,11 +138,7 @@ const profilePageController = async (req, res) => {
   try {
     let token = jwt.verify(req.cookies["access-token"], "secret_key");
     if (token) {
-      let links = {
-        "/": "inicio",
-        "/favorites": "favoritos",
-        "/logout": "salir",
-      };
+      let links = { "/": "inicio", "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir"};
       let currentUser = await user.getUserByEmail(token.email);
       if (currentUser.length > 0) {
         res.render("profile", {
@@ -167,7 +173,9 @@ const usersListController = async (req, res) => {
   try {
     let links = {
       "/": "inicio",
+      "/users": "usuarios",
       "/grants": "subvenciones",
+      "/dashboard": "dashboard",
       "/logout": "salir",
     };
     let users = await user.getUsers();
@@ -202,7 +210,13 @@ const usersListController = async (req, res) => {
 
 const grantsListController = async (req, res) => {
   try {
-    let links = { "/": "inicio", "/users": "usuarios", "/logout": "salir" };
+    let links = {
+      "/": "inicio",
+      "/users": "usuarios",
+      "/grants": "subvenciones",
+      "/dashboard": "dashboard",
+      "/logout": "salir",
+    };
     const grants = await Grant.find({});
 
     if (grants) {
@@ -272,7 +286,16 @@ const loginPageController = (req, res) => {
 
 const dashboardController = (req, res) => {
   try {
-    res.status(200).render("dashboard", { page_title: "dashboard" });
+    let links = {
+      "/": "inicio",
+      "/grants": "subvenciones",
+      "/users": "usuarios",
+      "/logout": "salir",
+    };
+    res.status(200).render("dashboard", { 
+      page_title: "dashboard", 
+      navBar_links: links,
+    });
 
   } catch (error) {
     res.status(400).json({ message: error });

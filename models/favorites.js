@@ -1,9 +1,10 @@
+
 /**
  * @exports routes 
  * @namespace favorites_model 
  */
 
-const pool = require("../utils/db-sql-favorites");
+const pool = require("../utils/db-sql");
 const db_favorites_queries = require("./queries/favorites.queries");
 
 
