@@ -17,18 +17,16 @@ html(lang="es")
           h2 Nombre: #{user.surname} #{user.name}
           p Correo electrónico: #{user.email}
           p Rol: #{user.rol} 
-      button#profileForm_toggleBtn.outlineColor_btn.btn Editar datos
-        section#profileForm_section.flexCol
-          form#profileForm(method="POST" action=`/api/users/${user.email}`)
-            label(for="name") Nuevo nombre
-            input#name(type="text", name="newName" value=user.name)
-            label(for="name") Nuevo nombre
-            input#name(type="text", name="newSurname" value=user.surname) 
-            label(for="email") Correo electrónico
-            input#email(type="email", name="newEmail" value=user.email)
-            label(for="password") Nueva Contraseña
-            input#password(type="password", name="newPassword")
-            label(for="avatar") Nueva Foto de perfil
-            input#avatar(type="file", name="avatar" accept="image/png, image/jpeg")
-            button#submit_btn.fill_btn.btn(type="submit") Guardar cambios
-      cript(src="script.js")
+      section#profileForm_section.flexCol
+        form#profileForm(method="POST" action=`/api/users/${user.email}`)
+          label(for="name") Nuevo nombre
+          input#name(type="text", name="newName" value=user.name)
+          label(for="name") Nuevo nombre
+          input#name(type="text", name="newSurname" value=user.surname) 
+          label(for="email") Correo electrónico
+          input#email(type="email", name="newEmail" value=user.email)
+          label(for="password") Nueva Contraseña
+          input#password(type="password", name="newPassword")
+          label(for="avatar") Nueva Foto de perfil
+          input#avatar(type="file", name="avatar" accept="image/png, image/jpeg")
+          button#submit_btn.fill_btn.btn(type="submit") Guardar cambios

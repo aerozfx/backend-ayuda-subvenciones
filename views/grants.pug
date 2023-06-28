@@ -15,7 +15,7 @@ html(lang="es")
                 p.card_date fecha: #{grants[i].date}
               Section.grantCard_main
                 h2.card_title Title: #{grants[i].title}
-                p.card_link Link: #{grants[i].link}
+                a.card_link(href=grants[i].link) Visitar
                 p.card_descrip desciption: #{grants[i].title}
                 p.card_dep departamento: #{grants[i].dep} 
                 p.card_org organismo: #{grants[i].org}

@@ -41,6 +41,7 @@ const checkCookie = (req, res, next) => {
     }
   } catch (error) {
     res.status(404).render("404");
+    res.status(401).redirect("/login");
   }
 };
 const checkRole = (req, res, next) => {
