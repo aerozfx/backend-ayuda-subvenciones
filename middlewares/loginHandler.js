@@ -34,7 +34,7 @@ const checkCookie = (req, res, next) => {
   try {
     let token = jwt.verify(req.cookies["access-token"], "secret_key");
     console.log(token);
-    if (token.rol == "user") {
+    if (token.role == "user") {
       next();
     } else {
       res.redirect("/");
