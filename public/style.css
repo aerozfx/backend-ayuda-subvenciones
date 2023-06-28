@@ -147,6 +147,18 @@ a.homeAdmin_btns {
   min-width: 30rem;
 }
 
+.favorites_card {
+  display: flex;
+  flex-direction: column;
+  border: solid 0.1rem var(--border_gray);
+  border-radius: var(--radius08);
+  padding: 1.4rem 2rem;
+  gap: 1.2rem;
+  min-width: 28rem;
+  width: 100%;
+  max-width: 36rem;
+}
+
 .card_link {
   overflow: hidden;
   font-size: 1.6rem;
@@ -356,6 +368,10 @@ a.homeAdmin_btns {
   text-decoration: none;
 }
 
+.deleteFavorite {
+  background-color: var(--read_btn);
+}
+
 .hidden {
   display: none;
 }
@@ -553,5 +569,15 @@ a.homeAdmin_btns {
   #users_list {
     flex-direction: row;
     flex-wrap: wrap;
+  }
+  #container_favorites {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.4rem;
+    padding: 2rem;
+    width: 100%;
+    margin: 3rem auto;
   }
 }
