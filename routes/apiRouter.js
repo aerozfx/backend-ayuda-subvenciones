@@ -10,6 +10,9 @@ const {
   checkRole,
 } = require("../middlewares/loginHandler");
 
+// TOKEN
+apiRouter.get("/token", users.generateToken);
+
 // USER
 // Obtiene todos los usuarios si no se pasa email, o uno si se pasa un email válido
 apiRouter.get("/users/:email?", users.getUsers);
@@ -30,9 +33,14 @@ apiRouter.delete("/favorites/:id?", checkCookie, favorites.deleteFavorite);
 // Todas las subvenciones o una si se pasa un id específico
 
 apiRouter.get("/grants/:id?", grants.getAllGrants);
+
 apiRouter.patch("/grants/:id?", checkCookie, checkRole, grants.updateOneGrant);
 apiRouter.delete("/grants/:id?", checkCookie, checkRole, grants.deleteOneGrant);
 
 apiRouter.post("/login", checkUser, users.loginUser);
+apiRouter.get("/docs", users.apiDocs);
 apiRouter.use(handler404);
 module.exports = apiRouter;
+
+//JSDOCS
+apiRouter.get('/docs')

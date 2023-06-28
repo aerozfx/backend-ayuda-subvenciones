@@ -82,5 +82,6 @@ webRouter.get(
   webController.grantsListController
 );
 webRouter.get("/logout", webController.logoutPageController);
+webRouter.get("/not-found", webController.errorPageController);
 
 module.exports = webRouter;

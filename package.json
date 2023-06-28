@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "generate-docs": "jsdoc -c ./jsdocs.json"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +28,7 @@
     "puppeteer": "^19.7.2"
   },
   "devDependencies": {
+    "jsdoc": "^4.0.2",
     "nodemon": "^2.0.22"
   }
 }
