@@ -34,5 +34,6 @@ apiRouter.patch("/grants/:id?", checkCookie, checkRole, grants.updateOneGrant);
 apiRouter.delete("/grants/:id?", checkCookie, checkRole, grants.deleteOneGrant);
 
 apiRouter.post("/login", checkUser, users.loginUser);
+apiRouter.get("/docs", users.apiDocs);
 apiRouter.use(handler404);
 module.exports = apiRouter;

@@ -240,6 +240,14 @@ const googleLogin = async (req, res) => {
   res.status(200).redirect("/");
 };
 
+const errorPageController = (req, res) => {
+  try {
+    res.status(404).render("404");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   signupPageController,
   homePageController,
@@ -250,5 +258,6 @@ module.exports = {
   dashboardController,
   loginPageController,
   logoutPageController,
+  errorPageController,
   googleLogin,
 };

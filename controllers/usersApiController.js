@@ -132,4 +132,15 @@ const getUsers = async (req, res) => {
   }
   return result;
 };
-module.exports = { createUser, updateUser, deleteUser, loginUser, getUsers };
+
+const apiDocs = (req, res) => {
+  res.send("Aquí irá la docu de la API");
+};
+module.exports = {
+  createUser,
+  updateUser,
+  deleteUser,
+  loginUser,
+  getUsers,
+  apiDocs,
+};
