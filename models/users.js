@@ -61,7 +61,7 @@ const getUsers = async () => {
 * @throws {error} 
 */
 const createUser = async (data) => {
-  let { email, name, surname, password, role } = data;
+  let { email, name, surname, password, role = "user" } = data;
   let client, result;
   try {
     client = await pool.connect();
@@ -91,7 +91,6 @@ const createUser = async (data) => {
 * @throws {error} 
 */
 const updateUser = async (data) => {
-  console.log(data);
   let { newName, newSurname, newEmail, newPassword, newRole, email } = data;
   let client, result;
   try {

@@ -1,3 +1,4 @@
+require("dotenv").config();
 /**
  * @exports routes 
  * @namespace webController 
@@ -8,6 +9,7 @@ const favorites = require("../models/favorites");
 const user = require("../models/users");
 const jwt = require("jsonwebtoken");
 
+
 /** 
 * @memberof webController 
 * @method homePageController 
@@ -17,6 +19,7 @@ const jwt = require("jsonwebtoken");
 * @return {render} renderiza la pagina home en base a quien esté logeado
 * @throws {error} 
 */
+
 const homePageController = async (req, res) => {
   try {
     if (req.cookies["access-token"]) {
@@ -52,7 +55,6 @@ const homePageController = async (req, res) => {
             page_title: "home",
             navBar_links: links,
             isAuthorized: userData.authorised,
-            handlerOnclick: () => console.log("estoy vivo"),
             scrapingData: matchingGrants,
             authorised: userData.authorised,
           });
@@ -296,7 +298,6 @@ const dashboardController = (req, res) => {
       page_title: "dashboard", 
       navBar_links: links,
     });
-
   } catch (error) {
     res.status(400).json({ message: error });
   }
@@ -320,6 +321,7 @@ const logoutPageController = (req, res) => {
   }
 };
 
+
 /** 
 * @memberof webController 
 * @method googleLogin 
@@ -332,14 +334,14 @@ const logoutPageController = (req, res) => {
 
 const googleLogin = async (req, res) => {
   let userRes = await fetch(
-    `http://localhost:3000/api/users/${req.user.emails[0].value}`
+    `${process.env.PRODUCTION_DOMAIN}/api/users/${req.user.emails[0].value}`
   );
   let response = await userRes.json();
   let { givenName: name, familyName: surname } = req.user.name;
   let email = req.user.emails[0].value;
 
   if (!response[0]) {
-    await fetch(`http://localhost:3000/api/users`, {
+    await fetch(`${process.env.PRODUCTION_DOMAIN}/api/users`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -368,6 +370,14 @@ const googleLogin = async (req, res) => {
   res.status(200).redirect("/");
 };
 
+const errorPageController = (req, res) => {
+  try {
+    res.status(404).render("404");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   signupPageController,
   homePageController,
@@ -378,5 +388,6 @@ module.exports = {
   dashboardController,
   loginPageController,
   logoutPageController,
+  errorPageController,
   googleLogin,
 };
