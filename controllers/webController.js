@@ -104,6 +104,7 @@ const favoritesPageController = async (req, res) => {
     let favoritesResult = await favorites.getFavoritesByUserId(
       userData.user_id
     );
+    console.log(userData.user_id);
     if (favoritesResult.length > 0) {
       const favoriteIds = favoritesResult.map((favorite) => {
         return { id: favorite.favorite_id };

@@ -18,6 +18,7 @@ const addFavorite = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
     let userData = jwt.verify(token, "secret_key");
+    console.log(userData.user_id);
     let result = await favorites.addFavorite({
       favorite_id: req.body.id,
       user_id: userData.user_id,
