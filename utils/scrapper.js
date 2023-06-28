@@ -1,10 +1,19 @@
 const puppeteer = require("puppeteer");
 const Grant = require("../models/grants");
-
+require("dotenv").config();
 const URL = "https://www.pap.hacienda.gob.es/bdnstrans/GE/es/convocatorias";
 
 const scrapper = async () => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({
+    args: [
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+      "--single-process",
+      "--no-zygote",
+    ],
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+    headless: false,
+  });
   const page = await browser.newPage();
   page.setDefaultTimeout(300000);
   await page.goto(URL);
