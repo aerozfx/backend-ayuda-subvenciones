@@ -136,11 +136,29 @@ const getUsers = async (req, res) => {
 const apiDocs = (req, res) => {
   res.send("Aquí irá la docu de la API");
 };
+
+const generateToken = (req, res) => {
+  try {
+    const payload = {
+      rol: "guest",
+    };
+    let token = jwt.sign(payload, "secret_key", {
+      expiresIn: "5m",
+    });
+    res.cookie("access-token", token, {
+      httpOnly: true,
+    });
+    res.status(200).redirect("/");
+  } catch (error) {
+    console.log(error.stack);
+  }
+};
 module.exports = {
   createUser,
   updateUser,
   deleteUser,
   loginUser,
   getUsers,
+  generateToken,
   apiDocs,
 };
