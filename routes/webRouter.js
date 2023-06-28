@@ -1,6 +1,6 @@
 const express = require("express");
 const webController = require("../controllers/webController");
-const grantApicontroller = require("../controllers/grantsApiControllers")
+const grantApicontroller = require("../controllers/grantsApiControllers");
 const loginHandler = require("../middlewares/loginHandler");
 const webRouter = express.Router();
 const passport = require("passport");
@@ -82,5 +82,6 @@ webRouter.get(
   webController.grantsListController
 );
 webRouter.get("/logout", webController.logoutPageController);
+webRouter.get("/not-found", webController.errorPageController);
 
 module.exports = webRouter;

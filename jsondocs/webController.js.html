@@ -1,7 +1,32 @@
-require("dotenv").config();
-/**
- * @exports routes
- * @namespace webController
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>JSDoc: Source: webController.js</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="styles/prettify-tomorrow.css"
+    />
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css" />
+  </head>
+
+  <body>
+    <div id="main">
+      <h1 class="page-title">Source: webController.js</h1>
+
+      <section>
+        <article>
+          <pre class="prettyprint source linenums"><code>/**
+ * @author Fer y Alvaro
+ * @exports routes 
+ * @namespace webController 
  */
 
 const Grant = require("../models/grants");
@@ -9,36 +34,34 @@ const favorites = require("../models/favorites");
 const user = require("../models/users");
 const jwt = require("jsonwebtoken");
 
-/**
- * @memberof webController
- * @method homePageController
- * @async
- * @param {Object} req Objeto de petición HTTP
- * @param {Object} res Objeto de respuesta HTTP
- * @return {render} renderiza la pagina home en base a quien esté logeado
- * @throws {error}
- */
-
+/** 
+* @memberof webController 
+* @method homePageController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} renderiza la pagina home en base a quien esté logeado
+* @throws {error} 
+*/
 const homePageController = async (req, res) => {
   try {
     if (req.cookies["access-token"]) {
       let token = req.cookies["access-token"];
       let userData = jwt.verify(token, "secret_key");
       const paramRegex =
-        /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
+        /^(?!.*[!@#$%^&amp;*()\-=_+[{}\]|;':",.&lt;>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
       let role = userData?.role || "user";
       if (role === "user") {
         let links = {
-          "/": "inicio",
           "/profile": "perfil",
           "/favorites": "favoritos",
           "/logout": "salir",
         };
         const searchParam = req.query.search;
         if (
-          searchParam &&
-          searchParam.trim() !== "" &&
-          !paramRegex.test(searchParam) &&
+          searchParam &amp;&amp;
+          searchParam.trim() !== "" &amp;&amp;
+          !paramRegex.test(searchParam) &amp;&amp;
           typeof searchParam === "string"
         ) {
           const grants = await Grant.find({});
@@ -54,6 +77,7 @@ const homePageController = async (req, res) => {
             page_title: "home",
             navBar_links: links,
             isAuthorized: userData.authorised,
+            handlerOnclick: () => console.log("estoy vivo"),
             scrapingData: matchingGrants,
             authorised: userData.authorised,
           });
@@ -66,7 +90,6 @@ const homePageController = async (req, res) => {
         }
       } else if (role === "admin") {
         let links = {
-          "/": "inicio",
           "/users": "usuarios",
           "/grants": "subvenciones",
           "/dashboard": "dashboard",
@@ -86,16 +109,15 @@ const homePageController = async (req, res) => {
   }
 };
 
-/**
- * @memberof webController
- * @method favoritesPageController
- * @async
- * @param {Object} req Objeto de petición HTTP
- * @param {Object} res Objeto de respuesta HTTP
- * @return {render} Renderiza la pagina de subvenciones favoritas en funcion del usuario que esta logeado
- * @throws {error}
- */
-
+/** 
+* @memberof webController 
+* @method favoritesPageController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina de subvenciones favoritas en funcion del usuario que esta logeado
+* @throws {error} 
+*/
 const favoritesPageController = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
@@ -104,17 +126,11 @@ const favoritesPageController = async (req, res) => {
     let favoritesResult = await favorites.getFavoritesByUserId(
       userData.user_id
     );
-    console.log(userData.user_id);
     if (favoritesResult.length > 0) {
-      const favoriteIds = favoritesResult.map((favorite) => {
-        return { id: favorite.favorite_id };
-      });
-      const grants = await Grant.find({ $or: favoriteIds });
       res.render("favorites", {
         page_title: "favoritos",
         navBar_links: links,
         favorites: favoritesResult,
-        grants: grants,
       });
     } else {
       res.send("no hay favoritos");
@@ -124,15 +140,15 @@ const favoritesPageController = async (req, res) => {
   }
 };
 
-/**
- * @memberof webController
- * @method profilePageController
- * @async
- * @param {Object} req Objeto de petición HTTP
- * @param {Object} res Objeto de respuesta HTTP
- * @return {render} Renderiza la pagina de perfil en funcion del usuario que esta logeado
- * @throws {error}
- */
+/** 
+* @memberof webController 
+* @method profilePageController
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina de perfil en funcion del usuario que esta logeado
+* @throws {error} 
+*/
 
 const profilePageController = async (req, res) => {
   try {
@@ -140,7 +156,6 @@ const profilePageController = async (req, res) => {
     if (token) {
       let links = {
         "/": "inicio",
-        "/profile": "perfil",
         "/favorites": "favoritos",
         "/logout": "salir",
       };
@@ -164,23 +179,21 @@ const profilePageController = async (req, res) => {
   }
 };
 
-/**
- * @memberof webController
- * @method usersListController
- * @async
- * @param {Object} req Objeto de petición HTTP
- * @param {Object} res Objeto de respuesta HTTP
- * @return {render} Renderiza la pagina con la lista de usuarios en funcion del usuario que esta logeado
- * @throws {error}
- */
+/** 
+* @memberof webController 
+* @method usersListController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina con la lista de usuarios en funcion del usuario que esta logeado
+* @throws {error} 
+*/
 
 const usersListController = async (req, res) => {
   try {
     let links = {
       "/": "inicio",
-      "/users": "usuarios",
       "/grants": "subvenciones",
-      "/dashboard": "dashboard",
       "/logout": "salir",
     };
     let users = await user.getUsers();
@@ -203,25 +216,19 @@ const usersListController = async (req, res) => {
   }
 };
 
-/**
- * @memberof webController
- * @method grantsListController
- * @async
- * @param {Object} req Objeto de petición HTTP
- * @param {Object} res Objeto de respuesta HTTP
- * @return {render} Renderiza la pagina de subvenciones
- * @throws {error}
- */
+/** 
+* @memberof webController 
+* @method grantsListController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina de subvenciones 
+* @throws {error} 
+*/
 
 const grantsListController = async (req, res) => {
   try {
-    let links = {
-      "/": "inicio",
-      "/users": "usuarios",
-      "/grants": "subvenciones",
-      "/dashboard": "dashboard",
-      "/logout": "salir",
-    };
+    let links = { "/": "inicio", "/users": "usuarios", "/logout": "salir" };
     const grants = await Grant.find({});
 
     if (grants) {
@@ -243,15 +250,15 @@ const grantsListController = async (req, res) => {
   }
 };
 
-/**
- * @memberof webController
- * @method signupPageController
- * @async
- * @param {Object} req Objeto de petición HTTP
- * @param {Object} res Objeto de respuesta HTTP
- * @return {render} Renderiza la pagina para registrarse
- * @throws {error}
- */
+/** 
+* @memberof webController 
+* @method signupPageController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina para registrarse
+* @throws {error} 
+*/
 
 const signupPageController = (req, res) => {
   try {
@@ -261,15 +268,15 @@ const signupPageController = (req, res) => {
   }
 };
 
-/**
- * @memberof webController
- * @method loginPageController
- * @async
- * @param {Object} req Objeto de petición HTTP
- * @param {Object} res Objeto de respuesta HTTP
- * @return {render} Renderiza la pagina para hacer log in
- * @throws {error}
- */
+/** 
+* @memberof webController 
+* @method loginPageController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina para hacer log in
+* @throws {error} 
+*/
 
 const loginPageController = (req, res) => {
   try {
@@ -279,42 +286,34 @@ const loginPageController = (req, res) => {
   }
 };
 
-/**
- * @memberof webController
- * @method dashboardController
- * @async
- * @param {Object} req Objeto de petición HTTP
- * @param {Object} res Objeto de respuesta HTTP
- * @return {render} Renderiza la pagina de dashboard accesible por un usuario de tipo administrador
- * @throws {error}
- */
+/** 
+* @memberof webController 
+* @method dashboardController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina de dashboard accesible por un usuario de tipo administrador
+* @throws {error} 
+*/
 
 const dashboardController = (req, res) => {
   try {
-    let links = {
-      "/": "inicio",
-      "/grants": "subvenciones",
-      "/users": "usuarios",
-      "/logout": "salir",
-    };
-    res.status(200).render("dashboard", {
-      page_title: "dashboard",
-      navBar_links: links,
-    });
+    res.status(200).render("dashboard", { page_title: "dashboard" });
+
   } catch (error) {
     res.status(400).json({ message: error });
   }
 };
 
-/**
- * @memberof webController
- * @method logoutPageController
- * @async
- * @param {Object} req Objeto de petición HTTP
- * @param {Object} res Objeto de respuesta HTTP
- * @return {render} Renderiza la pagina que nos muestra que hemos hecho log out
- * @throws {error}
- */
+/** 
+* @memberof webController 
+* @method logoutPageController 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} Renderiza la pagina que nos muestra que hemos hecho log out
+* @throws {error} 
+*/
 
 const logoutPageController = (req, res) => {
   try {
@@ -324,26 +323,26 @@ const logoutPageController = (req, res) => {
   }
 };
 
-/**
- * @memberof webController
- * @method googleLogin
- * @async
- * @param {Object} req Objeto de petición HTTP
- * @param {Object} res Objeto de respuesta HTTP
- * @return {render} hace log in mediante nuestra cuenta de google
- * @throws {error}
- */
+/** 
+* @memberof webController 
+* @method googleLogin 
+* @async 
+* @param {Object} req Objeto de petición HTTP
+* @param {Object} res Objeto de respuesta HTTP
+* @return {render} hace log in mediante nuestra cuenta de google
+* @throws {error} 
+*/
 
 const googleLogin = async (req, res) => {
   let userRes = await fetch(
-    `${process.env.PRODUCTION_DOMAIN}/api/users/${req.user.emails[0].value}`
+    `http://localhost:3000/api/users/${req.user.emails[0].value}`
   );
   let response = await userRes.json();
   let { givenName: name, familyName: surname } = req.user.name;
   let email = req.user.emails[0].value;
 
   if (!response[0]) {
-    await fetch(`${process.env.PRODUCTION_DOMAIN}/api/users`, {
+    await fetch(`http://localhost:3000/api/users`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -359,7 +358,7 @@ const googleLogin = async (req, res) => {
     name,
     surname,
     image: req.user.photos[0].value,
-    role: req.user?.role || "user",
+    role: req.user?.role|| "user ",
   };
   const token = jwt.sign(payload, `secret_key`, {
     expiresIn: "20m",
@@ -372,14 +371,6 @@ const googleLogin = async (req, res) => {
   res.status(200).redirect("/");
 };
 
-const errorPageController = (req, res) => {
-  try {
-    res.status(404).render("404");
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 module.exports = {
   signupPageController,
   homePageController,
@@ -390,6 +381,35 @@ module.exports = {
   dashboardController,
   loginPageController,
   logoutPageController,
-  errorPageController,
   googleLogin,
 };
+</code></pre>
+        </article>
+      </section>
+    </div>
+
+    <nav>
+      <h2><a href="index.html">Home</a></h2>
+      <h3>Namespaces</h3>
+      <ul>
+        <li><a href="UserApiController.html">UserApiController</a></li>
+        <li><a href="favoriteApiController.html">favoriteApiController</a></li>
+        <li><a href="grantApiControllers.html">grantApiControllers</a></li>
+        <li><a href="webController.html">webController</a></li>
+      </ul>
+    </nav>
+
+    <br class="clear" />
+
+    <footer>
+      Documentation generated by
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jun 28
+      2023 10:00:19 GMT+0200 (hora de verano de Europa central)
+    </footer>
+
+    <script>
+      prettyPrint();
+    </script>
+    <script src="scripts/linenumber.js"></script>
+  </body>
+</html>

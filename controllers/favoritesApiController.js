@@ -1,13 +1,27 @@
+/**
+ * @exports routes
+ * @namespace favoriteApiController
+ */
 const favorites = require("../models/favorites.js");
 const jwt = require("jsonwebtoken");
 
+/**
+ * @memberof favoriteApiController
+ * @method addFavorite
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {number} Número de entries creadas
+ * @throws {error}
+ */
 const addFavorite = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
     let userData = jwt.verify(token, "secret_key");
+    console.log(userData.user_id);
     let result = await favorites.addFavorite({
       favorite_id: req.body.id,
-      user_id: +userData.user_id,
+      user_id: userData.user_id,
     });
     res.status(200).json({
       message: `El elemento con favorite_id: ${req.body.favorite_id} ha sido añadido`,
@@ -20,6 +34,15 @@ const addFavorite = async (req, res) => {
   }
 };
 
+/**
+ * @memberof favoriteApiController
+ * @method deleteFavorite
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {json} Mensaje con la subvención borrada
+ * @throws {error}
+ */
 const deleteFavorite = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
@@ -39,6 +62,15 @@ const deleteFavorite = async (req, res) => {
   }
 };
 
+/**
+ * @memberof favoriteApiController
+ * @method getFavorites
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {json} Objeto con todas las entries encontradas
+ * @throws {error}
+ */
 const getFavorites = async (req, res) => {
   try {
     let data = await favorites.getFavorites();
@@ -49,6 +81,16 @@ const getFavorites = async (req, res) => {
     });
   }
 };
+
+/**
+ * @memberof favoriteApiController
+ * @method getFavoritesByUserId
+ * @async
+ * @param {Object} req Objeto de petición HTTP
+ * @param {Object} res Objeto de respuesta HTTP
+ * @return {json} Objeto con todas las entries encontradas
+ * @throws {error}
+ */
 
 const getFavoritesByUserId = async (req, res) => {
   try {
