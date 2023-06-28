@@ -29,10 +29,13 @@ apiRouter.delete("/favorites/:id?", checkCookie, favorites.deleteFavorite);
 // GRANTS
 // Todas las subvenciones o una si se pasa un id específico
 
-apiRouter.get("/grants/:id?", checkCookie, checkRole,grants.getAllGrants);
-apiRouter.patch("/grants/:id?",checkCookie, checkRole, grants.updateOneGrant);
-apiRouter.delete("/grants/:id?", checkCookie, checkRole,grants.deleteOneGrant);
+apiRouter.get("/grants/:id?", checkCookie, checkRole, grants.getAllGrants);
+apiRouter.patch("/grants/:id?", checkCookie, checkRole, grants.updateOneGrant);
+apiRouter.delete("/grants/:id?", checkCookie, checkRole, grants.deleteOneGrant);
 
 apiRouter.post("/login", checkUser, users.loginUser);
 apiRouter.use(handler404);
 module.exports = apiRouter;
+
+//JSDOCS
+apiRouter.get('/docs')
