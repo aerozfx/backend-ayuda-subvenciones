@@ -100,7 +100,6 @@ const favoritesPageController = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
     let userData = jwt.verify(token, "secret_key");
-    console.log({ userData });
     let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };
     let favoritesResult = await favorites.getFavoritesByUserId(
       userData.user_id

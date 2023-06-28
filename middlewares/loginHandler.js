@@ -33,7 +33,6 @@ const checkUser = async (req, res, next) => {
 const checkCookie = (req, res, next) => {
   try {
     let token = jwt.verify(req.cookies["access-token"], "secret_key");
-    console.log(token);
     if (token.role == "user") {
       next();
     } else {
@@ -47,7 +46,7 @@ const checkCookie = (req, res, next) => {
 const checkRole = (req, res, next) => {
   try {
     let token = jwt.verify(req.cookies["access-token"], "secret_key");
-    if (token.role === "admin") {
+    if (token.role == "admin") {
       next();
     } else {
       res.redirect("/");
