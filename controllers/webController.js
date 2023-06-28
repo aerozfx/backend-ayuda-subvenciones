@@ -71,19 +71,26 @@ const homePageController = async (req, res) => {
     res.status(200).redirect("/");
   }
 };
+
 const favoritesPageController = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
     let userData = jwt.verify(token, "secret_key");
-    let links = { "/": "inicio", "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir"};
+    console.log({ userData });
+    let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };
     let favoritesResult = await favorites.getFavoritesByUserId(
       userData.user_id
     );
     if (favoritesResult.length > 0) {
+      const favoriteIds = favoritesResult.map((favorite) => {
+        return { id: favorite.favorite_id };
+      });
+      const grants = await Grant.find({ $or: favoriteIds });
       res.render("favorites", {
         page_title: "favoritos",
         navBar_links: links,
         favorites: favoritesResult,
+        grants: grants,
       });
     } else {
       res.send("no hay favoritos");
