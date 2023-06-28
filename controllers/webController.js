@@ -9,11 +9,12 @@ const homePageController = async (req, res) => {
     if (req.cookies["access-token"]) {
       let token = req.cookies["access-token"];
       let userData = jwt.verify(token, "secret_key");
-      const paramRegex = /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
-      console.log(userData);
-      let role = userData.role || "user";
+      const paramRegex =
+        /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
+      let role = userData?.role || "user";
       if (role === "user") {
         let links = {
+          "/": "inicio",
           "/profile": "perfil",
           "/favorites": "favoritos",
           "/logout": "salir",
@@ -38,6 +39,7 @@ const homePageController = async (req, res) => {
             page_title: "home",
             navBar_links: links,
             isAuthorized: userData.authorised,
+            handlerOnclick: () => console.log("estoy vivo"),
             scrapingData: matchingGrants,
             authorised: userData.authorised,
           });
@@ -50,6 +52,7 @@ const homePageController = async (req, res) => {
         }
       } else if (role === "admin") {
         let links = {
+          "/": "inicio",
           "/users": "usuarios",
           "/grants": "subvenciones",
           "/dashboard": "dashboard",
@@ -68,27 +71,19 @@ const homePageController = async (req, res) => {
     res.status(200).redirect("/");
   }
 };
-
 const favoritesPageController = async (req, res) => {
   try {
     let token = req.cookies["access-token"];
     let userData = jwt.verify(token, "secret_key");
-    console.log({userData});
-    let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };
+    let links = { "/": "inicio", "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir"};
     let favoritesResult = await favorites.getFavoritesByUserId(
       userData.user_id
     );
-    console.log({favoritesResult});
     if (favoritesResult.length > 0) {
-      const favoriteIds = favoritesResult.map(favorite => {
-        return { id: favorite.favorite_id }
-      })
-      const grants = await Grant.find( { $or:favoriteIds});
       res.render("favorites", {
         page_title: "favoritos",
         navBar_links: links,
         favorites: favoritesResult,
-        grants: grants
       });
     } else {
       res.send("no hay favoritos");
@@ -102,11 +97,7 @@ const profilePageController = async (req, res) => {
   try {
     let token = jwt.verify(req.cookies["access-token"], "secret_key");
     if (token) {
-      let links = {
-        "/": "inicio",
-        "/favorites": "favoritos",
-        "/logout": "salir",
-      };
+      let links = { "/": "inicio", "/profile": "perfil", "/favorites": "favoritos", "/logout": "salir"};
       let currentUser = await user.getUserByEmail(token.email);
       if (currentUser.length > 0) {
         res.render("profile", {
@@ -131,7 +122,9 @@ const usersListController = async (req, res) => {
   try {
     let links = {
       "/": "inicio",
+      "/users": "usuarios",
       "/grants": "subvenciones",
+      "/dashboard": "dashboard",
       "/logout": "salir",
     };
     let users = await user.getUsers();
@@ -156,7 +149,13 @@ const usersListController = async (req, res) => {
 
 const grantsListController = async (req, res) => {
   try {
-    let links = { "/": "inicio", "/users": "usuarios", "/logout": "salir" };
+    let links = {
+      "/": "inicio",
+      "/users": "usuarios",
+      "/grants": "subvenciones",
+      "/dashboard": "dashboard",
+      "/logout": "salir",
+    };
     const grants = await Grant.find({});
 
     if (grants) {
@@ -197,16 +196,16 @@ const loginPageController = (req, res) => {
 const dashboardController = (req, res) => {
   try {
     let links = {
-      "/users": "usuarios",
+      "/": "inicio",
       "/grants": "subvenciones",
-      "/": "home",
+      "/users": "usuarios",
       "/logout": "salir",
     };
     res.status(200).render("dashboard", { 
-      page_title: "dashboard",
+      page_title: "dashboard", 
       navBar_links: links,
     });
-    //pasarle la bd de grants y de users
+
   } catch (error) {
     res.status(400).json({ message: error });
   }
