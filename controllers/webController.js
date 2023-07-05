@@ -8,6 +8,7 @@ const Grant = require("../models/grants");
 const favorites = require("../models/favorites");
 const user = require("../models/users");
 const jwt = require("jsonwebtoken");
+const { verifyToken } = require("../utils/auxFunctions");
 
 /**
  * @memberof webController
@@ -21,13 +22,14 @@ const jwt = require("jsonwebtoken");
 
 const homePageController = async (req, res) => {
   try {
+    res.clearCookie("error");
     if (req.cookies["access-token"]) {
       let token = req.cookies["access-token"];
       let userData = jwt.verify(token, "secret_key");
       const paramRegex =
         /^(?!.*[!@#$%^&*()\-=_+[{}\]|;':",.<>/?\\~` nullfalse""undefined]])((?![a-zA-Z0-9]).).*$/i;
       let role = userData?.role || "user";
-      if (role === "user") {
+      if (role === "user" || role === "guest") {
         let links = {
           "/": "inicio",
           "/profile": "perfil",
@@ -82,7 +84,7 @@ const homePageController = async (req, res) => {
       res.render("homeWeb", { page_title: "F.A.M Pyme" });
     }
   } catch (error) {
-    res.status(200).redirect("/");
+    console.log(error);
   }
 };
 
@@ -98,23 +100,19 @@ const homePageController = async (req, res) => {
 
 const favoritesPageController = async (req, res) => {
   try {
-    let token = req.cookies["access-token"];
-    let userData = jwt.verify(token, "secret_key");
+    let { user_id } = verifyToken(req);
     let links = { "/": "inicio", "/profile": "perfil", "/logout": "salir" };
-    let favoritesResult = await favorites.getFavoritesByUserId(
-      userData.user_id
-    );
-    console.log(userData.user_id);
+    let favoritesResult = await favorites.getFavoritesByUserId(user_id);
     if (favoritesResult.length > 0) {
       const favoriteIds = favoritesResult.map((favorite) => {
-        return { id: favorite.favorite_id };
+        let { favorite_id: id } = favorite;
+        return id;
       });
-      const grants = await Grant.find({ $or: favoriteIds });
+      const grants = await Grant.find({ id: { $in: favoriteIds } });
       res.render("favorites", {
         page_title: "favoritos",
         navBar_links: links,
-        favorites: favoritesResult,
-        grants: grants,
+        grants,
       });
     } else {
       res.send("no hay favoritos");
@@ -226,14 +224,14 @@ const grantsListController = async (req, res) => {
 
     if (grants) {
       res.render("grants", {
-        page_title: "subvenciones",
+        page_title: "Subvenciones",
         navBar_links: links,
         grantsAmount: grants.length,
         grants,
       });
     } else {
       res.render("grants", {
-        page_title: "subvenciones",
+        page_title: "Subvenciones",
         navBar_links: links,
         grantsAmount: grants.length,
       });
@@ -273,9 +271,10 @@ const signupPageController = (req, res) => {
 
 const loginPageController = (req, res) => {
   try {
-    res.status(200).render("login");
+    let error = req?.cookies["error"];
+    res.status(200).render("login", { error: error?.message });
   } catch (error) {
-    res.redirect("/");
+    console.log(error);
   }
 };
 
@@ -336,14 +335,14 @@ const logoutPageController = (req, res) => {
 
 const googleLogin = async (req, res) => {
   let userRes = await fetch(
-    `${process.env.PRODUCTION_DOMAIN}/api/users/${req.user.emails[0].value}`
+    `${process.env.DEVELOP_DOMAIN}/api/users/${req.user.emails[0].value}`
   );
   let response = await userRes.json();
   let { givenName: name, familyName: surname } = req.user.name;
   let email = req.user.emails[0].value;
 
   if (!response[0]) {
-    await fetch(`${process.env.PRODUCTION_DOMAIN}/api/users`, {
+    await fetch(`${process.env.DEVELOP_DOMAIN}/api/users`, {
       method: "POST",
       headers: {
         Accept: "application/json",

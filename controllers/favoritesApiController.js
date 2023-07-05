@@ -4,6 +4,7 @@
  */
 const favorites = require("../models/favorites.js");
 const jwt = require("jsonwebtoken");
+const { verifyToken } = require("../utils/auxFunctions.js");
 
 /**
  * @memberof favoriteApiController
@@ -16,21 +17,29 @@ const jwt = require("jsonwebtoken");
  */
 const addFavorite = async (req, res) => {
   try {
-    let token = req.cookies["access-token"];
-    let userData = jwt.verify(token, "secret_key");
-    console.log(userData.user_id);
-    let result = await favorites.addFavorite({
-      favorite_id: req.body.id,
-      user_id: userData.user_id,
+    let { id } = req.body;
+    let { user_id } = verifyToken(req);
+    let dbResponse = await favorites.getFavoritesByUserId(user_id);
+    let favId = dbResponse.map((ele) => {
+      let { favorite_id } = ele;
+      return favorite_id;
     });
-    res.status(200).json({
-      message: `El elemento con favorite_id: ${req.body.favorite_id} ha sido añadido`,
-    });
+    if (favId.includes(+id)) {
+      res.status(302).json({
+        message: "Este elemento ya está relacionado con el usuario",
+      });
+    } else {
+      let result = await favorites.addFavorite({
+        favorite_id: req.body.id,
+        user_id: user_id,
+      });
+      res.status(200).json({
+        message: `El elemento con favorite_id: ${req.body.id} ha sido añadido`,
+      });
+    }
     return result;
   } catch (error) {
-    res.status(300).json({
-      message: error,
-    });
+    console.error(error);
   }
 };
 

@@ -6,6 +6,7 @@
 const users = require("../models/users.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
 
 /**
  * @memberof UserApiController
@@ -35,7 +36,7 @@ const createUser = async (req, res) => {
       let result = await users.createUser(data);
 
       let response = await fetch(
-        `${process.env.PRODUCTION_DOMAIN}/api/users/${data.email}`
+        `${process.env.DEVELOP_DOMAIN}/api/users/${data.email}`
       );
       let userData = await response.json();
       const payload = {
@@ -74,25 +75,26 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     let data = req.body;
+    console.log(req.body);
     let token = jwt.verify(req.cookies["access-token"], "secret_key");
-
     let { newName, newSurname, newEmail, newPassword, newRole } = data;
-    newRole = newRole || "user";
     let { email } = token;
+    let compareUser = await users.getUserByEmail(email);
+    let result = await bcrypt.compare(newPassword, compareUser[0].password);
     bcrypt.hash(newPassword, 15, async (err, hash) => {
       newPassword = hash;
       let result = await users.updateUser({
         newName,
         newSurname,
-        newEmail,
+        newEmail: newEmail || email,
         newPassword,
-        newRole,
+        newRole: newRole || "user",
         email,
       });
       if (newEmail != email) {
         const payload = {
           authorised: true,
-          role: newRole,
+          role: newRole || "user",
           email: newEmail,
           user_id: token.user_id,
         };
@@ -202,10 +204,12 @@ const generateToken = (req, res) => {
     let token = jwt.sign(payload, "secret_key", {
       expiresIn: "5m",
     });
-    res.cookie("access-token", token, {
-      httpOnly: true,
-    });
-    res.status(200).redirect("/");
+    res
+      .cookie("access-token", token, {
+        httpOnly: true,
+        sameSite: "lax",
+      })
+      .redirect("/");
   } catch (error) {
     console.log(error.stack);
   }

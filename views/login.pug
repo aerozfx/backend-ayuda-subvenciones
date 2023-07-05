@@ -16,6 +16,8 @@ html(lang="es")
         label(for="password") Contraseña
         input#password(type="password", name="password")
         button#submit_btn.fill_btn.btn(type="submit") Entrar
+        if error
+          p.error #{error}
         a#google_btn.btn(href="/login/google") Identificarse con google
       section.optional_btns.flexColCenter
         a.outline_btn.btn(href="/signup" role="button") Registrarse

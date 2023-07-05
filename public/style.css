@@ -15,7 +15,7 @@
   --green_btn: #a2e0d1;
   --orange_btn: #f2b66e;
   --read_btn: #ffbdb8;
-  --text_color_black: #262626
+  --text_color_black: #262626;
 }
 
 html {
@@ -134,7 +134,6 @@ a.homeAdmin_btns {
   font-size: 1.4rem;
   color: var(--text_color_black);
 }
-
 
 .card {
   display: grid;
@@ -297,7 +296,6 @@ a.homeAdmin_btns {
   display: none;
 }
 
-
 .notFoud_homeBtn {
   margin-top: 2rem;
   font-size: 1.8rem;
@@ -376,10 +374,9 @@ a.homeAdmin_btns {
   display: none;
 }
 
-
 #google_btn {
   margin-top: 1rem;
-  background-color: #4285F4;
+  background-color: #4285f4;
   color: white;
   border-radius: var(--radius08);
 }
@@ -475,7 +472,7 @@ a.homeAdmin_btns {
   margin-top: 6rem;
 }
 #main_404 > img {
-  width: 60%;
+  min-width: 30%;
   max-width: 30rem;
 }
 
@@ -549,7 +546,9 @@ a.homeAdmin_btns {
 #profileData_section > p {
   font-size: 1.8rem;
 }
-
+.error {
+  color: red;
+}
 
 @media (min-width: 768px) {
   .grantCard {
@@ -564,7 +563,7 @@ a.homeAdmin_btns {
     flex-direction: row;
     flex-wrap: wrap;
     height: 60rem;
-    gap: 3rem
+    gap: 3rem;
   }
   #users_list {
     flex-direction: row;

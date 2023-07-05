@@ -51,34 +51,33 @@ webRouter.get(
 webRouter.get(
   "/users",
   loginHandler.checkCookie,
-  loginHandler.checkRole,
+  loginHandler.checkAdminRole,
   webController.usersListController
 );
 
 webRouter.get(
   "/dashboard",
-  loginHandler.checkCookie,
-  loginHandler.checkRole,
+  loginHandler.checkAdminRole,
   webController.dashboardController
 );
 webRouter.post(
   "/dashboard",
   loginHandler.checkCookie,
-  loginHandler.checkRole,
+  loginHandler.checkAdminRole,
   grantApicontroller.createGrant
 );
 webRouter.delete(
   "/dashboard/:id",
-  loginHandler.checkRole,
+  loginHandler.checkAdminRole,
   grantApicontroller.deleteOneGrant
 );
 webRouter.get("/logout", (req, res) => res.send("has salido"));
-webRouter.post("/dashboard", grantApicontroller.createGrant);
+x;
 
 webRouter.get(
   "/grants",
   loginHandler.checkCookie,
-  loginHandler.checkRole,
+  loginHandler.checkAdminRole,
   webController.grantsListController
 );
 webRouter.get("/logout", webController.logoutPageController);

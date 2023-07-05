@@ -3,7 +3,7 @@ const users = require("../models/users");
 const bcrypt = require("bcrypt");
 
 const checkUser = async (req, res, next) => {
-  if (req.body.email !== "" && req.body.password !== "") {
+  if (true) {
     let { email, password } = req.body;
     let user = await users.getUserByEmail(email);
     let result = await bcrypt.compare(password, user[0].password);
@@ -24,36 +24,40 @@ const checkUser = async (req, res, next) => {
       });
       next();
     } else {
-      res.send("No coinciden los datos");
+      let error = {
+        message: "Email o password incorrectos",
+      };
+      res.cookie("error", error).redirect("/login");
     }
   } else {
-    res.status(200).send("Debes rellenar los campos");
+    let error = {
+      message: "Debes rellenar ambos campos",
+    };
+    res.cookie("error", error).redirect("/login");
   }
 };
 const checkCookie = (req, res, next) => {
   try {
     let token = jwt.verify(req.cookies["access-token"], "secret_key");
-    if (token.role == "user") {
+    if (token.role === "user" || token.role === "admin") {
+      console.log(token);
       next();
     } else {
       res.redirect("/");
     }
   } catch (error) {
-    res.status(404).render("404");
-    res.status(401).redirect("/login");
+    res.redirect("/not-found");
   }
 };
-const checkRole = (req, res, next) => {
+const checkAdminRole = (req, res, next) => {
   try {
     let token = jwt.verify(req.cookies["access-token"], "secret_key");
     if (token.role == "admin") {
       next();
-    } else {
-      res.redirect("/");
     }
   } catch (error) {
-    res.status(404).render("404");
+    res.status(403).render("forbidden");
   }
 };
 
-module.exports = { checkUser, checkRole, checkCookie };
+module.exports = { checkUser, checkAdminRole, checkCookie };

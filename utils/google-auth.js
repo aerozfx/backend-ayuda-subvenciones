@@ -7,7 +7,7 @@ passport.use(
     {
       clientID: `${process.env.CLIENT_ID}`,
       clientSecret: `${process.env.CLIENT_SECRET}`,
-      callbackURL: `${process.env.PRODUCTION_DOMAIN}/callback`,
+      callbackURL: `${process.env.DEVELOP_DOMAIN}/callback`,
       proxy: true,
     },
     function (request, accessToken, refreshToken, profile, done) {

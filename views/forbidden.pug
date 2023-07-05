@@ -1,0 +1,11 @@
+doctype html
+html(lang="es")
+  include ./head.pug
+  body 
+    main#main_404
+      img(src="./assets/images/403.jpg")
+      section.notFoud_content 
+        h1 No tienes acceso
+        p Asegúrate de tener los permisos necesarios
+        a.notFoud_homeBtn(href="/") Volver a home
+    script(src="script.js") 
