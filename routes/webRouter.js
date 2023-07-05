@@ -72,7 +72,6 @@ webRouter.delete(
   grantApicontroller.deleteOneGrant
 );
 webRouter.get("/logout", (req, res) => res.send("has salido"));
-x;
 
 webRouter.get(
   "/grants",
