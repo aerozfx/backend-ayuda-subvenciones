@@ -84,7 +84,7 @@ const homePageController = async (req, res) => {
       res.render("homeWeb", { page_title: "F.A.M Pyme" });
     }
   } catch (error) {
-    res.cookies["access-token"].redirect("/");
+    res.clearCookie("access-token").redirect("/");
   }
 };
 
